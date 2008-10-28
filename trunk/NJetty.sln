@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NJetty", "NJetty\NJetty.csproj", "{1C2D13F2-D9DA-47B2-B471-31EE06B190AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NJetty.Util", "NJetty.Util\NJetty.Util.csproj", "{9FA38034-2D26-4077-AACE-D3FD3FF1C2C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NJetty.Start", "NJetty.Start\NJetty.Start.csproj", "{D8BE3F3A-974D-490D-B303-B6F6F2D9537B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C2D13F2-D9DA-47B2-B471-31EE06B190AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C2D13F2-D9DA-47B2-B471-31EE06B190AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C2D13F2-D9DA-47B2-B471-31EE06B190AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C2D13F2-D9DA-47B2-B471-31EE06B190AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FA38034-2D26-4077-AACE-D3FD3FF1C2C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FA38034-2D26-4077-AACE-D3FD3FF1C2C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FA38034-2D26-4077-AACE-D3FD3FF1C2C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FA38034-2D26-4077-AACE-D3FD3FF1C2C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8BE3F3A-974D-490D-B303-B6F6F2D9537B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8BE3F3A-974D-490D-B303-B6F6F2D9537B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8BE3F3A-974D-490D-B303-B6F6F2D9537B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8BE3F3A-974D-490D-B303-B6F6F2D9537B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
