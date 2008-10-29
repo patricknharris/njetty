@@ -1,0 +1,17 @@
+#summary One-sentence summary of this page.
+
+= Roadmap for 1.0 Release =
+
+Port Jetty to C#
+
+
+= Proting Details =
+
+Port Jetty Utils to C#
+ * Port Interfaces
+ * Port Logs
+ * Port Threading
+
+Port Jetty Core to C#
+ * todo here
+ * todo here
