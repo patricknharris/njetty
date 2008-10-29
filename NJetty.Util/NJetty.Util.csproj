@@ -49,11 +49,12 @@
     <Compile Include="Component\IListener.cs" />
     <Compile Include="Log\ILogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource\IResourceFactory.cs" />
+    <Compile Include="Resource\Resource.cs" />
     <Compile Include="Thread\IThreadPool.cs" />
     <Compile Include="Util\IAttributes.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resource\" />
     <Folder Include="Util\Ajax\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
