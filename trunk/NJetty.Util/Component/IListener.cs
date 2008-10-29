@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NJetty.Util.Component
 {
-    // TODO: remodel this to use Delegates/events
+    // TODO: refactor this to use dotnet Delegates/events
     /// <summary>
     /// Listener.
     /// A listener for Lifecycle events.
