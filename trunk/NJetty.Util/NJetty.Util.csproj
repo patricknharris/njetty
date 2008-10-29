@@ -48,6 +48,9 @@
     <Compile Include="Component\ILifeCycle.cs" />
     <Compile Include="Component\IListener.cs" />
     <Compile Include="Log\ILogger.cs" />
+    <Compile Include="Log\Log.cs" />
+    <Compile Include="Log\NLogLog.cs" />
+    <Compile Include="Log\StdErrLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource\IResourceFactory.cs" />
     <Compile Include="Resource\Resource.cs" />
