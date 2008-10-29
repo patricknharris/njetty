@@ -1,0 +1,5 @@
+D:\projects\dotnet\njetty\trunk\NJetty.Util\obj\Debug\ResolveAssemblyReference.cache
+D:\projects\dotnet\njetty\trunk\NJetty.Util\bin\Debug\NJetty.Util.dll
+D:\projects\dotnet\njetty\trunk\NJetty.Util\bin\Debug\NJetty.Util.pdb
+D:\projects\dotnet\njetty\trunk\NJetty.Util\obj\Debug\NJetty.Util.dll
+D:\projects\dotnet\njetty\trunk\NJetty.Util\obj\Debug\NJetty.Util.pdb
