@@ -45,8 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Component\ILifeCycle.cs" />
+    <Compile Include="Component\IListener.cs" />
+    <Compile Include="Log\ILogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Thread\IThreadPool.cs" />
+    <Compile Include="Util\IAttributes.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resource\" />
+    <Folder Include="Util\Ajax\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
