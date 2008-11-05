@@ -19,6 +19,8 @@ namespace NJetty.Util.Log
 
         readonly object[] NO_ARGS = new object[] { };
 
+        Assembly nlogAssembly;
+
         MethodInfo info;
         MethodInfo debug;
         MethodInfo debugException;
@@ -27,7 +29,34 @@ namespace NJetty.Util.Log
         MethodInfo warnException;
         MethodInfo errorException;
         PropertyInfo loggerName;
+        MethodInfo getLogger;
+
+        // the NLog.Logger object
         object logger;
+
+
+
+        void InitializeReflectionMethods()
+        {
+            Type nLog = nlogAssembly.GetType(LOGGER, true, true);
+            Type nLogF = nlogAssembly.GetType(LOGGER_FACTORY, true, true);
+
+            // Methods Reflected
+
+            info = nLog.GetMethod("Info", new Type[] { typeof(string), typeof(object[]) });
+            debug = nLog.GetMethod("Debug", new Type[] { typeof(string), typeof(object[]) });
+            debugException = nLog.GetMethod("DebugException", new Type[] { typeof(string), typeof(Exception) });
+            debugEnabled = nLog.GetProperty("IsDebugEnabled");
+            warn = nLog.GetMethod("Warn", new Type[] { typeof(string), typeof(object[]) }); ;
+            warnException = nLog.GetMethod("WarnException", new Type[] { typeof(string), typeof(Exception) });
+            errorException = nLog.GetMethod("ErrorException", new Type[] { typeof(string), typeof(Exception) });
+            loggerName = nLog.GetProperty("Name");
+
+
+            getLogger = nLogF.GetMethod("GetLogger", new Type[] { typeof(string) });
+            
+        }
+
 
 
         #endregion
@@ -43,7 +72,7 @@ namespace NJetty.Util.Log
 
         public NLogLog(string name)
         {
-            Assembly nlogAssembly = null;
+            
             
             try
             {
@@ -54,26 +83,11 @@ namespace NJetty.Util.Log
                 throw new Exception("NLog Assembly Not Found", e);
             }
 
-
-            Type nLog = nlogAssembly.GetType(LOGGER, true, true);
-            Type nLogF = nlogAssembly.GetType(LOGGER_FACTORY, true, true);
-
-
-
-            // Methods Reflected
-
-            info = nLog.GetMethod("Info", new Type[] { typeof(string), typeof(object[]) });
-            debug = nLog.GetMethod("Debug", new Type[] { typeof(string), typeof(object[]) });
-            debugException = nLog.GetMethod("DebugException", new Type[] { typeof(string), typeof(Exception) });
-            debugEnabled = nLog.GetProperty("IsDebugEnabled");
-            warn = nLog.GetMethod("Warn", new Type[] { typeof(string), typeof(object[]) }); ;
-            warnException = nLog.GetMethod("WarnException", new Type[] { typeof(string), typeof(Exception) });
-            errorException = nLog.GetMethod("ErrorException", new Type[] { typeof(string), typeof(Exception) });
-            loggerName = nLog.GetProperty("Name");
-
-
-            MethodInfo getLogger = nLogF.GetMethod("GetLogger", new Type[] { typeof(string) });
+            
+            InitializeReflectionMethods();
+            
             logger = getLogger.Invoke(null, new object[] { name });
+            
 
         }
 
