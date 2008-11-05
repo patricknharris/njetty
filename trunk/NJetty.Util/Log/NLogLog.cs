@@ -63,7 +63,6 @@ namespace NJetty.Util.Log
 
         #region Constructors
 
-
         public NLogLog()
             : this(DEFAULT_LOG_NAME)
         {
@@ -71,9 +70,7 @@ namespace NJetty.Util.Log
         }
 
         public NLogLog(string name)
-        {
-            
-            
+        {   
             try
             {
                 nlogAssembly = Assembly.Load(LOGGER_ASSEMBLY);
@@ -82,19 +79,11 @@ namespace NJetty.Util.Log
             {
                 throw new Exception("NLog Assembly Not Found", e);
             }
-
-            
             InitializeReflectionMethods();
-            
             logger = getLogger.Invoke(null, new object[] { name });
-            
-
         }
 
-
         #endregion
-
-
 
         #region ILogger Members
 
