@@ -13,11 +13,11 @@ namespace NJetty.Util.Log
             set;
         }
 
-        void info(string msg, object arg0, object arg1);
-        void debug(string msg, Exception th);
-        void debug(string msg, object arg0, object arg1);
-        void warn(string msg, object arg0, object arg1);
-        void warn(string msg, Exception th);
-        ILogger getLogger(string name);
+        void Info(string msg, params object[] args);
+        void Debug(string msg, Exception exeption);
+        void Debug(string msg, params object[] args);
+        void Warn(string msg, params object[] args);
+        void Warn(string msg, Exception exception);
+        ILogger GetLogger(string name);
     }
 }
