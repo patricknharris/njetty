@@ -24,6 +24,11 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
+
+// Author: Leopoldo Lee Agdeppa III
+// Email: leopoldo.agdeppa@gmail.com
+// Date: November 2008
+
 namespace NJetty.Util.Thread
 {
     public interface IThreadPool
