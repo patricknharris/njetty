@@ -26,12 +26,19 @@ using System.Text;
 using System.Reflection;
 
 
-// Author: Leopoldo Lee Agdeppa III
-// Email: leopoldo.agdeppa@gmail.com
-// Date: November 2008
 
 namespace NJetty.Util.Log
 {
+
+    /// <summary>
+    /// TODO: Class/Interface Information here
+    /// </summary>
+    /// <author>  
+    ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
+    /// </author>
+    /// <date>
+    /// November 2008
+    /// </date>
     public class NLogLog : ILogger
     {
         #region NLogger Reflection Items
