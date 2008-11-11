@@ -24,12 +24,19 @@ using System.Linq;
 using System.Text;
 
 
-// Author: Leopoldo Lee Agdeppa III
-// Email: leopoldo.agdeppa@gmail.com
-// Date: November 2008
 
 namespace NJetty.Util.Resource
 {
+
+    /// <summary>
+    /// TODO: Class/Interface Information here
+    /// </summary>
+    /// <author>  
+    ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
+    /// </author>
+    /// <date>
+    /// November 2008
+    /// </date>
     public interface IResourceFactory
     {
         Resource GetResource(string path);

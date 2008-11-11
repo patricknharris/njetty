@@ -24,10 +24,6 @@ using System.Linq;
 using System.Text;
 
 
-// Author: Leopoldo Lee Agdeppa III
-// Email: leopoldo.agdeppa@gmail.com
-// Date: November 2008
-
 namespace NJetty.Util.Component
 {
     // TODO: refactor this to use dotnet Delegates/events
@@ -35,6 +31,12 @@ namespace NJetty.Util.Component
     /// Listener.
     /// A listener for Lifecycle events.
     /// </summary>
+    /// <author>  
+    ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
+    /// </author>
+    /// <date>
+    /// November 2008
+    /// </date>
     public interface IListener
     {
         void LifeCycleStarting(ILifeCycle e);

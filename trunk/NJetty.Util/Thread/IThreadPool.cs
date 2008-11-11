@@ -25,12 +25,19 @@ using System.Text;
 using System.Threading;
 
 
-// Author: Leopoldo Lee Agdeppa III
-// Email: leopoldo.agdeppa@gmail.com
-// Date: November 2008
 
 namespace NJetty.Util.Thread
 {
+
+    /// <summary>
+    /// TODO: Class/Interface Information here
+    /// </summary>
+    /// <author>  
+    ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
+    /// </author>
+    /// <date>
+    /// November 2008
+    /// </date>
     public interface IThreadPool
     {
         // TODO: remove this note, equivalent to public abstract boolean dispatch(Runnable job);

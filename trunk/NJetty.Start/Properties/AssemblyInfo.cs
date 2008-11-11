@@ -22,9 +22,16 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 
-// Author: Leopoldo Lee Agdeppa III
-// Email: leopoldo.agdeppa@gmail.com
-// Date: November 2008
+
+/// <summary>
+/// NJetty.Start Assembly Info
+/// </summary>
+/// <author>  
+///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
+/// </author>
+/// <date>
+/// November 2008
+/// </date>
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
