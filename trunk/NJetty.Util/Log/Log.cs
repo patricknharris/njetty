@@ -7,7 +7,7 @@ namespace NJetty.Util.Log
 {
     public class Log
     {
-        internal static void warn(Exception e)
+        public static void warn(Exception e)
         {
             throw new NotImplementedException();
         }

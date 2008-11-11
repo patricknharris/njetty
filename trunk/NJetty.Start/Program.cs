@@ -4,70 +4,72 @@ using System.Linq;
 using System.Text;
 using NJetty.Util.Log;
 
-using NLog;
+using System.Reflection;
 
 namespace NJetty.Start
 {
     public class Program
     {
+        static NLogLog log = new NLogLog(); 
+
         static void Main(string[] args)
         {
 
-            object[] currentVideoGames = {"Morrowind", "BioShock",
-            "Half Life 2: Episode 1", "The Darkness",
-            "Daxter", "System Shock 2", 1,2,3,4,5, 1.1};
-            
-            var result = from g in currentVideoGames  select g;
-
-            //Logger l = LogManager.GetLogger("heheheh");
-            
-
-            try
-            {
-                NLogLog log = new NLogLog();
+            PrintAllAssembliesInAppDomain(AppDomain.CurrentDomain);
 
 
 
-                foreach (var item in result)
-                {
+            // Make a new AppDomain in the current process.
+            AppDomain anotherAD = AppDomain.CreateDomain("SecondAppDomain");
+            anotherAD.Load("NLog");
+            anotherAD.Load("NJetty.Start");
+            PrintAllAssembliesInAppDomain(anotherAD);
 
-                    log.Info("{0} {1}", "[[[[[Info]]]]", item);
-                    log.Debug("{0} {1}", "[[[[[Debug]]]]", item);
-                    log.Warn("{0} {1}", "[[[[[Warn]]]]", item);
-                    log.Info(" is debug enabled " + log.IsDebugEnabled);
+            //anotherAD.DomainUnload += new EventHandler(anotherAD_DomainUnload);
+            //anotherAD.ProcessExit += new EventHandler(defaultAD_ProcessExit);
 
-
-                }
-
-
-                try
-                {
-                    string s = null;
-                    s.ToLower();
-                }
-                catch (Exception e)
-                {
-
-                    log.Info("<<<Info>>>>", e);
-                    log.Debug("<<<Debug>>>>", e);
-                    log.Warn("<<<Warn>>>>", e);
-                }
-
-                Console.WriteLine("\n\n\n\n" + log.ToString());
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("Error: " + e.Message + "\n " + e.StackTrace);
-            }
-
+            AppDomain.Unload(anotherAD);
 
             
+           
+
 
             Console.ReadLine();
 
         }
 
 
+        static void PrintAllAssembliesInAppDomain(AppDomain ad)
+        {
+            Assembly[] loadedAssemblies = ad.GetAssemblies();
+            log.Warn("***** Here are the assemblies loaded in {0} *****\n",
+            ad.FriendlyName);
+            foreach (Assembly a in loadedAssemblies)
+            {
+                log.Warn("-> Name: {0}", a.GetName().Name);
+                log.Warn("-> Version: {0}\n", a.GetName().Version);
+            }
+        }
+
+
+        static void anotherAD_DomainUnload(object sender, EventArgs e)
+        {
+            log.Warn("***** Unloaded anotherAD! *****\n");
+            log.Warn(string.Format("Sender: {0}, EventArgs: {1}", 
+                sender, 
+                e));
+            log.Warn("*******************************\n");
+        }
+
+
+        static void defaultAD_ProcessExit(object sender, EventArgs e)
+        {
+            log.Warn("***** Unloaded Process Exit! *****\n");
+            log.Warn(string.Format("Sender: {0}, EventArgs: {1}",
+                sender,
+                e));
+            log.Warn("*******************************\n");
+        }
 
     }
 
