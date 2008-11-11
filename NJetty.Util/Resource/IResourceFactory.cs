@@ -23,6 +23,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
+// Author: Leopoldo Lee Agdeppa III
+// Email: leopoldo.agdeppa@gmail.com
+// Date: November 2008
+
 namespace NJetty.Util.Resource
 {
     public interface IResourceFactory

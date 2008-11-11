@@ -23,6 +23,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+
+// Author: Leopoldo Lee Agdeppa III
+// Email: leopoldo.agdeppa@gmail.com
+// Date: November 2008
+
 namespace NJetty.Util.Component
 {
     // TODO: refactor this to use dotnet Delegates/events
@@ -32,10 +37,10 @@ namespace NJetty.Util.Component
     /// </summary>
     public interface IListener
     {
-        void lifeCycleStarting(ILifeCycle e);
-        void lifeCycleStarted(ILifeCycle e);
-        void lifeCycleFailure(ILifeCycle e,Exception cause);
-        void lifeCycleStopping(ILifeCycle e);
-        void lifeCycleStopped(ILifeCycle e);
+        void LifeCycleStarting(ILifeCycle e);
+        void LifeCycleStarted(ILifeCycle e);
+        void LifeCycleFailure(ILifeCycle e,Exception cause);
+        void LifeCycleStopping(ILifeCycle e);
+        void LifeCycleStopped(ILifeCycle e);
     }
 }
