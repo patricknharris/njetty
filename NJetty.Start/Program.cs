@@ -42,65 +42,34 @@ namespace NJetty.Start
     /// </date>
     public class Program
     {
-        static NLogLog log = new NLogLog(); 
-
         static void Main(string[] args)
         {
+            NLog.Logger l = NLog.LogManager.GetLogger("");
+            l.Factory.GetLogger("");
 
-            PrintAllAssembliesInAppDomain(AppDomain.CurrentDomain);
+            Log.Info("Hello World of Log.{0}", "Info");
+            Log.Debug("Hello World of Log.{0}", "Debug");
+            Log.Warn("Hello World of Log.{0}", "Warn");
 
 
+            try
+            {
+                Type.GetType("wahihihi", true);
+            }
+            catch (Exception e)
+            {
+                Log.Ignore(e);
+                Log.Debug(e);
+                Log.Warn(e);
+                Log.Warn("test", e);
 
-            // Make a new AppDomain in the current process.
-            AppDomain anotherAD = AppDomain.CreateDomain("SecondAppDomain");
-            anotherAD.Load("NLog");
-            anotherAD.Load("NJetty.Start");
-            PrintAllAssembliesInAppDomain(anotherAD);
+            }
 
-            //anotherAD.DomainUnload += new EventHandler(anotherAD_DomainUnload);
-            //anotherAD.ProcessExit += new EventHandler(defaultAD_ProcessExit);
-
-            AppDomain.Unload(anotherAD);
-
-            
-           
+            Log.Info(Log.Logger.ToString());
 
 
             Console.ReadLine();
 
-        }
-
-
-        static void PrintAllAssembliesInAppDomain(AppDomain ad)
-        {
-            Assembly[] loadedAssemblies = ad.GetAssemblies();
-            log.Warn("***** Here are the assemblies loaded in {0} *****\n",
-            ad.FriendlyName);
-            foreach (Assembly a in loadedAssemblies)
-            {
-                log.Warn("-> Name: {0}", a.GetName().Name);
-                log.Warn("-> Version: {0}\n", a.GetName().Version);
-            }
-        }
-
-
-        static void anotherAD_DomainUnload(object sender, EventArgs e)
-        {
-            log.Warn("***** Unloaded anotherAD! *****\n");
-            log.Warn(string.Format("Sender: {0}, EventArgs: {1}", 
-                sender, 
-                e));
-            log.Warn("*******************************\n");
-        }
-
-
-        static void defaultAD_ProcessExit(object sender, EventArgs e)
-        {
-            log.Warn("***** Unloaded Process Exit! *****\n");
-            log.Warn(string.Format("Sender: {0}, EventArgs: {1}",
-                sender,
-                e));
-            log.Warn("*******************************\n");
         }
 
     }

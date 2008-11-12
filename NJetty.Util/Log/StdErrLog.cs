@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Configuration;
 
 
 
@@ -44,7 +45,12 @@ namespace NJetty.Util.Log
 
 
         //private static DateCache _dateCache; TODO date cache implementation
-        static bool _debug = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("DEBUG")); //System.getProperty("DEBUG",null)!=null;
+        static bool _debug = 
+            !string.IsNullOrEmpty(ConfigurationSettings.AppSettings.Get("DEBUG")) 
+            ? "true".Equals(ConfigurationSettings.AppSettings.Get("DEBUG"), StringComparison.OrdinalIgnoreCase) 
+            : false; 
+
+
         string _name;
         bool _hideStacks=false;
     

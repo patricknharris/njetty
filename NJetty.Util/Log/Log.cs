@@ -22,6 +22,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Configuration;
+using System.Reflection;
 
 
 namespace NJetty.Util.Log
@@ -37,9 +39,274 @@ namespace NJetty.Util.Log
     /// </date>
     public class Log
     {
-        public static void warn(Exception e)
+        static readonly string[] __nestedEx = new string[] { "TargetException", "TargetError", "Exception", "RootCause" };
+        static readonly Type[] __noArgs = new Type[0];
+
+        public static string EXCEPTION = "EXCEPTION ";
+        public static string IGNORED = "IGNORED ";
+        public static string IGNORED_FMT = "IGNORED: {0} ";
+        public static string NOT_IMPLEMENTED = "NOT IMPLEMENTED ";
+
+        static string __logType = ConfigurationSettings.AppSettings.Get("NJetty.Log") ?? "NJetty.Util.Log.NLogLog";
+        static bool __verbose =  
+            !string.IsNullOrEmpty(ConfigurationSettings.AppSettings.Get("VERBOSE")) 
+            ? "true".Equals(ConfigurationSettings.AppSettings.Get("VERBOSE"), StringComparison.OrdinalIgnoreCase) 
+            : false;
+
+        static bool __ignored =   
+            !string.IsNullOrEmpty(ConfigurationSettings.AppSettings.Get("IGNORED")) 
+            ? "true".Equals(ConfigurationSettings.AppSettings.Get("IGNORED"), StringComparison.OrdinalIgnoreCase) 
+            : false;
+
+        static ILogger __log;
+
+        static bool _initialized;
+        static object staticThreadLock = new object();
+
+        public static bool Initialized()
         {
-            throw new NotImplementedException();
+            if (__log != null)
+                return true;
+
+            lock (staticThreadLock)
+            {
+                if (_initialized)
+                    return __log != null;
+                _initialized = true;
+            }
+
+            Type log_type = null;
+            try
+            {
+                log_type = Type.GetType(__logType, true);
+                if (__log == null || __log.GetType() != log_type)
+                {
+                    __log = (ILogger)Activator.CreateInstance(log_type);
+                    __log.Info("Logging to {0} via {1}", __log, log_type.ToString());
+                }
+            }
+            catch (Exception e)
+            {
+                if (__log == null)
+                {
+                    log_type = typeof(StdErrLog);
+
+                    __log = new StdErrLog();
+                    __log.Info("Logging to {0} via {1}", __log, log_type.ToString());
+                    if (__verbose)
+                    {
+                        Console.Error.WriteLine(e.StackTrace);
+                    }
+                }
+            }
+
+            return __log != null;
+        }
+
+
+        public static ILogger Logger
+        {
+            set { Log.__log = value; }
+            get { Initialized(); return __log; }
+        }
+
+
+       
+
+        // TODO: change comment to fit for NJetty
+        /// <summary>
+        /// Set Log to parent Logger.
+        /// <p>
+        /// If there is a different Log class available,
+        /// call GetLogger(String) on it and construct a LoggerLog instance
+        /// as this Log's Logger, so that logging is delegated to the parent Log.
+        /// <p>
+        /// This should be used if a webapp is using Log, but wishes the logging to be 
+        /// directed to the containers log.
+        /// <p>
+        /// If there is not parent Log, then this call is equivalent to
+        /// <pre>
+        /// Log.Logger = Log.GetLogger(name);
+        /// </pre>
+        /// 
+        /// </summary>
+        /// <param name="name">Logger Name</param>
+
+         
+
+
+        public static void SetLogToParent(string name)
+        {
+
+            
+
+            //ClassLoader loader = Log.class.getClassLoader();
+            //if (loader.getParent()!=null)
+            //{
+                try
+                {
+                    //TODO: this is not complete
+
+
+
+
+                    //Class<?> uberlog = loader.getParent().loadClass("org.mortbay.log.Log");
+                    //Method getLogger=uberlog.getMethod("getLogger",new Class[]{String.class});
+                    //Object logger = getLogger.invoke(null,name);
+                    //setLog(new LoggerLog(logger));
+                    //return;
+
+                    object logger = null;
+                    // get the logger objecthere by calling TheLog.GetLogger(name)
+
+                    Log.Logger = new LoggerLog(Logger);
+                    return;
+                    
+
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }     
+            //}
+
+            Logger = GetLogger(name);
+
+            
+        }
+
+        public static void Debug(Exception exception)
+        {
+            if (!IsDebugEnabled)
+            {
+                return;
+            }
+
+            __log.Debug(EXCEPTION, exception);
+            Unwind(exception);
+        }
+
+        public static void Debug(string msg, params object[] args)
+        {
+            if (!Initialized())
+                return;
+            __log.Debug(msg, args);
+        }
+
+
+        
+         
+        /// <summary>
+        /// Ignore an exception unless trace is enabled.
+        /// This works around the problem that log4j does not support the trace level.
+        /// </summary>
+        /// <param name="exception"></param>
+        public static void Ignore(Exception exception)
+        {
+            if (!Initialized())
+                return;
+            if (__ignored)
+            {
+                __log.Warn(IGNORED, exception);
+                Unwind(exception);
+            }
+            else if (__verbose)
+            {
+                __log.Warn(IGNORED, exception);
+                Unwind(exception);
+            }
+        }
+
+        public static void Info(string msg, params object[] args)
+        {
+            if (!Initialized())
+                return;
+            __log.Info(msg, args);
+        }
+
+        public static bool IsDebugEnabled
+        {
+            get
+            {
+                if (!Initialized())
+                    return false;
+                return __log.IsDebugEnabled;
+            }
+        }
+
+        public static void Warn(string msg, params object[] args)
+        {
+            if (!Initialized())
+                return;
+            __log.Warn(msg, args);
+        }
+
+        public static void Warn(string msg, Exception exception)
+        {
+            if (!IsDebugEnabled)
+            {
+                return;
+            }
+
+            __log.Debug(msg, exception);
+            Unwind(exception);
+        }
+
+        public static void Warn(Exception exception)
+        {
+            if (!IsDebugEnabled)
+            {
+                return;
+            }
+
+            __log.Debug(EXCEPTION, exception);
+            Unwind(exception);
+        }
+
+        
+        /// <summary>
+        /// Obtain a named Logger.
+        /// Obtain a named Logger or the default Logger if null is passed.
+        /// </summary>
+        /// <param name="name">Log Name</param>
+        /// <returns>The Currently Used Log</returns>
+        public static ILogger GetLogger(string name)
+        {
+            if (!Initialized())
+                return null;
+
+            if (string.IsNullOrEmpty(name))
+                return __log;
+
+            return __log.GetLogger(name);
+        }
+
+        private static void Unwind(Exception exception)
+        {
+            if (exception == null)
+            {
+                return;
+            }
+
+
+            // TODO: more research on custom Exceptions of jetty
+            // use the Dotnet Exception Style if this is not applicable
+            //get property values for "TargetException", "TargetError", "Exception", "RootCause"
+            foreach (string nestedEx in __nestedEx)
+            {
+                try
+                {
+                    PropertyInfo propTarget = exception.GetType().GetProperty(nestedEx);
+                    Exception ex = (Exception)propTarget.GetValue(exception, null);
+                    if (ex != null && ex != exception)
+                    {
+                        Warn("Nested in " + exception + ":", ex);
+                    }
+                    
+                }
+                catch{ }
+            }
+            
         }
     }
 }

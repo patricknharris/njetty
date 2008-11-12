@@ -50,6 +50,7 @@
     <Compile Include="Component\IListener.cs" />
     <Compile Include="Log\ILogger.cs" />
     <Compile Include="Log\Log.cs" />
+    <Compile Include="Log\LoggerLog.cs" />
     <Compile Include="Log\NLogLog.cs" />
     <Compile Include="Log\StdErrLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
