@@ -2,7 +2,7 @@
 
 = Roadmap for 1.0 Release =
 
-Port Jetty to C#
+Port Jetty to C# and have ASP.net running on it
 
 
 = Proting Details =
@@ -10,6 +10,9 @@ Port Jetty to C#
 Port Jetty Utils to C#
  * Port Interfaces
  * Port Logs
+    * Log : Static Class for logging, can use NLog or StdErrLog - done 
+    * NLogLog : Log Addapter for NLog - done
+    * StdErrLog : log using Console.Error - done
  * Port Threading
 
 Port Jetty Core to C#
