@@ -25,11 +25,8 @@ using System.Text;
 
 using System.Reflection;
 
-
-
 namespace NJetty.Util.Log
 {
-
     /// <summary>
     /// TODO: Class/Interface Information here
     /// </summary>
@@ -39,22 +36,18 @@ namespace NJetty.Util.Log
     /// <date>
     /// November 2008
     /// </date>
-    public class NLogLog : ILogger
+    public class LoggerLog : ILogger
     {
-        #region NLogger Reflection Items
 
-        const string LOGGER_ASSEMBLY = "NLog";
-        const string LOGGER = "NLog.Logger";
-        const string LOGGER_FACTORY = "NLog.LogManager";
-        const string DEFAULT_LOG_NAME = "NJetty.Util.Log";
+        #region LoggerLog Reflection Items
+
 
 
         readonly static object[] NO_ARGS = new object[] { };
         readonly static Type[] MSG_LOG_ARGS = new Type[] { typeof(string), typeof(object[]) };
         readonly static Type[] MSG_EXCEPTION_LOG_ARGS = new Type[] { typeof(string), typeof(Exception) };
 
-        Assembly nlogAssembly;
-
+        
         MethodInfo info;
         MethodInfo debug;
         MethodInfo debugException;
@@ -64,57 +57,45 @@ namespace NJetty.Util.Log
         MethodInfo errorException;
         PropertyInfo loggerName;
         MethodInfo getLogger;
-
-        // the NLog.Logger object
+        
+        // the Logger object
+        
         object logger;
+        object loggerFactory;
 
 
-
-        void InitializeReflectionMethods()
-        {
-            Type nLog = nlogAssembly.GetType(LOGGER, true, true);
-            Type nLogF = nlogAssembly.GetType(LOGGER_FACTORY, true, true);
-
-            // Methods Reflected
-
-            info = nLog.GetMethod("Info", MSG_LOG_ARGS);
-            debug = nLog.GetMethod("Debug", MSG_LOG_ARGS);
-            debugException = nLog.GetMethod("DebugException", MSG_EXCEPTION_LOG_ARGS);
-            debugEnabled = nLog.GetProperty("IsDebugEnabled");
-            warn = nLog.GetMethod("Warn", MSG_LOG_ARGS); ;
-            warnException = nLog.GetMethod("WarnException", MSG_EXCEPTION_LOG_ARGS);
-            errorException = nLog.GetMethod("ErrorException", MSG_EXCEPTION_LOG_ARGS);
-            loggerName = nLog.GetProperty("Name");
-
-
-            getLogger = nLogF.GetMethod("GetLogger", new Type[] { typeof(string) });
-            
-        }
 
 
 
         #endregion
 
+        
         #region Constructors
 
-        public NLogLog()
-            : this(DEFAULT_LOG_NAME)
+
+        public LoggerLog(object logger)
         {
+            this.logger = logger;
 
-        }
+            Type logType = logger.GetType();
 
-        public NLogLog(string name)
-        {   
-            try
-            {
-                nlogAssembly = Assembly.Load(LOGGER_ASSEMBLY);
-            }
-            catch(Exception e)
-            {
-                throw new Exception("NLog Assembly Not Found", e);
-            }
-            InitializeReflectionMethods();
-            logger = getLogger.Invoke(null, new object[] { name });
+            // Methods Reflected
+
+            info = logType.GetMethod("Info", MSG_LOG_ARGS);
+            debug = logType.GetMethod("Debug", MSG_LOG_ARGS);
+            debugException = logType.GetMethod("DebugException", MSG_EXCEPTION_LOG_ARGS);
+            debugEnabled = logType.GetProperty("IsDebugEnabled");
+            warn = logType.GetMethod("Warn", MSG_LOG_ARGS); ;
+            warnException = logType.GetMethod("WarnException", MSG_EXCEPTION_LOG_ARGS);
+            errorException = logType.GetMethod("ErrorException", MSG_EXCEPTION_LOG_ARGS);
+            loggerName = logType.GetProperty("Name");
+
+            PropertyInfo lfPropInfo = logType.GetProperty("Factory");
+            loggerFactory = lfPropInfo.GetValue(logger, null);
+
+            getLogger = lfPropInfo.PropertyType.GetMethod("GetLogger", new Type[] { typeof(string) });
+            
+            
         }
 
         #endregion
@@ -137,7 +118,14 @@ namespace NJetty.Util.Log
             }
             set
             {
-                Warn("Setting of Property IsDebugEnabled not implemented");
+                try
+                {
+                    debugEnabled.SetValue(logger, value, null);
+                }
+                catch (Exception e)
+                {
+                    Console.Error.WriteLine(e.StackTrace);
+                }
             }
         }
 
@@ -212,7 +200,8 @@ namespace NJetty.Util.Log
         {
             try
             {
-                return new NLogLog(name);
+                object logger = getLogger.Invoke(loggerFactory, new object[] { name });
+                return new LoggerLog(logger);
             }
             catch (Exception e)
             {
