@@ -10,9 +10,9 @@ Port Jetty to C# and have ASP.net running on it
 Port Jetty Utils to C#
  * Port Interfaces
  * Port Logs
-    * Log : Static Class for logging, can use NLog or StdErrLog - done 
-    * NLogLog : Log Addapter for NLog - done
-    * StdErrLog : log using Console.Error - done
+    * Log : Static Class for logging. can use NLog or StdErrLog - done 
+    * NLogLog : Log Addapter for NLog. done
+    * StdErrLog : log using Console.Error. done
  * Port Threading
 
 Port Jetty Core to C#
