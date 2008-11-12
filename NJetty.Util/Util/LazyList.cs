@@ -113,5 +113,15 @@ namespace NJetty.Util.Util
 
         #endregion
 
+
+        public static object Add(object _listeners, IContainerListener listener)
+        {
+            throw new NotImplementedException();
+        }
+
+        public static object Remove(object _listeners, IContainerListener listener)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
