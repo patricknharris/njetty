@@ -29,7 +29,12 @@ using System.Reflection;
 namespace NJetty.Util.Log
 {
     /// <summary>
-    /// Logging Class
+    ///  This class provides a static logging interface.  If an instance of the 
+    ///  NLog Assembly is found on the classpath, the static log methods
+    ///  are directed to a NLog logger for "NJetty.Util.Log".   Otherwise the logs
+    ///  are directed to Console.
+    ///  
+    ///  If the system property VERBOSE is set, then ignored exceptions are logged in detail.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
