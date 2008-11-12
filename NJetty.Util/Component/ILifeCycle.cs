@@ -99,9 +99,9 @@ namespace NJetty.Util.Component
             get;
         }
 
-        void addLifeCycleListener(IListener listener);
+        void AddLifeCycleListener(IListener listener);
 
-        void removeLifeCycleListener(IListener listener);
+        void RemoveLifeCycleListener(IListener listener);
 
     }
 }

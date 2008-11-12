@@ -22,9 +22,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NJetty.Util.Log;
+using NJetty.Util.Logger;
 
 using System.Reflection;
+using NJetty.Util.Util;
 
 
 
@@ -44,29 +45,19 @@ namespace NJetty.Start
     {
         static void Main(string[] args)
         {
-            NLog.Logger l = NLog.LogManager.GetLogger("");
-            l.Factory.GetLogger("");
+            int[] arr = new int[] {1, 2,3};
+            int[] arr2 = (int[])LazyList.AddToArray(arr, 4, typeof(int));
+            int[] arr3 = (int[])LazyList.RemoveFromArray(arr2, 2);
 
-            Log.Info("Hello World of Log.{0}", "Info");
-            Log.Debug("Hello World of Log.{0}", "Debug");
-            Log.Warn("Hello World of Log.{0}", "Warn");
-
-
-            try
+            foreach (int i in arr3)
             {
-                Type.GetType("wahihihi", true);
-            }
-            catch (Exception e)
-            {
-                Log.Ignore(e);
-                Log.Debug(e);
-                Log.Warn(e);
-                Log.Warn("test", e);
-
+                Console.WriteLine("hehehe >>> " + i);
             }
 
-            Log.Info(Log.Logger.ToString());
 
+            
+
+          
 
             Console.ReadLine();
 
