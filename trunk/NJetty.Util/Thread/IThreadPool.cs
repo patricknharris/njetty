@@ -30,7 +30,7 @@ namespace NJetty.Util.Thread
 {
 
     /// <summary>
-    /// Thread Pooling Interface
+    /// Thread Pooling Interface, for implementing a thread pool
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
