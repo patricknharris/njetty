@@ -21,7 +21,7 @@ Port Jetty Utils to C# NJetty
     * NLogLog : Log Addapter for NLog. done
     * StdErrLog : log using Console.Error. done
  * Util
-    * LazyList done
+    * LazyList - done
  * Threading
 
 
