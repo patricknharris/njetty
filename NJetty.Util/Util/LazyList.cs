@@ -40,7 +40,7 @@ namespace NJetty.Util.Util
     /// </date>
     public static class LazyList
     {
-
+        
         private static readonly string[] __EMTPY_STRING_ARRAY = new string[0];
 
         #region Add To LazyList
@@ -113,8 +113,7 @@ namespace NJetty.Util.Util
 
 
         #endregion
-
-
+        
         #region Add Collection To LazyList
 
 
@@ -148,8 +147,7 @@ namespace NJetty.Util.Util
         }
 
         #endregion
-
-
+        
         #region Ensure the capcity of list
 
         public static object EnsureSize(object list, int initialSize)
@@ -189,7 +187,6 @@ namespace NJetty.Util.Util
         }
 
         #endregion
-
 
         #region Remove From LazyList
         public static object Remove(object list, object o)
@@ -312,10 +309,208 @@ namespace NJetty.Util.Util
         }
 
         #endregion
+        
+        #region LazyList To Array
 
+        /// <summary>
+        /// Convert a lazylist to an array
+        /// </summary>
+        /// <param name="list">The list to convert</param>
+        /// <param name="type">The type of the array</param>
+        /// <returns>The Array</returns>
+        public static Array ToArray(object list,Type type)
+        {
+            if (list == null)
+            {
+                return Array.CreateInstance(type, 0);
+            }
+            
+            if (list is IList)
+            {
+                IList l = (IList)list;
 
-        // TODO Add other lazy lists
+                Array a = Array.CreateInstance(type,l.Count);
+                for (int i = 0; i < l.Count; i++)
+                {
+                    a.SetValue(l[i], i);
+                }
+                return a;
+                
+            }
+            
+            Array a2 = Array.CreateInstance(type,1);
+            a2.SetValue(list, 0);
+            return a2;
+        }
 
+        #endregion
+
+        #region Size of LazyList
+
+        /// <summary>
+        /// The size of a lazy List
+        /// </summary>
+        /// <param name="list">A LazyList returned from LazyList.Add(object) or null</param>
+        /// <returns>the size of the list.</returns>
+        public static int Size(object list)
+        {
+            if (list==null)
+                return 0;
+            if (list is IList)
+                return ((IList)list).Count;
+            return 1;
+        }
+
+        #endregion
+
+        #region Element Helper
+
+        /// <summary>
+        /// Get item from the list 
+        /// </summary>
+        /// <typeparam name="E">Type you want to return</typeparam>
+        /// <param name="list">A LazyList returned from LazyList.Add(object) or null</param>
+        /// <param name="i">int index</param>
+        /// <returns>the item from the list.</returns>
+        public static  E Get<E>(object list, int i)
+        {
+            if (list==null)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            if (list is IList)
+                return (E)((IList)list)[i];
+
+            if (i==0)
+                return (E)list;
+
+            throw new IndexOutOfRangeException();
+        }
+        
+        
+        /// <summary>
+        /// checks if item is in the list 
+        /// </summary>
+        /// <param name="list">list of items you want to check if item is there</param>
+        /// <param name="item">item to check</param>
+        /// <returns>true if item is in the list, otherwise false</returns>
+        public static bool Contains(object list,object item)
+        {
+            if (list==null)
+                return false;
+
+            if (list is IList)
+                return ((IList)list).Contains(item);
+
+            return list.Equals(item);
+        }
+        
+        /// <summary>
+        /// Clones a List to a new List
+        /// </summary>
+        /// <param name="list">list to clone</param>
+        /// <returns>a copy of the list</returns>
+        public static object Clone(object list)
+        {
+            if (list==null)
+            {
+                return null;
+            }
+            if (list is IList)
+            {
+                IList l = (IList)Activator.CreateInstance(list.GetType());
+
+                IList theList = (IList)list;
+                int listLenght = theList.Count;
+                for (int i = 0; i < listLenght; i++)
+                {
+                    l.Add(theList[i]);
+                }
+                return l;
+            }
+                
+            return list;
+        }
+
+        #endregion
+
+        /// <summary>
+        /// calls ToString() to a list
+        /// </summary>
+        /// <param name="list"></param>
+        /// <returns></returns>
+        public static string ToString(object list)
+        {
+            if (list==null)
+                return "[]";
+            if (list is IList)
+                return list.ToString();
+
+            return "["+list.ToString()+"]";
+        }
+
+        /// <summary>
+        /// Gets the IEnumerator of the list
+        /// </summary>
+        /// <typeparam name="E">Generic type of list you want to create incase its empty</typeparam>
+        /// <param name="list">list you want to get its Enumerator</param>
+        /// <returns>Enumerator of the given list</returns>
+        public static IEnumerator GetEnumerator<E>(object list)
+        {
+            if (list==null)
+            {
+                List<E> empty=new List<E>();
+                return (IEnumerator)empty.GetEnumerator();
+            }
+            if (list is IList)
+            {
+                return ((List<E>)list).GetEnumerator();
+            }
+            IList l = (IList)GetList<E>(list);
+            return l.GetEnumerator();
+           
+        }
+        
+
+        // TODO: may be this one is no longer applicable
+
+        //public static<E> ListIterator<E> listIterator(Object list)
+        //{
+        //    if (list==null)
+        //    {
+        //        List<E> empty=Collections.emptyList();
+        //        return empty.listIterator();
+        //    }
+        //    if (list instanceof List)
+        //        return ((List<E>)list).listIterator();
+
+        //    List<E> l=getList(list);
+        //    return l.listIterator();
+        //}
+
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="E">Generic type you want your List to have</typeparam>
+        /// <param name="array">the array you want to convert</param>
+        /// <returns>A new <i>modifiable</i> list initialised with the elements from <code>array</code></returns>
+        public static List<E> Array2List<E>(Array array)
+        {
+
+            if (array == null || array.Length == 0)
+            {
+                return new List<E>();
+            }
+
+            List<E> list = new List<E>();
+            list.AddRange((E[])array);
+
+            return (List<E>)list;
+        }
+
+        
 
 
 
