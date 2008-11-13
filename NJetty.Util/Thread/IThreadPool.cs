@@ -30,7 +30,7 @@ namespace NJetty.Util.Thread
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// Thread Pooling Interface
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
