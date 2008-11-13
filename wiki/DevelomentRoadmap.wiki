@@ -5,9 +5,7 @@
 Port Jetty to C# and have ASP.net running on it
 
 
-= Proting Details =
-
-Note: (porting is done by package)
+= Porting Roadmap by Package/Namespace =
 
 Port Jetty Utils to C# NJetty 
  * Components
