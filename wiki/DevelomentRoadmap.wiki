@@ -11,8 +11,8 @@ Port Jetty to C# and have ASP.net running on it
 Port Jetty Utils to C# NJetty 
  * Components
     * AbstractLifeCycle - done
-    * Container - ongoing
-    * ContainerRelationship - ongoing
+    * Container - done
+    * ContainerRelationship - done
     * IContainerListner - done
     * ILifeCycle - done
     * IListner - done 
