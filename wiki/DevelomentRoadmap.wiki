@@ -1,4 +1,4 @@
-#summary To have a full-featured Dotnet/ASP.net web server implemented entirely in C#
+#summary To have a full-featured Dotnet/ASP.net web server implemented entirely in C#, The Project will be based entirely in Jetty Web Server in Java.
 
 = Roadmap for 1.0 Release =
 
