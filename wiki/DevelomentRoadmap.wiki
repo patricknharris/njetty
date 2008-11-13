@@ -20,10 +20,30 @@ Port Jetty Utils to C# NJetty
     * Log : Static Class for logging. can use NLog or StdErrLog - done 
     * NLogLog : Log Addapter for NLog. done
     * StdErrLog : log using Console.Error. done
+ * Resource
+    * BadResource
+    * FileResource
+    * JarFileResource
+    * Resource
+    * ResourceCollection
+    * IResourceFactory
+    * URLResource
+ * Threading
+    * BoundedThreadPool (deprecated by jetty, might not need to implement)
+    * QueuedThreadPool
+    * IThreadPool - Done
+    * Timeout
  * Util
     * LazyList - done
- * Threading
-
+ * Util.Ajax
+    * AjaxFilter
+    * IContinuation (deprecated by jetty, might not need to implement)
+    * ContinuationSupport
+    * JSON
+    * JSONDateConvertor
+    * JSONEnumConvertor
+    * JSONObjectConvertor
+    * WaitingContinuation
 
 Port Jetty Utils Test to C# NJetty 
  * todo here
