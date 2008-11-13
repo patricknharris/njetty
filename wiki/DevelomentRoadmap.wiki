@@ -7,14 +7,30 @@ Port Jetty to C# and have ASP.net running on it
 
 = Proting Details =
 
-Port Jetty Utils to C#
- * Port Interfaces
- * Port Logs
+Note: (porting is done by package)
+
+Port Jetty Utils to C# NJetty 
+ * Components
+    * AbstractLifeCycle - done
+    * Container - ongoing
+    * ContainerRelationship - ongoing
+    * IContainerListner - done
+    * ILifeCycle - done
+    * IListner - done 
+ * Logger (Log in jetty) - done
     * Log : Static Class for logging. can use NLog or StdErrLog - done 
     * NLogLog : Log Addapter for NLog. done
     * StdErrLog : log using Console.Error. done
- * Port Threading
+ * Util
+    * LazyList 50% done
+ * Threading
+
+
+Port Jetty Utils Test to C# NJetty 
+ * todo here
 
 Port Jetty Core to C#
  * todo here
+
+Make Jetty Core Tests
  * todo here
