@@ -58,8 +58,14 @@
     <Compile Include="Logger\NLogLog.cs" />
     <Compile Include="Logger\StdErrLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resource\BadResource.cs" />
+    <Compile Include="Resource\FileResource.cs" />
     <Compile Include="Resource\IResourceFactory.cs" />
+    <Compile Include="Resource\JarFileResource.cs" />
     <Compile Include="Resource\Resource.cs" />
+    <Compile Include="Resource\ResourceCollection.cs" />
+    <Compile Include="Resource\URLResource.cs" />
+    <Compile Include="Thread\BoundedThreadPool.cs" />
     <Compile Include="Thread\IThreadPool.cs" />
     <Compile Include="Util\IAttributes.cs" />
     <Compile Include="Util\LazyList.cs" />
