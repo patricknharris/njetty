@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>6f427387-15c0-4b88-999c-68d3d2fe4802</ProjectGuid>
+    <ProjectGuid>{7445167A-2E6C-42FC-9486-CE163560FA9E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>NJetty.Util.Test</RootNamespace>
