@@ -8,7 +8,7 @@ Port Jetty to C# and have ASP.net running on it
 
 =Porting Roadmap by Package/Namespace=
 
-==Port Jetty Utils to C# NJetty==
+==Port Jetty Utils to C# NJetty.Util==
  * *Components* (_done_)
     * AbstractLifeCycle (_done_)
     * Container (_done_)
