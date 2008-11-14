@@ -27,8 +27,6 @@ using System.Collections;
 namespace NJetty.Util.Util
 {
 
-
-
     /// <summary>
     /// TODO: Class/Interface Information here
     /// </summary>
