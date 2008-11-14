@@ -69,17 +69,33 @@
     <Compile Include="Thread\IThreadPool.cs" />
     <Compile Include="Thread\QueuedThreadPool.cs" />
     <Compile Include="Thread\Timeout.cs" />
+    <Compile Include="Util\Ajax\AjaxFilter.cs" />
+    <Compile Include="Util\Ajax\IContinuation.cs" />
     <Compile Include="Util\ArrayQue.cs" />
     <Compile Include="Util\ByteArrayISO8859Writer.cs" />
     <Compile Include="Util\ByteArrayOutputStream2.cs" />
     <Compile Include="Util\DateCache.cs" />
     <Compile Include="Util\IAttributes.cs" />
     <Compile Include="Util\IAttributesMap.cs" />
+    <Compile Include="Util\IntrospectionUtil.cs" />
+    <Compile Include="Util\IO.cs" />
     <Compile Include="Util\LazyList.cs" />
+    <Compile Include="Util\Loader.cs" />
+    <Compile Include="Util\MultiException.cs" />
+    <Compile Include="Util\MultiMap.cs" />
+    <Compile Include="Util\MultiPartOutputStream.cs" />
+    <Compile Include="Util\MultiPartWriter.cs" />
+    <Compile Include="Util\QuotedStringTokenizer.cs" />
+    <Compile Include="Util\RolloverFileOutputStream.cs" />
+    <Compile Include="Util\Scanner.cs" />
+    <Compile Include="Util\SingletonList.cs" />
+    <Compile Include="Util\StringMap.cs" />
+    <Compile Include="Util\StringUtil.cs" />
+    <Compile Include="Util\TypeUtil.cs" />
+    <Compile Include="Util\URIUtil.cs" />
+    <Compile Include="Util\UrlEncoded.cs" />
     <Compile Include="Util\Utf8StringBuffer.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Util\Ajax\" />
+    <Compile Include="Util\Utf8StringBuilder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
