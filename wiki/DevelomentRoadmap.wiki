@@ -26,7 +26,7 @@ Port Jetty to C# and have ASP.net running on it
     * JarFileResource
     * Resource
     * ResourceCollection
-    * IResourceFactory
+    * IResourceFactory (_done_)
     * URLResource
  * *Threading*
     * BoundedThreadPool (deprecated by jetty, might not need to implement)
