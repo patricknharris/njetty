@@ -53,11 +53,9 @@ Port Jetty to C# and have ASP.net running on it
     * MultiException
     * RolloverFileOutputStream
     * MultiMap
-    * ByteArrayOutputStream2
     * MultiPartOutputStream
     * MultiPartWriter
     * StringMap
-    * ByteArrayISO8859Writer
     * IntrospectionUtil
     * LazyList (_done_)
     * UrlEncoded
