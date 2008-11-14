@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NJetty.Util", "NJetty.Util\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NJetty.Start", "NJetty.Start\NJetty.Start.csproj", "{D8BE3F3A-974D-490D-B303-B6F6F2D9537B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NJetty.Util.Test", "NJetty.Util.Test\NJetty.Util.Test.csproj", "{7445167A-2E6C-42FC-9486-CE163560FA9E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NJetty.Test", "NJetty.Test\NJetty.Test.csproj", "{4EA7CBA2-E632-4B4E-A8A2-57EE1E9F8FBA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,6 +29,14 @@ Global
 		{D8BE3F3A-974D-490D-B303-B6F6F2D9537B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8BE3F3A-974D-490D-B303-B6F6F2D9537B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8BE3F3A-974D-490D-B303-B6F6F2D9537B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7445167A-2E6C-42FC-9486-CE163560FA9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7445167A-2E6C-42FC-9486-CE163560FA9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7445167A-2E6C-42FC-9486-CE163560FA9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7445167A-2E6C-42FC-9486-CE163560FA9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EA7CBA2-E632-4B4E-A8A2-57EE1E9F8FBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EA7CBA2-E632-4B4E-A8A2-57EE1E9F8FBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EA7CBA2-E632-4B4E-A8A2-57EE1E9F8FBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EA7CBA2-E632-4B4E-A8A2-57EE1E9F8FBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
