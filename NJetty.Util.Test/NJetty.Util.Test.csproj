@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.4.8.0, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -46,7 +47,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Component\LifeCycleListenerTest.cs" />
+    <Compile Include="Component\TestLifeCycle.cs" />
+    <Compile Include="Component\TestListener.cs" />
+    <Compile Include="Logger\LogTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NJetty.Util\NJetty.Util.csproj">
+      <Project>{9FA38034-2D26-4077-AACE-D3FD3FF1C2C4}</Project>
+      <Name>NJetty.Util</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resource\" />
+    <Folder Include="Thread\" />
+    <Folder Include="Util\Ajax\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

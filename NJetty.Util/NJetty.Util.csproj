@@ -70,7 +70,13 @@
     <Compile Include="Thread\QueuedThreadPool.cs" />
     <Compile Include="Thread\Timeout.cs" />
     <Compile Include="Util\Ajax\AjaxFilter.cs" />
+    <Compile Include="Util\Ajax\ContinuationSupport.cs" />
     <Compile Include="Util\Ajax\IContinuation.cs" />
+    <Compile Include="Util\Ajax\JSON.cs" />
+    <Compile Include="Util\Ajax\JSONDateConvertor.cs" />
+    <Compile Include="Util\Ajax\JSONEnumConvertor.cs" />
+    <Compile Include="Util\Ajax\JSONObjectConvertor.cs" />
+    <Compile Include="Util\Ajax\WaitingContinuation.cs" />
     <Compile Include="Util\ArrayQue.cs" />
     <Compile Include="Util\ByteArrayISO8859Writer.cs" />
     <Compile Include="Util\ByteArrayOutputStream2.cs" />
