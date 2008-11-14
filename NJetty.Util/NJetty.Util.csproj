@@ -69,8 +69,14 @@
     <Compile Include="Thread\IThreadPool.cs" />
     <Compile Include="Thread\QueuedThreadPool.cs" />
     <Compile Include="Thread\Timeout.cs" />
+    <Compile Include="Util\ArrayQue.cs" />
+    <Compile Include="Util\ByteArrayISO8859Writer.cs" />
+    <Compile Include="Util\ByteArrayOutputStream2.cs" />
+    <Compile Include="Util\DateCache.cs" />
     <Compile Include="Util\IAttributes.cs" />
+    <Compile Include="Util\IAttributesMap.cs" />
     <Compile Include="Util\LazyList.cs" />
+    <Compile Include="Util\Utf8StringBuffer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Util\Ajax\" />
