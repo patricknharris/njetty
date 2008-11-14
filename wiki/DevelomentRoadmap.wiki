@@ -23,7 +23,7 @@ Port Jetty to C# and have ASP.net running on it
  * *Resource*
     * BadResource
     * FileResource
-    * JarFileResource
+    * JarFileResource (just port everything for now)
     * Resource
     * ResourceCollection
     * IResourceFactory (_done_)
