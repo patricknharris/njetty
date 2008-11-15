@@ -1,9 +1,9 @@
 #summary To have a full-featured Dotnet/ASP.net web server implemented entirely in C#, The Project will be based entirely in Jetty Web Server in Java.
 #labels RoadMap,Featured,Phase-Design
 
-= Roadmap for 1.0 Release =
+= Roadmap for 1.0 Alpha-Release =
 
-Port Jetty to C# and have ASP.net running on it
+Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotnet related web platforms.
 
 
 =Porting Roadmap by Package/Namespace=
@@ -68,18 +68,38 @@ Port Jetty to C# and have ASP.net running on it
     * JSONEnumConvertor
     * JSONObjectConvertor
     * WaitingContinuation
+ * *TODO.Package*
+    * Todo.Class
 
 ==Port Jetty Utils Test to C# as NJetty.Util.Test== 
  * *Component* (_done_)
     * LifeCycleTest (_done_)
- * *Logger*
+    * LifeCycleListenerTest (_done_)
+    * TestListener (_done_)
+ * *Logger* (_done_)
+    * LogTest (_done_)
  * *Resource*
+    * (test data in this package TestData)
+    * TemplateTODO
  * *Thread*
+    * TemplateTODO
  * *Util*
+    * TemplateTODO
  * *Util.Ajax*
+    * TemplateTODO
+ * *TODO.Package*
+    * Todo.Class
 
 ==Port Jetty Core to C# as NJetty==
- * todo here
+ * *TODO.Package*
+    * Todo.Class
+ * *TODO.Package*
+    * Todo.Class
 
 ==Port Jetty Core Tests to as NJetty.Test==
- * todo here
+ * *TODO.Package*
+    * Todo.Class
+ * *TODO.Package*
+    * Todo.Class
+	
+=Porting Roadmap by Package/Namespace=
