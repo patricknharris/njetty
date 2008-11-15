@@ -80,15 +80,25 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * LogTest (_done_)
  * *Resource*
     * (test data in this package TestData)
-    * TemplateTODO
+    * ResourceTest
+    * ResourceCollectionTest
  * *Thread*
-    * TemplateTODO
+    * ThreadPoolTest
+    * TimeoutTest
  * *Util*
-    * TemplateTODO
+    * LazyListTest
+    * Utf8StringBufferTest
+    * ArrayQueueTest
+    * URITest
+    * QuotedStringTokenizerTest
+    * StringMapTest
+    * Utf8StringBuilderTest
+    * TestIntrospectionUtil
+    * URLEncodedTest
+    * DateCacheTest
+    * StringUtilTest
  * *Util.Ajax*
-    * TemplateTODO
- * *TODO.Package*
-    * Todo.Class
+    * JSONTest
 
 ==Port Jetty Core to C# as NJetty==
  * *TODO.Package*
