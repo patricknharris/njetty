@@ -70,7 +70,13 @@ Port Jetty to C# and have ASP.net running on it
     * WaitingContinuation
 
 ==Port Jetty Utils Test to C# as NJetty.Util.Test== 
- * todo here
+ * *Component* (_done_)
+    * LifeCycleTest (_done_)
+ * *Logger*
+ * *Resource*
+ * *Thread*
+ * *Util*
+ * *Util.Ajax*
 
 ==Port Jetty Core to C# as NJetty==
  * todo here
