@@ -405,7 +405,7 @@ namespace NJetty.Util.Thread
                 {
                     QueuedThreadPoolPoolThread thread = new QueuedThreadPoolPoolThread(this);
                     _threads.Add(thread);
-                    thread.Name = _name+"-"+_id++;
+                    thread.Name = thread.Id + "@" + _name + "-" + _id++;
                     thread.Start(); 
                 }
                 else if (!_warned)    
