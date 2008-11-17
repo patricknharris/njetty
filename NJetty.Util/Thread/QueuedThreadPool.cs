@@ -366,7 +366,7 @@ namespace NJetty.Util.Thread
                 {
                     foreach (QueuedThreadPoolPoolThread thread in _threads)
                     {
-                        thread.Interupt();
+                        thread.Interrupt();
                     }
 
                 }
@@ -426,7 +426,7 @@ namespace NJetty.Util.Thread
          * @param thread The thread allocated to the job, or null if no thread allocated.
          * @param job The job object passed to run.
          */
-        protected void StopJob(System.Threading.Thread thread, object job)
+        protected void StopJob(IThread thread, object job)
         {
             thread.Interrupt();
             

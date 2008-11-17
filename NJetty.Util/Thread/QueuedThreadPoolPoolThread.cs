@@ -45,7 +45,7 @@ namespace NJetty.Util.Thread
     /// <date>
     /// November 2008
     /// </date>
-    public class QueuedThreadPoolPoolThread 
+    public class QueuedThreadPoolPoolThread : IThread
     {
         ThreadStart _job = null;
         QueuedThreadPool _queuedThreadPool = null;
@@ -90,7 +90,7 @@ namespace NJetty.Util.Thread
             }
         }
 
-        public void Interupt()
+        public void Interrupt()
         {
             lock (_thisLock)
             {
