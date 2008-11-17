@@ -83,10 +83,11 @@ namespace NJetty.Util.Thread
 
         #endregion
 
-        /* ------------------------------------------------------------ */
-        /** Run job.
-         * @return true 
-         */
+        /// <summary>
+        /// Run a Job
+        /// </summary>
+        /// <param name="job">job to run</param>
+        /// <returns>true</returns>
         public bool Dispatch(ThreadStart job) 
         {  
             if (!IsRunning || job==null)
