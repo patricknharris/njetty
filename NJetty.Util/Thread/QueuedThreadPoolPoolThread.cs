@@ -70,6 +70,11 @@ namespace NJetty.Util.Thread
             
         }
 
+        public int Id
+        {
+            get { return _thread.ManagedThreadId; }
+        }
+
 
         public string Name
         {
