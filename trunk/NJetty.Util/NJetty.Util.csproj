@@ -66,6 +66,7 @@
     <Compile Include="Resource\ResourceCollection.cs" />
     <Compile Include="Resource\URLResource.cs" />
     <Compile Include="Thread\BoundedThreadPool.cs" />
+    <Compile Include="Thread\IThread.cs" />
     <Compile Include="Thread\IThreadPool.cs" />
     <Compile Include="Thread\QueuedThreadPool.cs" />
     <Compile Include="Thread\QueuedThreadPoolLock.cs" />
