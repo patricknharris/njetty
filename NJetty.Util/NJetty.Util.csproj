@@ -68,6 +68,8 @@
     <Compile Include="Thread\BoundedThreadPool.cs" />
     <Compile Include="Thread\IThreadPool.cs" />
     <Compile Include="Thread\QueuedThreadPool.cs" />
+    <Compile Include="Thread\QueuedThreadPoolLock.cs" />
+    <Compile Include="Thread\QueuedThreadPoolPoolThread.cs" />
     <Compile Include="Thread\Timeout.cs" />
     <Compile Include="Thread\TimeoutTask.cs" />
     <Compile Include="Util\Ajax\AjaxFilter.cs" />
