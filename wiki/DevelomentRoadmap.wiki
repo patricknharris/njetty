@@ -31,6 +31,8 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
  * *Threading*
     * BoundedThreadPool (deprecated by jetty, might not need to implement)
     * QueuedThreadPool
+    * QueuedThreadPoolPoolThread
+    * QueuedThreadPoolLock (_done_)
     * IThreadPool (_done_)
     * Timeout (_done_)
     * TimeoutTask (_done_)
