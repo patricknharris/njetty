@@ -255,7 +255,9 @@ namespace NJetty.Util.Thread
             lock (_joinLock)
             {
                 while (IsRunning)
-                    _joinLock.Wait();
+                {
+                    Monitor.Wait(_joinLock);
+                }
             }
             
             // TODO remove this semi busy loop!
@@ -392,7 +394,7 @@ namespace NJetty.Util.Thread
             
             lock (_joinLock)
             {
-                _joinLock.notifyAll();
+                Monitor.PulseAll(_joinLock);
                 
             }
         }
