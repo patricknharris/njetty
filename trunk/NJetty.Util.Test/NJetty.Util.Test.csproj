@@ -51,6 +51,7 @@
     <Compile Include="Component\TestListener.cs" />
     <Compile Include="Logger\LogTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\LazyListTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NJetty.Util\NJetty.Util.csproj">
