@@ -54,7 +54,7 @@ namespace NJetty.Util.Util
         {
             if (list == null)
             {
-                if (item is List<E> || item == null)
+                if (item is IList || item == null)
                 {
                     List<E> l = new List<E>();
                     l.Add(item);
@@ -64,9 +64,9 @@ namespace NJetty.Util.Util
                 return item;
             }
 
-            if (list is List<E>)
+            if (list is IList)
             {
-                ((List<E>)list).Add(item);
+                ((IList)list).Add(item);
                 return list;
             }
 
@@ -74,6 +74,12 @@ namespace NJetty.Util.Util
             lobject.Add(list);
             lobject.Add(item);
             return lobject;
+        }
+
+
+        public static object Add(object list, object item)
+        {
+            return Add<object>(list,item);
         }
 
         /// <summary>
@@ -97,9 +103,9 @@ namespace NJetty.Util.Util
                 return item;
             }
 
-            if (list is List<E>)
+            if (list is IList)
             {
-                ((List<E>)list).Insert(index, item);
+                ((IList)list).Insert(index, item);
                 return list;
             }
 
@@ -107,6 +113,11 @@ namespace NJetty.Util.Util
             lobject.Add(list);
             lobject.Insert(index, item);
             return lobject;
+        }
+
+        public static object Add(object list, int index, object item)
+        {
+            return Add<object>(list, index, item);
         }
 
 
@@ -129,6 +140,11 @@ namespace NJetty.Util.Util
                 list = LazyList.Add(list, item);
             }
             return list;
+        }
+
+        public static object AddCollection(object list, ICollection<object> collection)
+        {
+            return AddCollection<object>(list, collection);
         }
 
         /// <summary>
@@ -243,6 +259,11 @@ namespace NJetty.Util.Util
             return GetList<E>(list, false);
         }
 
+        public static List<object> GetList(object list)
+        {
+            return GetList<object>(list, false);
+        }
+
 
         /// <summary>
         /// Get the real List from a LazyList.
@@ -268,6 +289,11 @@ namespace NJetty.Util.Util
             l.Add((E)list);
 
             return l;
+        }
+
+        public static List<object> GetList(object list, bool nullForEmpty)
+        {
+            return GetList<object>(list, nullForEmpty);
         }
 
 
@@ -385,6 +411,17 @@ namespace NJetty.Util.Util
 
             throw new IndexOutOfRangeException();
         }
+
+        /// <summary>
+        /// default with null generics
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="i"></param>
+        /// <returns></returns>
+        public static object Get(object list, int i)
+        {
+            return Get<object>(list, i);
+        }
         
         
         /// <summary>
@@ -443,9 +480,19 @@ namespace NJetty.Util.Util
             if (list==null)
                 return "[]";
             if (list is IList)
-                return list.ToString();
+            {
+                List<string> l = new List<string>();
+                foreach (object item in (IList)list)
+                {
+                    l.Add(item != null ? item.ToString() : "null");
+                }
 
-            return "["+list.ToString()+"]";
+                return "[" + string.Join(", ", l.ToArray()) + "]";
+            }
+
+            return "[" + (list ?? "null") + "]";
+
+            
         }
 
         /// <summary>
@@ -468,6 +515,11 @@ namespace NJetty.Util.Util
             IList l = (IList)GetList<E>(list);
             return l.GetEnumerator();
            
+        }
+
+        public static IEnumerator GetEnumerator(object list)
+        {
+            return GetEnumerator<object>(list);
         }
         
 
@@ -507,6 +559,13 @@ namespace NJetty.Util.Util
 
             return (List<E>)list;
         }
+
+        public static List<object> Array2List(Array array)
+        {
+            return Array2List<object>(array);
+        }
+
+
 
         
 
