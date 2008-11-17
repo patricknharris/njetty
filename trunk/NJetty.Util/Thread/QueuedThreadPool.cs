@@ -69,22 +69,19 @@ namespace NJetty.Util.Thread
         internal int _spawnOrShrinkAt=0;
         int _maxStopTimeMs;
 
-        
-        /* ------------------------------------------------------------------- */
-        /* Construct
-         */
+        #region Constructors
+
         public QueuedThreadPool()
         {
             _name="qtp"+__id++;
         }
         
-        /* ------------------------------------------------------------------- */
-        /* Construct
-         */
         public QueuedThreadPool(int maxThreads) :this()
         {
-            MaxThreads = maxThreads;
+            _maxThreads = maxThreads;
         }
+
+        #endregion
 
         /* ------------------------------------------------------------ */
         /** Run job.
@@ -328,10 +325,10 @@ namespace NJetty.Util.Thread
 
         
 
-        /* ------------------------------------------------------------ */
-        /* Start the QueuedThreadPool.
-         * Construct the minimum number of threads.
-         */
+        /// <summary>
+        /// Start the QueuedThreadPool.
+        /// Construct the minimum number of threads.
+        /// </summary>
         protected override void DoStart()
         {
             if (_maxThreads<_minThreads || _minThreads<=0)
@@ -347,14 +344,14 @@ namespace NJetty.Util.Thread
             }   
         }
 
-        /* ------------------------------------------------------------ */
-        /** Stop the BoundedThreadPool.
-         * New jobs are no longer accepted,idle threads are interrupted
-         * and stopJob is called on active threads.
-         * The method then waits 
-         * min(getMaxStopTimeMs(),getMaxIdleTimeMs()), for all jobs to
-         * stop, at which time killJob is called.
-         */
+        /// <summary>
+        /// Stop the QueuedThreadPool.
+        /// New jobs are no longer accepted,idle threads are interrupted
+        /// and stopJob is called on active threads.
+        /// The method then waits 
+        /// min(MaxStopTimeMs,MaxIdleTimeMs), for all jobs to
+        /// stop, at which time killJob is called.
+        /// </summary>
         protected override void DoStop()
         {   
             base.DoStop();
@@ -418,14 +415,13 @@ namespace NJetty.Util.Thread
             }
         }
 
-        /* ------------------------------------------------------------ */
-        /** Stop a Job.
-         * This method is called by the Pool if a job needs to be stopped.
-         * The default implementation does nothing and should be extended by a
-         * derived thread pool class if special action is required.
-         * @param thread The thread allocated to the job, or null if no thread allocated.
-         * @param job The job object passed to run.
-         */
+        /// <summary>
+        /// This method is called by the Pool if a job needs to be stopped.
+        /// The default implementation does nothing and should be extended by a
+        /// derived thread pool class if special action is required.
+        /// </summary>
+        /// <param name="thread">The thread allocated to the job, or null if no thread allocated.</param>
+        /// <param name="job">The job object passed to run.</param>
         protected void StopJob(IThread thread, object job)
         {
             thread.Interrupt();
