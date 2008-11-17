@@ -69,6 +69,7 @@
     <Compile Include="Thread\IThreadPool.cs" />
     <Compile Include="Thread\QueuedThreadPool.cs" />
     <Compile Include="Thread\Timeout.cs" />
+    <Compile Include="Thread\TimeoutTask.cs" />
     <Compile Include="Util\Ajax\AjaxFilter.cs" />
     <Compile Include="Util\Ajax\ContinuationSupport.cs" />
     <Compile Include="Util\Ajax\IContinuation.cs" />
