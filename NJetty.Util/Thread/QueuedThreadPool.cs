@@ -382,6 +382,14 @@ namespace NJetty.Util.Thread
             if (_threads.Count > 0)
             {
                 Log.Warn(_threads.Count + " threads could not be stopped");
+                if (_threads != null)
+                {
+                    foreach (QueuedThreadPoolPoolThread thread in _threads)
+                    {
+                        thread.Abort();
+                    }
+                }
+
             }
             
             lock (_joinLock)
