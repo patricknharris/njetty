@@ -91,15 +91,9 @@ namespace NJetty.Util.Thread
 
         public void Interrupt()
         {
-            //_thread.Interrupt();
-
-
             try
             {
-                if (resetEvent != null)
-                {
-                    resetEvent.Set();
-                }
+                Monitor.Pulse(_thisLock);
             }
             catch { }
             
@@ -128,14 +122,22 @@ namespace NJetty.Util.Thread
                         todo();
                     }
 
+                    job = _queuedThreadPool._jobsQue.Dequeue();
+                    if (job != null)
+                    {
+                        continue;
+                    }
+
+
+
                     lock (_queuedThreadPool._lock)
                     {
                         // is there a queued job?
-                        if (_queuedThreadPool._jobsQue.Count > 0)
-                        {
-                            job = _queuedThreadPool._jobsQue.Dequeue();
-                            continue;
-                        }
+                        //if (_queuedThreadPool._jobsQue.Count > 0)
+                        //{
+                        //    job = _queuedThreadPool._jobsQue.Dequeue();
+                        //    continue;
+                        //}
 
                         // Should we shrink?
                         int threads = _queuedThreadPool._threads.Count;
@@ -168,10 +170,12 @@ namespace NJetty.Util.Thread
                         {
                             //_thread.Join(_queuedThreadPool.MaxIdleTimeMs);
 
-                            resetEvent = new ManualResetEvent(false);
-                            resetEvent.WaitOne(_queuedThreadPool.MaxIdleTimeMs);
-                            resetEvent = null;
+                            //resetEvent = new ManualResetEvent(false);
+                            //resetEvent.WaitOne(_queuedThreadPool.MaxIdleTimeMs);
+                            //resetEvent = null;
 
+                            Monitor.Wait(_thisLock, _queuedThreadPool.MaxIdleTimeMs);
+                            
                         }
                             
                         job=_job;

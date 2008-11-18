@@ -60,7 +60,7 @@ namespace NJetty.Util.Test.Thread
             {
                 string name = System.Threading.Thread.CurrentThread.Name;
                 Log.Warn("111 - Job>>>>" + name);
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(100);
                 Log.Warn("222 - Job>>>>" + name);
 
             }
@@ -86,16 +86,18 @@ namespace NJetty.Util.Test.Thread
     
         [Test]
         public void TestQueuedThreadPool()
-        {        
+        {
+            //System.Threading.Thread.CurrentThread.Priority = ThreadPriority.Highest;
+
             QueuedThreadPool tp= new QueuedThreadPool();
             tp.MinThreads = 5;
             tp.MaxThreads = 10;
             tp.MaxIdleTimeMs = 1000;
             tp.SpawnOrShrinkAt = 2;
-            tp.ThreadsPriority = ThreadPriority.BelowNormal;
+            tp.ThreadsPriority = ThreadPriority.Normal;
 
             tp.Start();
-            System.Threading.Thread.Sleep(4000);
+            System.Threading.Thread.Sleep(500);
 
             
             Assert.AreEqual(5,tp.Threads);
@@ -116,9 +118,9 @@ namespace NJetty.Util.Test.Thread
             {
                 tp.Dispatch(_job);
             }
-            
-            Assert.IsTrue(tp.QueueSize>10);
-            Assert.IsTrue(tp.IdleThreads<=1);
+
+            Assert.Greater(tp.QueueSize, 10);
+            Assert.LessOrEqual(tp.IdleThreads, 1);
 
             System.Threading.Thread.Sleep(2000);
 
@@ -146,7 +148,7 @@ namespace NJetty.Util.Test.Thread
             int count = 0;
             
             Random random = new Random((int)DateTime.Now.ToFileTime());
-            int loops = 1600;//16000;
+            int loops = 16000;
 
             try
             {
@@ -196,7 +198,7 @@ namespace NJetty.Util.Test.Thread
                     System.Threading.Thread.Sleep(random.Next(100));
                 }
 
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(2000);
                     
                 tp.Stop();
                 
@@ -204,8 +206,8 @@ namespace NJetty.Util.Test.Thread
             }
             catch (Exception e)
             {
-                Console.Error.WriteLine(e.StackTrace);
-                Assert.IsTrue(false, e.StackTrace);
+                //Console.Error.WriteLine(e.StackTrace);
+                Assert.IsTrue(false, e.Message);
             }
         }
 
