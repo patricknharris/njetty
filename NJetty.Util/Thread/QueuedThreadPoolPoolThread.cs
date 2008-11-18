@@ -52,6 +52,8 @@ namespace NJetty.Util.Thread
         object _thisLock = new object();
         System.Threading.Thread _thread = null;
 
+        ManualResetEvent resetEvent = null;
+
         /* ------------------------------------------------------------ */
         internal QueuedThreadPoolPoolThread(QueuedThreadPool queuedThreadPool)
         {
@@ -62,7 +64,7 @@ namespace NJetty.Util.Thread
             _thread = new System.Threading.Thread(ts);
             _thread.Priority = _queuedThreadPool._priority;
             _thread.IsBackground = _queuedThreadPool._background;
-
+            
             
             
             
@@ -84,25 +86,30 @@ namespace NJetty.Util.Thread
 
         public void Start()
         {
-            //lock (_thisLock)
-            //{
-                _thread.Start();
-            //}
+            _thread.Start();
         }
 
         public void Interrupt()
         {
-            //lock (_thisLock)
-            //{
-                _thread.Interrupt();
-            //}
+            //_thread.Interrupt();
+
+
+            try
+            {
+                if (resetEvent != null)
+                {
+                    resetEvent.Set();
+                }
+            }
+            catch { }
+            
+            
         }
 
-        
-        /* ------------------------------------------------------------ */
-        /** QueuedThreadPoolPoolThread run.
-         * Loop getting jobs and handling them until idle or stopped.
-         */
+
+        /// <summary>
+        /// QueuedThreadPoolPoolThread run. Loop getting jobs and handling them until idle or stopped.
+        /// </summary>
         public void Run()
         {
             bool idle=false;
@@ -119,24 +126,14 @@ namespace NJetty.Util.Thread
                         idle=false;
                         // Execute the Delegated job
                         todo();
-                        Log.Warn("heheh ni exit");
                     }
 
                     lock (_queuedThreadPool._lock)
                     {
                         // is there a queued job?
-                        if (_queuedThreadPool._queued > 0)
+                        if (_queuedThreadPool._jobsQue.Count > 0)
                         {
-                            // de-que
-                            _queuedThreadPool._queued--;
-
-                            // assign to the next job to execute
-                            job = _queuedThreadPool._jobs[_queuedThreadPool._nextJob++];
-                            if (_queuedThreadPool._nextJob == _queuedThreadPool._jobs.Length)
-                            {
-                                // reset to 0 if there no more jobs todo
-                                _queuedThreadPool._nextJob = 0;
-                            }
+                            job = _queuedThreadPool._jobsQue.Dequeue();
                             continue;
                         }
 
@@ -144,13 +141,13 @@ namespace NJetty.Util.Thread
                         int threads = _queuedThreadPool._threads.Count;
                         if (threads > _queuedThreadPool._minThreads &&
                             (threads > _queuedThreadPool._maxThreads ||
-                             _queuedThreadPool._idle.Count > _queuedThreadPool._spawnOrShrinkAt))   
+                             _queuedThreadPool._idleQue.Count > _queuedThreadPool._spawnOrShrinkAt))   
                         {
                             long now = System.DateTime.Now.ToFileTime();
                             if ((now - _queuedThreadPool._lastShrink) > _queuedThreadPool.MaxIdleTimeMs)
                             {
                                 _queuedThreadPool._lastShrink = now;
-                                _queuedThreadPool._idle.Remove(this);
+                                _queuedThreadPool._idleQue.Remove(this);
                                 return;
                             }
                         }
@@ -158,7 +155,7 @@ namespace NJetty.Util.Thread
                         if (!idle)
                         {   
                             // Add ourselves to the idle set.
-                            _queuedThreadPool._idle.Add(this);
+                            _queuedThreadPool._idleQue.Enqueue(this);
                             idle=true;
                         }
                     }
@@ -169,7 +166,12 @@ namespace NJetty.Util.Thread
                     {
                         if (_job == null)
                         {
-                            _thread.Join(_queuedThreadPool.MaxIdleTimeMs);
+                            //_thread.Join(_queuedThreadPool.MaxIdleTimeMs);
+
+                            resetEvent = new ManualResetEvent(false);
+                            resetEvent.WaitOne(_queuedThreadPool.MaxIdleTimeMs);
+                            resetEvent = null;
+
                         }
                             
                         job=_job;
@@ -185,7 +187,7 @@ namespace NJetty.Util.Thread
             {
                 lock (_queuedThreadPool._lock)
                 {
-                    _queuedThreadPool._idle.Remove(this);
+                    _queuedThreadPool._idleQue.Remove(this);
                 }
                 lock (_queuedThreadPool._threadsLock)
                 {
@@ -209,7 +211,8 @@ namespace NJetty.Util.Thread
             lock (_thisLock)
             {
                 _job=job;
-                _thread.Interrupt();
+                Interrupt();
+                
             }
         }
     

@@ -45,11 +45,9 @@ namespace NJetty.Util.Thread
         string _name;
         internal HashSet<QueuedThreadPoolPoolThread> _threads;
 
-        internal List<QueuedThreadPoolPoolThread> _idle;
-        internal ThreadStart[] _jobs;
-        internal int _nextJob;
-        internal int _nextJobSlot;
-        internal int _queued;
+        internal NJetty.Util.Util.Queue<QueuedThreadPoolPoolThread> _idleQue;
+
+        internal NJetty.Util.Util.Queue<ThreadStart> _jobsQue;
         int _maxQueued;
 
         internal bool _background;
@@ -99,49 +97,26 @@ namespace NJetty.Util.Thread
             lock(_lock)
             {
                 // Look for an idle thread
-                int idle=_idle.Count;
-                if (idle > 0)
+                if (_idleQue.Count > 0)
                 {
-                    thread = _idle.ElementAt(idle - 1);
-                    _idle.RemoveAt(idle - 1);
+                    thread = _idleQue.Dequeue();
                 }
                 else
                 {
                     // queue the job
-                    _queued++;
-                    if (_queued > _maxQueued)
-                        _maxQueued = _queued;
-                    _jobs[_nextJobSlot++] = job;
-                    if (_nextJobSlot == _jobs.Length)
-                        _nextJobSlot = 0;
-                    if (_nextJobSlot == _nextJob)
+                    _jobsQue.Enqueue(job);
+                    if (_jobsQue.Count > _maxQueued)
                     {
-                        // Grow the job queue
-                        ThreadStart[] jobs = new ThreadStart[_jobs.Length + _maxThreads];
-                        int split = _jobs.Length - _nextJob;
-                        if (split > 0)
-                        {
-                            //System.arraycopy(_jobs, _nextJob, jobs, 0, split);
-                            Array.Copy(_jobs, _nextJob, jobs, 0, split);
-                            
-                        }
-
-                        if (_nextJob != 0)
-                        {
-                            Array.Copy(_jobs, 0, jobs, split, _nextJobSlot);
-                        }
-
-                        _jobs = jobs;
-                        _nextJob = 0;
-                        _nextJobSlot = _queued;
+                        _maxQueued = _jobsQue.Count;
                     }
-
-                    spawn = _queued > _spawnOrShrinkAt;
+                    spawn = _jobsQue.Count > _spawnOrShrinkAt;
+                    
                 }
             }
             
             if (thread!=null)
             {
+                Log.Info(">>>>dispaching === " + thread.Id);
                 thread.Dispatch(job);
             }
             else if (spawn)
@@ -156,7 +131,7 @@ namespace NJetty.Util.Thread
         /// </summary>
         public int IdleThreads
         {
-            get { return _idle == null ? 0 : _idle.Count; }
+            get { return _idleQue == null ? 0 : _idleQue.Count; }
         }
         
        
@@ -204,7 +179,8 @@ namespace NJetty.Util.Thread
 
         public int QueueSize
         {
-            get { return _queued; }
+            //get { return _queued; }
+            get { return _jobsQue.Count; }
         }
         
         /// <summary>
@@ -243,7 +219,7 @@ namespace NJetty.Util.Thread
         /// </summary>
         public bool IsLowOnThreads
         {
-            get { return _queued > _lowThreads; }
+            get { return _jobsQue.Count > _lowThreads; }
         }
 
          
@@ -336,8 +312,9 @@ namespace NJetty.Util.Thread
                 throw new ArgumentException("!0<minThreads<maxThreads");
 
             _threads = new HashSet<QueuedThreadPoolPoolThread>();
-            _idle=new List<QueuedThreadPoolPoolThread>();
-            _jobs=new ThreadStart[_maxThreads];
+            _idleQue = new NJetty.Util.Util.Queue<QueuedThreadPoolPoolThread>();
+            
+            _jobsQue = new NJetty.Util.Util.Queue<ThreadStart>(_maxThreads);
             
             for (int i=0;i<_minThreads;i++)
             {

@@ -58,13 +58,15 @@ namespace NJetty.Util.Test.Thread
         {
             try 
             {
-                Log.Warn("111 - Job>>>>" + _job);
-                System.Threading.Thread.Sleep(100);
-                Log.Warn("222 - Job>>>>" + _job);
+                string name = System.Threading.Thread.CurrentThread.Name;
+                Log.Warn("111 - Job>>>>" + name);
+                System.Threading.Thread.Sleep(1000);
+                Log.Warn("222 - Job>>>>" + name);
 
             }
             catch(Exception e)
             {
+                Log.Warn("333 - Job>>>>" + _job);
                 Log.Warn(e);
             }
             
@@ -90,10 +92,10 @@ namespace NJetty.Util.Test.Thread
             tp.MaxThreads = 10;
             tp.MaxIdleTimeMs = 1000;
             tp.SpawnOrShrinkAt = 2;
-            tp.ThreadsPriority = ThreadPriority.Normal;
+            tp.ThreadsPriority = ThreadPriority.BelowNormal;
 
             tp.Start();
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(4000);
 
             
             Assert.AreEqual(5,tp.Threads);
@@ -106,7 +108,7 @@ namespace NJetty.Util.Test.Thread
 
             Assert.AreEqual(5,tp.Threads);
             //Assert.AreEqual(3,tp.IdleThreads);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(5000);
             Assert.AreEqual(5,tp.Threads);
             Assert.AreEqual(5,tp.IdleThreads);
 
