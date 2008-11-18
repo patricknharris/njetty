@@ -94,35 +94,40 @@ namespace NJetty.Util.Thread
             QueuedThreadPoolPoolThread thread = null;
             bool spawn=false;
                 
-            lock(_lock)
-            {
-                // Look for an idle thread
-                if (_idleQue.Count > 0)
-                {
-                    thread = _idleQue.Dequeue();
-                }
-                else
-                {
-                    // queue the job
-                    _jobsQue.Enqueue(job);
-                    if (_jobsQue.Count > _maxQueued)
-                    {
-                        _maxQueued = _jobsQue.Count;
-                    }
-                    spawn = _jobsQue.Count > _spawnOrShrinkAt;
-                    
-                }
-            }
             
-            if (thread!=null)
+
+            // Look for an idle thread
+            thread = _idleQue.Dequeue();
+            
+            if (thread == null)
             {
-                Log.Info(">>>>dispaching === " + thread.Id);
+                // queue the job
+                int count = _jobsQue.Enqueue(job);
+                
+                lock (_lock)
+                {
+                    //int count = _jobsQue.Count;
+                    if (count > _maxQueued)
+                    {
+                        _maxQueued = count;
+                    }
+                }
+
+                spawn = count > _spawnOrShrinkAt;
+                if (spawn)
+                {
+                    NewThread();
+                }
+
+            }
+            else
+            {
+                // assign the job to the selected thread
                 thread.Dispatch(job);
             }
-            else if (spawn)
-            {
-                NewThread();
-            }
+            
+            
+            
             return true;
         }
 
@@ -236,7 +241,11 @@ namespace NJetty.Util.Thread
             
             // TODO remove this semi busy loop!
             while (IsStopping)
-                System.Threading.Thread.Sleep(100);
+            {
+                Monitor.Wait(_joinLock, 100);
+                //System.Threading.Thread.Sleep(100);
+            }
+                
         }
 
         
@@ -339,9 +348,12 @@ namespace NJetty.Util.Thread
             {
                 lock (_threadsLock)
                 {
-                    foreach (QueuedThreadPoolPoolThread thread in _threads)
+                    if (_threads != null)
                     {
-                        thread.Interrupt();
+                        foreach (QueuedThreadPoolPoolThread thread in _threads)
+                        {
+                            thread.Interrupt();
+                        }
                     }
 
                 }

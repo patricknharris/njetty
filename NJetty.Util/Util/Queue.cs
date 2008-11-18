@@ -27,6 +27,11 @@ namespace NJetty.Util.Util
             lock (_thisLock)
             {
                 int c = Count;
+                if (c == 0)
+                {
+                    return default(T);
+                }
+
                 T item = this[c - 1];
                 this.Remove(item);
                 return item;
@@ -34,11 +39,31 @@ namespace NJetty.Util.Util
 
         }
 
-        public void Enqueue(T item)
+        public int Enqueue(T item)
         {
             lock (_thisLock)
             {
                 this.Add(item);
+                return this.Count;
+            }
+        }
+
+        public void Remove(T item)
+        {
+            lock (_thisLock)
+            {
+                base.Remove(item);
+            }
+        }
+
+        public int Count
+        {
+            get
+            {
+                lock (_thisLock)
+                {
+                    return base.Count;
+                }
             }
         }
 
