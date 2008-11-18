@@ -45,7 +45,7 @@ namespace NJetty.Util.Thread
     /// <date>
     /// November 2008
     /// </date>
-    public class QueuedThreadPoolPoolThread : IThread
+    internal class QueuedThreadPoolPoolThread : IThread
     {
         ThreadStart _job = null;
         QueuedThreadPool _queuedThreadPool = null;
@@ -84,23 +84,23 @@ namespace NJetty.Util.Thread
 
         public void Start()
         {
-            lock (_thisLock)
-            {
+            //lock (_thisLock)
+            //{
                 _thread.Start();
-            }
+            //}
         }
 
         public void Interrupt()
         {
-            lock (_thisLock)
-            {
+            //lock (_thisLock)
+            //{
                 _thread.Interrupt();
-            }
+            //}
         }
 
         
         /* ------------------------------------------------------------ */
-        /** BoundedThreadPool run.
+        /** QueuedThreadPoolPoolThread run.
          * Loop getting jobs and handling them until idle or stopped.
          */
         public void Run()
@@ -119,6 +119,7 @@ namespace NJetty.Util.Thread
                         idle=false;
                         // Execute the Delegated job
                         todo();
+                        Log.Warn("heheh ni exit");
                     }
 
                     lock (_queuedThreadPool._lock)
@@ -168,8 +169,6 @@ namespace NJetty.Util.Thread
                     {
                         if (_job == null)
                         {
-                            // TODO: make the waiting here
-                            //this.Wait(_queuedThreadPool.MaxIdleTimeMs);
                             _thread.Join(_queuedThreadPool.MaxIdleTimeMs);
                         }
                             
@@ -210,10 +209,7 @@ namespace NJetty.Util.Thread
             lock (_thisLock)
             {
                 _job=job;
-                
-                //this.Notify();
                 _thread.Interrupt();
-                
             }
         }
     
