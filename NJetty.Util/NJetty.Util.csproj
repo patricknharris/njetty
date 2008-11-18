@@ -95,7 +95,7 @@
     <Compile Include="Util\MultiMap.cs" />
     <Compile Include="Util\MultiPartOutputStream.cs" />
     <Compile Include="Util\MultiPartWriter.cs" />
-    <Compile Include="Util\Queue.cs" />
+    <Compile Include="Util\QueueList.cs" />
     <Compile Include="Util\QuotedStringTokenizer.cs" />
     <Compile Include="Util\RolloverFileOutputStream.cs" />
     <Compile Include="Util\Scanner.cs" />

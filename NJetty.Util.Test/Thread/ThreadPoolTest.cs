@@ -37,12 +37,12 @@ namespace NJetty.Util.Test.Thread
     /// <date>
     /// November 2008
     /// </date>
-    
+
     [TestFixture]
     public class ThreadPoolTest
     {
 
-        
+
         int _jobs;
         long _result;
         static object _threadPoolTestLock = new object();
@@ -56,63 +56,58 @@ namespace NJetty.Util.Test.Thread
 
         void run()
         {
-            try 
+            try
             {
                 string name = System.Threading.Thread.CurrentThread.Name;
-                Log.Warn("111 - Job>>>>" + name);
                 System.Threading.Thread.Sleep(100);
-                Log.Warn("222 - Job>>>>" + name);
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                Log.Warn("333 - Job>>>>" + _job);
                 Log.Warn(e);
             }
-            
-            long t = DateTime.Now.ToFileTime()%10000;
-            long r=t;
-            for (int i=0;i<t;i++)
-                r+=i;
-                
-            lock(_threadPoolTestLock)
+
+            long t = DateTime.Now.ToFileTime() % 10000;
+            long r = t;
+            for (int i = 0; i < t; i++)
+                r += i;
+
+            lock (_threadPoolTestLock)
             {
                 _jobs++;
-                _result+=r;
+                _result += r;
             }
         }
-    
-    
-    
+
+
+
         [Test]
         public void TestQueuedThreadPool()
         {
             //System.Threading.Thread.CurrentThread.Priority = ThreadPriority.Highest;
 
-            QueuedThreadPool tp= new QueuedThreadPool();
+            QueuedThreadPool tp = new QueuedThreadPool();
             tp.MinThreads = 5;
             tp.MaxThreads = 10;
             tp.MaxIdleTimeMs = 1000;
             tp.SpawnOrShrinkAt = 2;
-            tp.ThreadsPriority = ThreadPriority.Normal;
+            tp.ThreadsPriority = ThreadPriority.BelowNormal;
 
             tp.Start();
             System.Threading.Thread.Sleep(500);
 
-            
-            Assert.AreEqual(5,tp.Threads);
-            Assert.AreEqual(5,tp.IdleThreads);
-            
-            tp.Dispatch(_job);
-            Log.Warn(">>>>>>1");
-            tp.Dispatch(_job);
-            Log.Warn(">>>>>>2");
 
-            Assert.AreEqual(5,tp.Threads);
+            Assert.AreEqual(5, tp.Threads);
+            Assert.AreEqual(5, tp.IdleThreads);
+
+            tp.Dispatch(_job);
+            tp.Dispatch(_job);
+
+            Assert.AreEqual(5, tp.Threads);
             //Assert.AreEqual(3,tp.IdleThreads);
             System.Threading.Thread.Sleep(5000);
-            Assert.AreEqual(5,tp.Threads);
-            Assert.AreEqual(5,tp.IdleThreads);
+            Assert.AreEqual(5, tp.Threads);
+            Assert.AreEqual(5, tp.IdleThreads);
 
             for (int i = 0; i < 100; i++)
             {
@@ -124,19 +119,19 @@ namespace NJetty.Util.Test.Thread
 
             System.Threading.Thread.Sleep(2000);
 
-            Assert.AreEqual(0,tp.QueueSize);
-            Assert.IsTrue(tp.IdleThreads>5);
+            Assert.AreEqual(0, tp.QueueSize);
+            Assert.IsTrue(tp.IdleThreads > 5);
 
-            int threads=tp.Threads;
-            Assert.IsTrue(threads>5);
+            int threads = tp.Threads;
+            Assert.IsTrue(threads > 5);
             System.Threading.Thread.Sleep(1500);
-            Assert.IsTrue(tp.Threads<threads);
+            Assert.IsTrue(tp.Threads < threads);
         }
-        
+
         [Test]
         public void TestStress()
         {
-            QueuedThreadPool tp= new QueuedThreadPool();
+            QueuedThreadPool tp = new QueuedThreadPool();
             tp.MinThreads = 240;
             tp.MaxThreads = 250;
             tp.MaxIdleTimeMs = 100;
@@ -144,36 +139,36 @@ namespace NJetty.Util.Test.Thread
 
             tp.MinThreads = 90;
 
-            
+
             int count = 0;
-            
+
             Random random = new Random((int)DateTime.Now.ToFileTime());
             int loops = 16000;
 
             try
             {
-                for (int i=0;i<loops;)
+                for (int i = 0; i < loops; )
                 {
-                    int burst= random.Next(100);
-                    for (int b=0;b<burst && i<loops; b++)
+                    int burst = random.Next(100);
+                    for (int b = 0; b < burst && i < loops; b++)
                     {
-                        if (i%20==0)
+                        if (i % 20 == 0)
                             Console.Error.Write('.');
-                        if (i%1600==1599)
+                        if (i % 1600 == 1599)
                             Console.Error.WriteLine();
-                        if (i==1000)
+                        if (i == 1000)
                             tp.MinThreads = 10;
-                        
-                        if (i==10000)
-                            tp. MaxThreads= 20;
-                        
+
+                        if (i == 10000)
+                            tp.MaxThreads = 20;
+
                         i++;
                         tp.Dispatch(
                             new ThreadStart(
                                 () =>
                                 {
 
-                                    int s=random.Next(50);
+                                    int s = random.Next(50);
                                     try
                                     {
                                         System.Threading.Thread.Sleep(s);
@@ -191,7 +186,7 @@ namespace NJetty.Util.Test.Thread
 
 
                                 )
-                            
+
                             );
                     }
 
@@ -199,10 +194,10 @@ namespace NJetty.Util.Test.Thread
                 }
 
                 System.Threading.Thread.Sleep(2000);
-                    
+
                 tp.Stop();
-                
-                Assert.AreEqual(loops,count);
+
+                Assert.AreEqual(loops, count);
             }
             catch (Exception e)
             {
@@ -211,27 +206,38 @@ namespace NJetty.Util.Test.Thread
             }
         }
 
-        //public void testMaxStopTime() throws Exception
-        //{
-        //    QueuedThreadPool tp= new QueuedThreadPool();
-        //    tp.setMaxStopTimeMs(500);
-        //    tp.Start();
-        //    tp.dispatch(new Runnable(){
-        //        public void run () {
-        //            while (true) {
-        //                try {
-        //                    Thread.sleep(10000);
-        //                } catch (InterruptedException ie) {}
-        //            }
-        //        }
-        //    });
+        [Test]
+        public void TestMaxStopTime()
+        {
+            QueuedThreadPool tp = new QueuedThreadPool();
+            tp.MaxStopTimeMs = 500;
+            tp.Start();
+            tp.Dispatch(new ThreadStart(
+              () =>
+              {
+                  Log.Info("Running job with thread id " +  System.Threading.Thread.CurrentThread.Name);
+                  while (true)
+                  {
+                      try
+                      {
+                          System.Threading.Thread.Sleep(10000);
+                      }
+                      catch (ThreadInterruptedException ie)
+                      {
+                          Log.Info("Job: interupted with thread id: " + System.Threading.Thread.CurrentThread.Name);
+                          
+                      }
+                  }
+              }
+            ));
 
-        //    long beforeStop = System.currentTimeMillis();
-        //    tp.stop();
-        //    long afterStop = System.currentTimeMillis();
-        //    Assert.IsTrue(tp.isStopped());
-        //    Assert.IsTrue(afterStop - beforeStop < 1000);
-        //}
+            System.Threading.Thread.Sleep(100);
+            long beforeStop = DateTime.Now.ToFileTime();
+            tp.Stop();
+            long afterStop = DateTime.Now.ToFileTime();
+            Assert.IsTrue(tp.IsStopped);
+            Assert.Less(afterStop - beforeStop, 1000);
+        }
 
 
     }

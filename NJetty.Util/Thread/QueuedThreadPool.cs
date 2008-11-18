@@ -25,6 +25,7 @@ using System.Text;
 using NJetty.Util.Component;
 using System.Threading;
 using NJetty.Util.Logger;
+using NJetty.Util.Util;
 
 namespace NJetty.Util.Thread
 {
@@ -45,9 +46,9 @@ namespace NJetty.Util.Thread
         string _name;
         internal HashSet<QueuedThreadPoolPoolThread> _threads;
 
-        internal NJetty.Util.Util.Queue<QueuedThreadPoolPoolThread> _idleQue;
+        internal QueueList<QueuedThreadPoolPoolThread> _idleQue;
 
-        internal NJetty.Util.Util.Queue<ThreadStart> _jobsQue;
+        internal QueueList<ThreadStart> _jobsQue;
         int _maxQueued;
 
         internal bool _background;
@@ -321,9 +322,9 @@ namespace NJetty.Util.Thread
                 throw new ArgumentException("!0<minThreads<maxThreads");
 
             _threads = new HashSet<QueuedThreadPoolPoolThread>();
-            _idleQue = new NJetty.Util.Util.Queue<QueuedThreadPoolPoolThread>();
+            _idleQue = new QueueList<QueuedThreadPoolPoolThread>();
             
-            _jobsQue = new NJetty.Util.Util.Queue<ThreadStart>(_maxThreads);
+            _jobsQue = new QueueList<ThreadStart>(_maxThreads);
             
             for (int i=0;i<_minThreads;i++)
             {
@@ -361,6 +362,8 @@ namespace NJetty.Util.Thread
                 //Thread.yield();
                 // TODO: check if below is equivalent to Thread.yield() in java
                 System.Threading.Thread.Sleep(0);
+                
+                
 
 
                 if (_threads.Count==0 || (_maxStopTimeMs>0 && _maxStopTimeMs < (DateTime.Now.ToFileTime()-start)))
@@ -376,8 +379,10 @@ namespace NJetty.Util.Thread
             }
 
             // TODO perhaps force stops
-            if (_threads.Count>0)
-                Log.Warn(_threads.Count+" threads could not be stopped");
+            if (_threads.Count > 0)
+            {
+                Log.Warn(_threads.Count + " threads could not be stopped");
+            }
             
             lock (_joinLock)
             {

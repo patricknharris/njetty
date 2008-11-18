@@ -89,6 +89,27 @@ namespace NJetty.Util.Thread
             _thread.Start();
         }
 
+        //public void ForceStop()
+        //{
+        //    Log.Info("Forcing " + Name + " to Stop...");
+        //    try
+        //    {
+        //        _thread.Abort();
+        //        _thread.Interrupt();
+        //    }
+        //    finally
+        //    {
+        //        lock (_queuedThreadPool._lock)
+        //        {
+        //            _queuedThreadPool._idleQue.Remove(this);
+        //        }
+        //        lock (_queuedThreadPool._threadsLock)
+        //        {
+        //            _queuedThreadPool._threads.Remove(this);
+        //        }
+        //    }
+        //}
+
         public void Interrupt()
         {
             try
@@ -96,6 +117,18 @@ namespace NJetty.Util.Thread
                 Monitor.Pulse(_thisLock);
             }
             catch { }
+
+            
+            if (_queuedThreadPool.IsStopping)
+            {
+                lock (_queuedThreadPool._lock)
+                {
+                    //Log.Info("Stopping: Worker Thread: " + this.Name);
+                    _thread.Interrupt();
+                }
+                
+                
+            }
             
             
         }
@@ -128,17 +161,8 @@ namespace NJetty.Util.Thread
                         continue;
                     }
 
-
-
                     lock (_queuedThreadPool._lock)
                     {
-                        // is there a queued job?
-                        //if (_queuedThreadPool._jobsQue.Count > 0)
-                        //{
-                        //    job = _queuedThreadPool._jobsQue.Dequeue();
-                        //    continue;
-                        //}
-
                         // Should we shrink?
                         int threads = _queuedThreadPool._threads.Count;
                         if (threads > _queuedThreadPool._minThreads &&
@@ -168,14 +192,7 @@ namespace NJetty.Util.Thread
                     {
                         if (_job == null)
                         {
-                            //_thread.Join(_queuedThreadPool.MaxIdleTimeMs);
-
-                            //resetEvent = new ManualResetEvent(false);
-                            //resetEvent.WaitOne(_queuedThreadPool.MaxIdleTimeMs);
-                            //resetEvent = null;
-
                             Monitor.Wait(_thisLock, _queuedThreadPool.MaxIdleTimeMs);
-                            
                         }
                             
                         job=_job;
