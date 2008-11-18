@@ -52,5 +52,6 @@ namespace NJetty.Util.Thread
         void Start();
         void Interrupt();
         void Run();
+        void Abort();
     }
 }
