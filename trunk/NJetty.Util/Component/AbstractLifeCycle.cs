@@ -160,46 +160,63 @@ namespace NJetty.Util.Component
         private void SetStarted()
         {
             _state = LifeCycleState.STARTED;
-
-            foreach (IListener listener in _listeners)
+            if (_listeners != null)
             {
-                listener.LifeCycleStarted(this);
+
+                foreach (IListener listener in _listeners)
+                {
+                    listener.LifeCycleStarted(this);
+                }
             }
         }
 
         private void SetStarting()
         {
             _state = LifeCycleState.STARTING;
-            foreach (IListener listener in _listeners)
+            if (_listeners != null)
             {
-                listener.LifeCycleStarting(this);
+
+                foreach (IListener listener in _listeners)
+                {
+                    listener.LifeCycleStarting(this);
+                }
             }
         }
 
         private void SetStopping()
         {
             _state = LifeCycleState.STOPPING;
-            foreach (IListener listener in _listeners)
+            
+            if (_listeners != null)
             {
-                listener.LifeCycleStopping(this);
+                foreach (IListener listener in _listeners)
+                {
+                    listener.LifeCycleStopping(this);
+                }
             }
         }
 
         private void SetStopped()
         {
             _state = LifeCycleState.STOPPED;
-            foreach (IListener listener in _listeners)
+            if (_listeners != null)
             {
-                listener.LifeCycleStopped(this);
+                foreach (IListener listener in _listeners)
+                {
+                    listener.LifeCycleStopped(this);
+                }
             }
         }
 
         private void SetFailed(Exception error)
         {
             _state = LifeCycleState.FAILED;
-            foreach (IListener listener in _listeners)
+            if (_listeners != null)
             {
-                listener.LifeCycleFailure(this, error);
+                foreach (IListener listener in _listeners)
+                {
+                    listener.LifeCycleFailure(this, error);
+                }
             }
         }
     }
