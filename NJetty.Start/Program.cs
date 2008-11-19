@@ -45,6 +45,7 @@ namespace NJetty.Start
             Thread t = new Thread(new ThreadStart(RunThreadPool));
             t.Start();
             t.Join();
+
             Log.Info("Done Executing Jobs!!!");
             System.Console.ReadLine();
 
