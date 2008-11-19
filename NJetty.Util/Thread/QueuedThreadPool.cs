@@ -44,9 +44,9 @@ namespace NJetty.Util.Thread
         static int __id;
         
         string _name;
-        internal HashSet<QueuedThreadPoolPoolThread> _threads;
+        internal HashSet<QueuedThreadPoolWorker> _threads;
 
-        internal QueueList<QueuedThreadPoolPoolThread> _idleQue;
+        internal QueueList<QueuedThreadPoolWorker> _idleQue;
 
         internal QueueList<ThreadStart> _jobsQue;
         int _maxQueued;
@@ -92,7 +92,7 @@ namespace NJetty.Util.Thread
             if (!IsRunning || job==null)
                 return false;
 
-            QueuedThreadPoolPoolThread thread = null;
+            QueuedThreadPoolWorker thread = null;
             bool spawn=false;
                 
             
@@ -321,8 +321,8 @@ namespace NJetty.Util.Thread
             if (_maxThreads<_minThreads || _minThreads<=0)
                 throw new ArgumentException("!0<minThreads<maxThreads");
 
-            _threads = new HashSet<QueuedThreadPoolPoolThread>();
-            _idleQue = new QueueList<QueuedThreadPoolPoolThread>();
+            _threads = new HashSet<QueuedThreadPoolWorker>();
+            _idleQue = new QueueList<QueuedThreadPoolWorker>();
             
             _jobsQue = new QueueList<ThreadStart>(_maxThreads);
             
@@ -351,7 +351,7 @@ namespace NJetty.Util.Thread
                 {
                     if (_threads != null)
                     {
-                        foreach (QueuedThreadPoolPoolThread thread in _threads)
+                        foreach (QueuedThreadPoolWorker thread in _threads)
                         {
                             thread.Interrupt();
                         }
@@ -382,20 +382,23 @@ namespace NJetty.Util.Thread
             if (_threads.Count > 0)
             {
                 Log.Warn(_threads.Count + " threads could not be stopped");
-                if (_threads != null)
-                {
-                    foreach (QueuedThreadPoolPoolThread thread in _threads)
-                    {
-                        thread.Abort();
-                    }
-                }
+                //if (_threads != null)
+                //{
+                //    for (int i = _threads.Count; i-- > 0; )
+                //    {
+                //        try
+                //        {
+                //            _threads.ElementAt(i).Abort();
+                //        }
+                //        catch { }
+                //    }
+                //}
 
             }
             
             lock (_joinLock)
             {
                 Monitor.PulseAll(_joinLock);
-                
             }
         }
 
@@ -405,7 +408,7 @@ namespace NJetty.Util.Thread
             {
                 if (_threads.Count<_maxThreads)
                 {
-                    QueuedThreadPoolPoolThread thread = new QueuedThreadPoolPoolThread(this);
+                    QueuedThreadPoolWorker thread = new QueuedThreadPoolWorker(this);
                     _threads.Add(thread);
                     thread.Name = thread.Id + "@" + _name + "-" + _id++;
                     thread.Start(); 
