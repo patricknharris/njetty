@@ -45,7 +45,7 @@ namespace NJetty.Util.Thread
     /// <date>
     /// November 2008
     /// </date>
-    internal class QueuedThreadPoolPoolThread : IThread
+    internal class QueuedThreadPoolWorker : IThread
     {
         ThreadStart _job = null;
         QueuedThreadPool _queuedThreadPool = null;
@@ -55,7 +55,7 @@ namespace NJetty.Util.Thread
         ManualResetEvent resetEvent = null;
 
         /* ------------------------------------------------------------ */
-        internal QueuedThreadPoolPoolThread(QueuedThreadPool queuedThreadPool)
+        internal QueuedThreadPoolWorker(QueuedThreadPool queuedThreadPool)
         {
             _queuedThreadPool = queuedThreadPool;
 
@@ -211,7 +211,7 @@ namespace NJetty.Util.Thread
                 }
                 lock (_thisLock)
                 {
-                    job=_job;
+                    job = _job;
                 }
                 
                 // we died with a job! reschedule it
