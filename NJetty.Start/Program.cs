@@ -43,16 +43,8 @@ namespace NJetty.Start
         static void Main(string[] args)
         {
             Thread t = new Thread(new ThreadStart(RunThreadPool));
-            //t.Start();
-            //t.Join();
-
-            long begin = (DateTime.UtcNow.Ticks/1000);
-            Thread.Sleep(1000);
-            long end = (DateTime.UtcNow.Ticks / 1000);
-            Log.Info(">>>>" + begin);
-            Log.Info(">>>>" + end);
-            Log.Info(">>>>" + (end - begin));
-
+            t.Start();
+            t.Join();
 
 
             Log.Info("Done Executing Jobs!!!");
