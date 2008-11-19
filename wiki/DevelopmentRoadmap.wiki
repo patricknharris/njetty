@@ -29,7 +29,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * IResourceFactory (*done*)
     * URLResource
  * *Threading* (*done*)
-    * BoundedThreadPool (*deprecated@jetty, N/A *)
+    * ~~BoundedThreadPool~~ (*deprecated@jetty, N/A *)
     * IThreadPool (*done*)
     * IThread (*done*)
     * QueuedThreadPool (*done*)
