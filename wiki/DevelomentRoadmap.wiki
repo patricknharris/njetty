@@ -9,34 +9,34 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
 =Porting Roadmap by Package/Namespace=
 
 ==Port Jetty Utils to C# NJetty.Util==
- * *Components* (_done_)
-    * AbstractLifeCycle (_done_)
-    * Container (_done_)
-    * ContainerRelationship (_done_)
-    * IContainerListner (_done_)
-    * ILifeCycle (_done_)
-    * IListner (_done_) 
- * *Logger (Log in jetty)* (_done_)
-    * Log : Static Class for logging. can use NLog or StdErrLog (_done_) 
-    * NLogLog : Log Addapter for NLog. (_done_)
-    * StdErrLog : log using Console.Error. (_done_)
+ * *Components* (*done*)
+    * AbstractLifeCycle (*done*)
+    * Container (*done*)
+    * ContainerRelationship (*done*)
+    * IContainerListner (*done*)
+    * ILifeCycle (*done*)
+    * IListner (*done*) 
+ * *Logger (Log in jetty)* (*done*)
+    * Log : Static Class for logging. can use NLog or StdErrLog (*done*) 
+    * NLogLog : Log Addapter for NLog. (*done*)
+    * StdErrLog : log using Console.Error. (*done*)
  * *Resource*
     * BadResource
     * FileResource
     * JarFileResource (just port everything for now)
     * Resource
     * ResourceCollection
-    * IResourceFactory (_done_)
+    * IResourceFactory (*done*)
     * URLResource
- * *Threading* (_done_)
-    * BoundedThreadPool (_deprecated@jetty, N/A _)
-    * IThreadPool (_done_)
-    * IThread (_done_)
-    * QueuedThreadPool (_done_)
-    * QueuedThreadPoolLock (_done_)
-    * QueuedThreadPoolWorker (_done_)
-    * Timeout (_done_)
-    * TimeoutTask (_done_)
+ * *Threading* (*done*)
+    * BoundedThreadPool (*deprecated@jetty, N/A *)
+    * IThreadPool (*done*)
+    * IThread (*done*)
+    * QueuedThreadPool (*done*)
+    * QueuedThreadPoolLock (*done*)
+    * QueuedThreadPoolWorker (*done*)
+    * Timeout (*done*)
+    * TimeoutTask (*done*)
  * *Util*
     * ArrayQue
     * IAttributes
@@ -47,7 +47,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * Utf8StringBuffer
     * URIUtil
     * Loader
-    * QueueList (_done_)
+    * QueueList (*done*)
     * QuotedStringTokenizer
     * Scanner
     * IO
@@ -62,11 +62,11 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * MultiPartWriter
     * StringMap
     * IntrospectionUtil
-    * LazyList (_done_)
+    * LazyList (*done*)
     * UrlEncoded
  * *Util.Ajax*
     * AjaxFilter
-    * IContinuation (deprecated by jetty, might not need to implement)
+    * IContinuation (*deprecated@etty, might not need to implement*)
     * ContinuationSupport
     * JSON
     * JSONDateConvertor
@@ -77,21 +77,21 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * Todo.Class
 
 ==Port Jetty Utils Test to C# as NJetty.Util.Test== 
- * *Component* (_done_)
-    * LifeCycleTest (_done_)
-    * LifeCycleListenerTest (_done_)
-    * TestListener (_done_)
- * *Logger* (_done_)
-    * LogTest (_done_)
+ * *Component* (*done*)
+    * LifeCycleTest (*done*)
+    * LifeCycleListenerTest (*done*)
+    * TestListener (*done*)
+ * *Logger* (*done*)
+    * LogTest (*done*)
  * *Resource*
     * (test data in this package TestData)
     * ResourceTest
     * ResourceCollectionTest
  * *Thread*
-    * ThreadPoolTest (_done_)
+    * ThreadPoolTest (*done*)
     * TimeoutTest
  * *Util*
-    * LazyListTest (_done_)
+    * LazyListTest (*done*)
     * Utf8StringBufferTest
     * ArrayQueueTest
     * URITest
