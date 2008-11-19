@@ -229,7 +229,7 @@ namespace NJetty.Util.Test.Thread
                           {
                               System.Threading.Thread.Sleep(1000);
                           }
-                          catch (ThreadInterruptedException ie){}
+                          catch (ThreadInterruptedException){}
                       }
                   }
                 ));
