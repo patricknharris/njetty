@@ -42,7 +42,7 @@ namespace NJetty.Util.Threading
         
         internal object _lock;
         long _duration;
-        internal long _now=System.DateTime.Now.TimeOfDay.Milliseconds;
+        internal long _now=(DateTime.UtcNow.Ticks/1000);
         TimeoutTask _head=new TimeoutTask();
 
         public Timeout()
@@ -91,7 +91,7 @@ namespace NJetty.Util.Threading
         {
             lock(_lock)
             {
-                _now=System.DateTime.Now.TimeOfDay.Milliseconds;
+                _now=(DateTime.UtcNow.Ticks/1000);
                 return _now; 
             }
         }

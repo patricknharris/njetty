@@ -43,8 +43,17 @@ namespace NJetty.Start
         static void Main(string[] args)
         {
             Thread t = new Thread(new ThreadStart(RunThreadPool));
-            t.Start();
-            t.Join();
+            //t.Start();
+            //t.Join();
+
+            long begin = (DateTime.UtcNow.Ticks/1000);
+            Thread.Sleep(1000);
+            long end = (DateTime.UtcNow.Ticks / 1000);
+            Log.Info(">>>>" + begin);
+            Log.Info(">>>>" + end);
+            Log.Info(">>>>" + (end - begin));
+
+
 
             Log.Info("Done Executing Jobs!!!");
             System.Console.ReadLine();
@@ -81,9 +90,9 @@ namespace NJetty.Start
 
 
             System.Threading.Thread.Sleep(1000);
-            long beforeStop = DateTime.Now.TimeOfDay.Milliseconds;
+            long beforeStop = (DateTime.UtcNow.Ticks/1000);
             tp.Stop();
-            long afterStop = DateTime.Now.TimeOfDay.Milliseconds;
+            long afterStop = (DateTime.UtcNow.Ticks/1000);
 
             Log.Info("Time to Stop {0}", afterStop - beforeStop);
 

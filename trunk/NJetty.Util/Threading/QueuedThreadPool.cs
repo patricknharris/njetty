@@ -344,7 +344,7 @@ namespace NJetty.Util.Threading
         {   
             base.DoStop();
 
-            long start = System.DateTime.Now.TimeOfDay.Milliseconds;
+            long start = (DateTime.UtcNow.Ticks/1000);
             for (int i=0;i<100;i++)
             {
                 lock (_threadsLock)
@@ -369,7 +369,7 @@ namespace NJetty.Util.Threading
                 System.Threading.Thread.Sleep(0);
                 
 
-                if (_threads.Count==0 || (_maxStopTimeMs>0 && _maxStopTimeMs < (DateTime.Now.TimeOfDay.Milliseconds-start)))
+                if (_threads.Count==0 || (_maxStopTimeMs>0 && _maxStopTimeMs < ((DateTime.UtcNow.Ticks/1000)-start)))
                    break;
                 
                 try
