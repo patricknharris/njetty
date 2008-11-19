@@ -24,7 +24,7 @@ using System.Linq;
 using System.Text;
 using NJetty.Util.Component;
 using System.Threading;
-using NJetty.Util.Logger;
+using NJetty.Util.Logging;
 using NJetty.Util.Util;
 
 namespace NJetty.Util.Threading

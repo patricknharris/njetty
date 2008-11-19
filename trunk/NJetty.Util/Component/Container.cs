@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using NJetty.Util.Util;
 using System.Runtime.Remoting.Contexts;
-using NJetty.Util.Logger;
+using NJetty.Util.Logging;
 
 namespace NJetty.Util.Component
 {

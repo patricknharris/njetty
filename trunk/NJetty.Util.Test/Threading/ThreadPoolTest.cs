@@ -24,7 +24,7 @@ using System.Text;
 using System.Threading;
 using NUnit.Framework;
 using NJetty.Util.Threading;
-using NJetty.Util.Logger;
+using NJetty.Util.Logging;
 
 namespace NJetty.Util.Test.Threading
 {
