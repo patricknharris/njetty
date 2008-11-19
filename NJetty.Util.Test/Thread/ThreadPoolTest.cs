@@ -210,13 +210,13 @@ namespace NJetty.Util.Test.Thread
         public void TestMaxStopTime()
         {
             QueuedThreadPool tp = new QueuedThreadPool();
-            tp.MinThreads = 50;
-            tp.MaxThreads = 100;
+            tp.MinThreads = 500;
+            tp.MaxThreads = 1000;
             tp.MaxStopTimeMs = 500;
             tp.Start();
 
             // dispatch jobs
-            for (int i = 0; i < 500; i++)
+            for (int i = 0; i < 5000; i++)
             {
 
                 tp.Dispatch(new ThreadStart(
@@ -229,20 +229,13 @@ namespace NJetty.Util.Test.Thread
                           {
                               System.Threading.Thread.Sleep(1000);
                           }
-                          catch (ThreadInterruptedException ie)
-                          {
-                              //Log.Info("Job: interupted with thread id: " + System.Threading.Thread.CurrentThread.Name);
-
-                          }
+                          catch (ThreadInterruptedException ie){}
                       }
                   }
                 ));
             }
 
             
-
-            Log.Info("thread count>>>>>>>" + tp.Threads);
-            Log.Info("thread QueueSize>>>>>>>" + tp.QueueSize);
 
             System.Threading.Thread.Sleep(100);
             long beforeStop = DateTime.Now.TimeOfDay.Milliseconds;

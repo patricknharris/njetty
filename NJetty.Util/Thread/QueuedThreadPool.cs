@@ -385,20 +385,6 @@ namespace NJetty.Util.Thread
             if (_threads.Count > 0)
             {
                 Log.Warn(_threads.Count + " threads could not be stopped");
-                //lock (_threadsLock)
-                //{
-                //    if (_threads != null)
-                //    {
-                //        for (int i = _threads.Count; i-- > 0; )
-                //        {
-                //            try
-                //            {
-                //                _threads.ElementAt(i).Abort();
-                //            }
-                //            catch { }
-                //        }
-                //    }
-                //}
 
             }
             
