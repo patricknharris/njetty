@@ -376,7 +376,7 @@ namespace NJetty.Util.Thread
                 {
                     System.Threading.Thread.Sleep(i * 100);
                 }
-                catch (ThreadInterruptedException e) { }
+                catch (ThreadInterruptedException) { }
                 
                 
             }

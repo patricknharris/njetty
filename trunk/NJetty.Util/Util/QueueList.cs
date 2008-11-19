@@ -77,7 +77,7 @@ namespace NJetty.Util.Util
             }
         }
 
-        public void Remove(T item)
+        public new void Remove(T item)
         {
             lock (_thisLock)
             {
@@ -85,7 +85,7 @@ namespace NJetty.Util.Util
             }
         }
 
-        public int Count
+        public new int Count
         {
             get
             {

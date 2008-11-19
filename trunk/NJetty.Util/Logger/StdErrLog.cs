@@ -46,8 +46,8 @@ namespace NJetty.Util.Logger
 
         //private static DateCache _dateCache; TODO date cache implementation
         static bool _debug = 
-            !string.IsNullOrEmpty(ConfigurationSettings.AppSettings.Get("DEBUG")) 
-            ? "true".Equals(ConfigurationSettings.AppSettings.Get("DEBUG"), StringComparison.OrdinalIgnoreCase) 
+            !string.IsNullOrEmpty(ConfigurationManager.AppSettings["DEBUG"]) 
+            ? "true".Equals(ConfigurationManager.AppSettings["DEBUG"], StringComparison.OrdinalIgnoreCase) 
             : false; 
 
 

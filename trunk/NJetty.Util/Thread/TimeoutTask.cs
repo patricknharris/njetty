@@ -146,7 +146,6 @@ namespace NJetty.Util.Thread
 
         public bool IsScheduled { get { return _next != this; } }
         
-        string a;
         /// <summary>
         /// Expire task.
         /// This method is called when the timeout expires. It is called
