@@ -288,7 +288,7 @@ namespace NJetty.Util.Test.Util
                 LazyList.Get(null, 0);
                 Assert.IsTrue(false);
             }
-            catch (IndexOutOfRangeException e)
+            catch (IndexOutOfRangeException)
             {
                 Assert.IsTrue(true);
             }
@@ -298,7 +298,7 @@ namespace NJetty.Util.Test.Util
                 LazyList.Get("a", 1);
                 Assert.IsTrue(false);
             }
-            catch (IndexOutOfRangeException e)
+            catch (IndexOutOfRangeException)
             {
                 Assert.IsTrue(true);
             }
