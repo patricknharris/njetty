@@ -27,7 +27,7 @@ using System.Reflection;
 
 
 
-namespace NJetty.Util.Logger
+namespace NJetty.Util.Logging
 {
 
     /// <summary>

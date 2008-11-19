@@ -21,7 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NJetty.Util.Logger;
+using NJetty.Util.Logging;
 using NJetty.Util.Util;
 
 namespace NJetty.Util.Component

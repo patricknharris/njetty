@@ -25,7 +25,7 @@ using System.Text;
 
 
 
-namespace NJetty.Util.Logger
+namespace NJetty.Util.Logging
 {
 
     /// <summary>

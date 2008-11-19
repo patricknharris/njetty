@@ -22,7 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NUnit.Framework;
-using NJetty.Util.Logger;
+using NJetty.Util.Logging;
 
 
 namespace NJetty.Util.Test.Logger

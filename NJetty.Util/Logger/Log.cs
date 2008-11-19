@@ -26,7 +26,7 @@ using System.Reflection;
 using System.Configuration;
 
 
-namespace NJetty.Util.Logger
+namespace NJetty.Util.Logging
 {
     /// <summary>
     ///  This class provides a static logging interface.  If an instance of the 
@@ -52,7 +52,7 @@ namespace NJetty.Util.Logger
         public static string IGNORED_FMT = "IGNORED: {0} ";
         public static string NOT_IMPLEMENTED = "NOT IMPLEMENTED ";
         
-        static string __logType = ConfigurationManager.AppSettings["NJetty.Log"] ?? "NJetty.Util.Logger.NLogLog";
+        static string __logType = ConfigurationManager.AppSettings["NJetty.Log"] ?? "NJetty.Util.Logging.NLogLog";
         static bool __verbose =  
             !string.IsNullOrEmpty(ConfigurationManager.AppSettings["VERBOSE"]) 
             ? "true".Equals(ConfigurationManager.AppSettings["VERBOSE"], StringComparison.OrdinalIgnoreCase) 

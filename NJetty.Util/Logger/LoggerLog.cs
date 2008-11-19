@@ -25,7 +25,7 @@ using System.Text;
 
 using System.Reflection;
 
-namespace NJetty.Util.Logger
+namespace NJetty.Util.Logging
 {
     /// <summary>
     /// TODO: Class/Interface Information here
