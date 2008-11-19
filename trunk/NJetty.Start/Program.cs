@@ -19,7 +19,7 @@
 
 
 using System;
-using NJetty.Util.Thread;
+using NJetty.Util.Threading;
 using System.Threading;
 using NJetty.Util.Logger;
 

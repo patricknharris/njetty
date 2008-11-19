@@ -52,8 +52,8 @@
     <Compile Include="Component\TestListener.cs" />
     <Compile Include="Logger\LogTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Thread\ThreadPoolTest.cs" />
-    <Compile Include="Thread\TimeoutTest.cs" />
+    <Compile Include="Threading\ThreadPoolTest.cs" />
+    <Compile Include="Threading\TimeoutTest.cs" />
     <Compile Include="Util\LazyListTest.cs" />
   </ItemGroup>
   <ItemGroup>

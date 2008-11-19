@@ -17,17 +17,20 @@
 //
 #endregion
 
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
-namespace NJetty.Util.Thread
+
+
+namespace NJetty.Util.Threading
 {
 
-
     /// <summary>
-    /// Will be used as the thread interface in java, just to have a parent signiture
+    /// Thread Pooling Interface, for implementing a thread pool
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
@@ -35,23 +38,43 @@ namespace NJetty.Util.Thread
     /// <date>
     /// November 2008
     /// </date>
-    public interface IThread
+    public interface IThreadPool
     {
-        int Id
+        // TODO: remove this note, equivalent to public abstract boolean dispatch(Runnable job);
+        bool Dispatch(ThreadStart job);
+
+        /// <summary>
+        /// Blocks until the thread pool is stopped.
+        /// </summary>
+        void Join();
+
+        //void Start();
+
+        //void Interupt();
+
+        /// <summary>
+        /// The total number of threads currently in the pool
+        /// </summary>
+        // TODO: remove this note: equivalent to int getThreads()
+        int Threads
         {
             get;
         }
 
-
-        string Name
+        /// <summary>
+        /// The number of idle threads in the pool
+        /// </summary>
+        int IdleThreads
         {
             get;
-            set;
         }
 
-        void Start();
-        void Interrupt();
-        void Run();
-        void Abort();
+        /// <summary>
+        /// True if the pool is low on threads
+        /// </summary>
+        bool IsLowOnThreads
+        {
+            get;
+        }
     }
 }
