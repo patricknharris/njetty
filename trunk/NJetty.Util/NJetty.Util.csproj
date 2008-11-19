@@ -53,11 +53,11 @@
     <Compile Include="Component\IContainerListener.cs" />
     <Compile Include="Component\ILifeCycle.cs" />
     <Compile Include="Component\IListener.cs" />
-    <Compile Include="Logger\ILogger.cs" />
-    <Compile Include="Logger\Log.cs" />
-    <Compile Include="Logger\LoggerLog.cs" />
-    <Compile Include="Logger\NLogLog.cs" />
-    <Compile Include="Logger\StdErrLog.cs" />
+    <Compile Include="Logging\ILogger.cs" />
+    <Compile Include="Logging\Log.cs" />
+    <Compile Include="Logging\LoggerLog.cs" />
+    <Compile Include="Logging\NLogLog.cs" />
+    <Compile Include="Logging\StdErrLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource\BadResource.cs" />
     <Compile Include="Resource\FileResource.cs" />
