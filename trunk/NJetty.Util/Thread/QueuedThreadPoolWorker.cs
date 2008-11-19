@@ -160,7 +160,7 @@ namespace NJetty.Util.Thread
                             (threads > _queuedThreadPool._maxThreads ||
                              _queuedThreadPool._idleQue.Count > _queuedThreadPool._spawnOrShrinkAt))
                         {
-                            long now = System.DateTime.Now.ToFileTime();
+                            long now = System.DateTime.Now.TimeOfDay.Milliseconds;
                             if ((now - _queuedThreadPool._lastShrink) > _queuedThreadPool.MaxIdleTimeMs)
                             {
                                 _queuedThreadPool._lastShrink = now;
@@ -201,6 +201,7 @@ namespace NJetty.Util.Thread
             }
             finally
             {
+
                 lock (_queuedThreadPool._lock)
                 {
                     _queuedThreadPool._idleQue.Remove(this);
@@ -213,12 +214,17 @@ namespace NJetty.Util.Thread
                 {
                     job = _job;
                 }
+
+
                 
                 // we died with a job! reschedule it
-                if (job!=null)
+                // only if we are still running
+                if (job != null && _queuedThreadPool.IsRunning)
                 {
                     _queuedThreadPool.Dispatch(job);
                 }
+
+                Log.Info("Finally I am stoped!!!");
             }
         }
         

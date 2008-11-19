@@ -109,7 +109,7 @@ namespace NJetty.Util.Test.Component
         public void LifeCycleStarting(ILifeCycle e)
         {
             starting = true;
-            startingTime = DateTime.Now.ToFileTime();
+            startingTime = DateTime.Now.TimeOfDay.Milliseconds;
 
             // need to sleep to make sure the starting and started times are not
             // the same
@@ -126,7 +126,7 @@ namespace NJetty.Util.Test.Component
         public void LifeCycleStarted(ILifeCycle e)
         {
             started = true;
-            startedTime = DateTime.Now.ToFileTime();
+            startedTime = DateTime.Now.TimeOfDay.Milliseconds;
         }
 
         public void LifeCycleFailure(ILifeCycle e, Exception cause)
@@ -138,7 +138,7 @@ namespace NJetty.Util.Test.Component
         public void LifeCycleStopping(ILifeCycle e)
         {
             stopping = true;
-            stoppingTime = DateTime.Now.ToFileTime();
+            stoppingTime = DateTime.Now.TimeOfDay.Milliseconds;
 
             // need to sleep to make sure the stopping and stopped times are not
             // the same
@@ -155,7 +155,7 @@ namespace NJetty.Util.Test.Component
         public void LifeCycleStopped(ILifeCycle e)
         {
             stopped = true;
-            stoppedTime = DateTime.Now.ToFileTime();
+            stoppedTime = DateTime.Now.TimeOfDay.Milliseconds;
         }
 
         #endregion
