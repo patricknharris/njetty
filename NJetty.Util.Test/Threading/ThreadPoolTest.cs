@@ -23,7 +23,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using NUnit.Framework;
-using NJetty.Util.Thread;
+using NJetty.Util.Threading;
 using NJetty.Util.Logger;
 
 namespace NJetty.Util.Test.Thread

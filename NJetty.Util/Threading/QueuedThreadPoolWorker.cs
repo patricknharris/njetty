@@ -25,7 +25,7 @@ using System.Text;
 using System.Threading;
 using NJetty.Util.Logger;
 
-namespace NJetty.Util.Thread
+namespace NJetty.Util.Threading
 {
 
     /// <summary>

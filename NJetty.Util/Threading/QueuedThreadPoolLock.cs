@@ -23,11 +23,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NJetty.Util.Thread
+namespace NJetty.Util.Threading
 {
 
     /// <summary>
-    /// Thread Pooling Interface, for implementing a thread pool
+    /// Thread Lock Class, no implementation at all, just used for lock block
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
@@ -35,8 +35,8 @@ namespace NJetty.Util.Thread
     /// <date>
     /// November 2008
     /// </date>
-    [Obsolete]
-    public class BoundedThreadPool
+    internal class QueuedThreadPoolLock
     {
+        // no implementation this will only act as a lock class for threading lock block
     }
 }
