@@ -52,9 +52,8 @@ namespace NJetty.Util.Thread
         object _thisLock = new object();
         System.Threading.Thread _thread = null;
 
-        ManualResetEvent resetEvent = null;
+        #region Constructors
 
-        /* ------------------------------------------------------------ */
         internal QueuedThreadPoolWorker(QueuedThreadPool queuedThreadPool)
         {
             _queuedThreadPool = queuedThreadPool;
@@ -64,13 +63,15 @@ namespace NJetty.Util.Thread
             _thread = new System.Threading.Thread(ts);
             _thread.Priority = _queuedThreadPool._priority;
             _thread.IsBackground = _queuedThreadPool._background;
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
         }
+
+        #endregion
 
         public int Id
         {

@@ -22,8 +22,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Configuration;
 using System.Reflection;
+using System.Configuration;
 
 
 namespace NJetty.Util.Logger
@@ -51,16 +51,16 @@ namespace NJetty.Util.Logger
         public static string IGNORED = "IGNORED ";
         public static string IGNORED_FMT = "IGNORED: {0} ";
         public static string NOT_IMPLEMENTED = "NOT IMPLEMENTED ";
-
-        static string __logType = ConfigurationSettings.AppSettings.Get("NJetty.Log") ?? "NJetty.Util.Logger.NLogLog";
+        
+        static string __logType = ConfigurationManager.AppSettings["NJetty.Log"] ?? "NJetty.Util.Logger.NLogLog";
         static bool __verbose =  
-            !string.IsNullOrEmpty(ConfigurationSettings.AppSettings.Get("VERBOSE")) 
-            ? "true".Equals(ConfigurationSettings.AppSettings.Get("VERBOSE"), StringComparison.OrdinalIgnoreCase) 
+            !string.IsNullOrEmpty(ConfigurationManager.AppSettings["VERBOSE"]) 
+            ? "true".Equals(ConfigurationManager.AppSettings["VERBOSE"], StringComparison.OrdinalIgnoreCase) 
             : false;
 
         static bool __ignored =   
-            !string.IsNullOrEmpty(ConfigurationSettings.AppSettings.Get("IGNORED")) 
-            ? "true".Equals(ConfigurationSettings.AppSettings.Get("IGNORED"), StringComparison.OrdinalIgnoreCase) 
+            !string.IsNullOrEmpty(ConfigurationManager.AppSettings["IGNORED"]) 
+            ? "true".Equals(ConfigurationManager.AppSettings["IGNORED"], StringComparison.OrdinalIgnoreCase) 
             : false;
 
         static ILogger __log;
@@ -161,7 +161,7 @@ namespace NJetty.Util.Logger
                     //setLog(new LoggerLog(logger));
                     //return;
 
-                    object logger = null;
+                    //object logger = null;
                     // get the logger objecthere by calling TheLog.GetLogger(name)
 
                     Log.Logger = new LoggerLog(Logger);

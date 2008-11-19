@@ -51,7 +51,7 @@ namespace NJetty.Start
 
             foreach (int i in arr3)
             {
-                Console.WriteLine("hehehe >>> " + i);
+                Log.Warn("hehehe >>> " + i);
             }
 
 
