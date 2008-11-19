@@ -28,12 +28,13 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * ResourceCollection
     * IResourceFactory (_done_)
     * URLResource
- * *Threading*
-    * BoundedThreadPool (deprecated by jetty, might not need to implement)
-    * QueuedThreadPool
-    * QueuedThreadPoolPoolThread
-    * QueuedThreadPoolLock (_done_)
+ * *Threading* (_done_)
+    * BoundedThreadPool (_deprecated@jetty, N/A _)
     * IThreadPool (_done_)
+    * IThread (_done_)
+    * QueuedThreadPool (_done_)
+    * QueuedThreadPoolLock (_done_)
+    * QueuedThreadPoolWorker (_done_)
     * Timeout (_done_)
     * TimeoutTask (_done_)
  * *Util*
@@ -46,6 +47,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * Utf8StringBuffer
     * URIUtil
     * Loader
+    * QueueList (_done_)
     * QuotedStringTokenizer
     * Scanner
     * IO
@@ -86,7 +88,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * ResourceTest
     * ResourceCollectionTest
  * *Thread*
-    * ThreadPoolTest
+    * ThreadPoolTest (_done_)
     * TimeoutTest
  * *Util*
     * LazyListTest (_done_)
