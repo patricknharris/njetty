@@ -19,13 +19,9 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using NJetty.Util.Thread;
+using System.Threading;
 using NJetty.Util.Logger;
-
-using System.Reflection;
-using NJetty.Util.Util;
 
 
 
@@ -43,24 +39,56 @@ namespace NJetty.Start
     /// </date>
     public class Program
     {
+        [STAThread]
         static void Main(string[] args)
         {
-            int[] arr = new int[] {1, 2,3};
-            int[] arr2 = (int[])LazyList.AddToArray(arr, 4, typeof(int));
-            int[] arr3 = (int[])LazyList.RemoveFromArray(arr2, 2);
+            Thread t = new Thread(new ThreadStart(RunThreadPool));
+            t.Start();
+            t.Join();
+            Log.Info("Done Executing Jobs!!!");
+            System.Console.ReadLine();
 
-            foreach (int i in arr3)
+        }
+
+
+        static void RunThreadPool()
+        {
+            QueuedThreadPool tp = new QueuedThreadPool();
+            tp.MaxStopTimeMs = 500;
+            tp.Start();
+
+            // dispatch jobs
+            for (int i = 0; i < 10; i++)
             {
-                Log.Warn("hehehe >>> " + i);
+
+                tp.Dispatch(new ThreadStart(
+                  () =>
+                  {
+                      Log.Info("Running job with thread id " + System.Threading.Thread.CurrentThread.Name);
+                      //while (true)
+                      //{
+                          try
+                          {
+                              System.Threading.Thread.Sleep(5000);
+                          }
+                          catch (ThreadInterruptedException) { }
+                      //}
+                  }
+                ));
             }
 
 
+
+            System.Threading.Thread.Sleep(1000);
+            long beforeStop = DateTime.Now.TimeOfDay.Milliseconds;
+            tp.Stop();
+            long afterStop = DateTime.Now.TimeOfDay.Milliseconds;
+
+            Log.Info("Time to Stop {0}", afterStop - beforeStop);
+
+
+
             
-
-          
-
-            Console.ReadLine();
-
         }
 
     }
