@@ -42,7 +42,7 @@ namespace NJetty.Util.Thread
         
         internal object _lock;
         long _duration;
-        internal long _now=System.DateTime.Now.ToFileTime();
+        internal long _now=System.DateTime.Now.TimeOfDay.Milliseconds;
         TimeoutTask _head=new TimeoutTask();
 
         public Timeout()
@@ -91,7 +91,7 @@ namespace NJetty.Util.Thread
         {
             lock(_lock)
             {
-                _now=System.DateTime.Now.ToFileTime();
+                _now=System.DateTime.Now.TimeOfDay.Milliseconds;
                 return _now; 
             }
         }

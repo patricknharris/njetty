@@ -67,7 +67,7 @@ namespace NJetty.Util.Test.Thread
                 Log.Warn(e);
             }
 
-            long t = DateTime.Now.ToFileTime() % 10000;
+            long t = DateTime.Now.TimeOfDay.Milliseconds % 10000;
             long r = t;
             for (int i = 0; i < t; i++)
                 r += i;
@@ -142,7 +142,7 @@ namespace NJetty.Util.Test.Thread
 
             int count = 0;
 
-            Random random = new Random((int)DateTime.Now.ToFileTime());
+            Random random = new Random((int)DateTime.Now.TimeOfDay.Milliseconds);
             int loops = 16000;
 
             try
@@ -210,33 +210,50 @@ namespace NJetty.Util.Test.Thread
         public void TestMaxStopTime()
         {
             QueuedThreadPool tp = new QueuedThreadPool();
+            tp.MinThreads = 50;
+            tp.MaxThreads = 100;
             tp.MaxStopTimeMs = 500;
             tp.Start();
-            tp.Dispatch(new ThreadStart(
-              () =>
-              {
-                  Log.Info("Running job with thread id " +  System.Threading.Thread.CurrentThread.Name);
-                  while (true)
+
+            // dispatch jobs
+            for (int i = 0; i < 500; i++)
+            {
+
+                tp.Dispatch(new ThreadStart(
+                  () =>
                   {
-                      try
+                      //Log.Info("Running job with thread id " + System.Threading.Thread.CurrentThread.Name);
+                      while (true)
                       {
-                          System.Threading.Thread.Sleep(10000);
-                      }
-                      catch (ThreadInterruptedException ie)
-                      {
-                          Log.Info("Job: interupted with thread id: " + System.Threading.Thread.CurrentThread.Name);
-                          
+                          try
+                          {
+                              System.Threading.Thread.Sleep(1000);
+                          }
+                          catch (ThreadInterruptedException ie)
+                          {
+                              //Log.Info("Job: interupted with thread id: " + System.Threading.Thread.CurrentThread.Name);
+
+                          }
                       }
                   }
-              }
-            ));
+                ));
+            }
+
+            
+
+            Log.Info("thread count>>>>>>>" + tp.Threads);
+            Log.Info("thread QueueSize>>>>>>>" + tp.QueueSize);
 
             System.Threading.Thread.Sleep(100);
-            long beforeStop = DateTime.Now.ToFileTime();
+            long beforeStop = DateTime.Now.TimeOfDay.Milliseconds;
             tp.Stop();
-            long afterStop = DateTime.Now.ToFileTime();
+            long afterStop = DateTime.Now.TimeOfDay.Milliseconds;
             Assert.IsTrue(tp.IsStopped);
-            Assert.Less(afterStop - beforeStop, 1000);
+            Assert.Less(afterStop - beforeStop, 100000);
+
+            
+            
+            
         }
 
 

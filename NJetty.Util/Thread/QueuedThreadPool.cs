@@ -344,17 +344,22 @@ namespace NJetty.Util.Thread
         {   
             base.DoStop();
 
-            long start = System.DateTime.Now.ToFileTime();
+            long start = System.DateTime.Now.TimeOfDay.Milliseconds;
             for (int i=0;i<100;i++)
             {
                 lock (_threadsLock)
                 {
                     if (_threads != null)
                     {
-                        foreach (QueuedThreadPoolWorker thread in _threads)
+                        IEnumerator<QueuedThreadPoolWorker> inum = _threads.GetEnumerator();
+                        while (inum.MoveNext())
                         {
-                            thread.Interrupt();
+                            inum.Current.Interrupt();
                         }
+                        //for (int j = _threads.Count; j-- > 0; )
+                        //{
+                        //    _threads.ElementAt(j).Interrupt();
+                        //}
                     }
 
                 }
@@ -363,10 +368,8 @@ namespace NJetty.Util.Thread
                 // TODO: check if below is equivalent to Thread.yield() in java
                 System.Threading.Thread.Sleep(0);
                 
-                
 
-
-                if (_threads.Count==0 || (_maxStopTimeMs>0 && _maxStopTimeMs < (DateTime.Now.ToFileTime()-start)))
+                if (_threads.Count==0 || (_maxStopTimeMs>0 && _maxStopTimeMs < (DateTime.Now.TimeOfDay.Milliseconds-start)))
                    break;
                 
                 try
@@ -382,15 +385,18 @@ namespace NJetty.Util.Thread
             if (_threads.Count > 0)
             {
                 Log.Warn(_threads.Count + " threads could not be stopped");
-                //if (_threads != null)
+                //lock (_threadsLock)
                 //{
-                //    for (int i = _threads.Count; i-- > 0; )
+                //    if (_threads != null)
                 //    {
-                //        try
+                //        for (int i = _threads.Count; i-- > 0; )
                 //        {
-                //            _threads.ElementAt(i).Abort();
+                //            try
+                //            {
+                //                _threads.ElementAt(i).Abort();
+                //            }
+                //            catch { }
                 //        }
-                //        catch { }
                 //    }
                 //}
 
