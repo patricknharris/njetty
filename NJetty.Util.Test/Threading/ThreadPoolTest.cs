@@ -67,7 +67,7 @@ namespace NJetty.Util.Test.Threading
                 Log.Warn(e);
             }
 
-            long t = DateTime.Now.TimeOfDay.Milliseconds % 10000;
+            long t = (DateTime.UtcNow.Ticks/1000) % 10000;
             long r = t;
             for (int i = 0; i < t; i++)
                 r += i;
@@ -120,12 +120,12 @@ namespace NJetty.Util.Test.Threading
             System.Threading.Thread.Sleep(2000);
 
             Assert.AreEqual(0, tp.QueueSize);
-            Assert.IsTrue(tp.IdleThreads > 5);
+            Assert.Greater(tp.IdleThreads, 5);
 
             int threads = tp.Threads;
-            Assert.IsTrue(threads > 5);
+            Assert.Greater(threads, 5);
             System.Threading.Thread.Sleep(1500);
-            Assert.IsTrue(tp.Threads < threads);
+            Assert.Less(tp.Threads, threads);
         }
 
         [Test]
@@ -142,7 +142,7 @@ namespace NJetty.Util.Test.Threading
 
             int count = 0;
 
-            Random random = new Random((int)DateTime.Now.TimeOfDay.Milliseconds);
+            Random random = new Random((int)(DateTime.UtcNow.Ticks/1000));
             int loops = 16000;
 
             try
@@ -238,9 +238,9 @@ namespace NJetty.Util.Test.Threading
             
 
             System.Threading.Thread.Sleep(100);
-            long beforeStop = DateTime.Now.TimeOfDay.Milliseconds;
+            long beforeStop = (DateTime.UtcNow.Ticks/1000);
             tp.Stop();
-            long afterStop = DateTime.Now.TimeOfDay.Milliseconds;
+            long afterStop = (DateTime.UtcNow.Ticks/1000);
             Assert.IsTrue(tp.IsStopped);
             Assert.Less(afterStop - beforeStop, 100000);
 

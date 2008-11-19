@@ -161,9 +161,10 @@ namespace NJetty.Util.Threading
                             (threads > _queuedThreadPool._maxThreads ||
                              _queuedThreadPool._idleQue.Count > _queuedThreadPool._spawnOrShrinkAt))
                         {
-                            long now = System.DateTime.Now.TimeOfDay.Milliseconds;
+                            long now = (DateTime.UtcNow.Ticks/1000);
                             if ((now - _queuedThreadPool._lastShrink) > _queuedThreadPool.MaxIdleTimeMs)
                             {
+                                
                                 _queuedThreadPool._lastShrink = now;
                                 _queuedThreadPool._idleQue.Remove(this);
                                 return;
@@ -220,7 +221,7 @@ namespace NJetty.Util.Threading
                 
                 // we died with a job! reschedule it
                 // only if we are still running
-                if (job != null && _queuedThreadPool.IsRunning)
+                if (job != null)
                 {
                     _queuedThreadPool.Dispatch(job);
                 }
