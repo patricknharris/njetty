@@ -26,7 +26,7 @@ using NUnit.Framework;
 using NJetty.Util.Threading;
 using NJetty.Util.Logger;
 
-namespace NJetty.Util.Test.Thread
+namespace NJetty.Util.Test.Threading
 {
     /// <summary>
     /// Test For QueuedThreadPool
