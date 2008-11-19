@@ -60,7 +60,7 @@ namespace NJetty.Start
             tp.Start();
 
             // dispatch jobs
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 100; i++)
             {
 
                 tp.Dispatch(new ThreadStart(
@@ -71,7 +71,7 @@ namespace NJetty.Start
                       //{
                           try
                           {
-                              System.Threading.Thread.Sleep(5000);
+                              System.Threading.Thread.Sleep(1000);
                           }
                           catch (ThreadInterruptedException) { }
                       //}

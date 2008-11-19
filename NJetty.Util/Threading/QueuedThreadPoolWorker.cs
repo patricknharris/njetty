@@ -221,7 +221,7 @@ namespace NJetty.Util.Threading
                 
                 // we died with a job! reschedule it
                 // only if we are still running
-                if (job != null)
+                if (job != null && _queuedThreadPool.IsRunning)
                 {
                     _queuedThreadPool.Dispatch(job);
                 }
