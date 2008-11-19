@@ -25,7 +25,7 @@ using NUnit.Framework;
 using NJetty.Util.Logging;
 
 
-namespace NJetty.Util.Test.Logger
+namespace NJetty.Util.Test.Logging
 {
     /// <summary>
     /// Test For Logs
