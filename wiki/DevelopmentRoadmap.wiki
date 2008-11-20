@@ -16,7 +16,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * IContainerListner (*done*)
     * ILifeCycle (*done*)
     * IListner (*done*) 
- * *Logger (Log in jetty)* (*done*)
+ * *Logging (Log in jetty)* (*done*)
     * Log : Static Class for logging. can use NLog or StdErrLog (*done*) 
     * NLogLog : Log Addapter for NLog. (*done*)
     * StdErrLog : log using Console.Error. (*done*)
@@ -28,7 +28,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * ResourceCollection
     * IResourceFactory (*done*)
     * URLResource
- * *Threading* (*done*)
+ * *Threading (Thread in jetty)* (*done*)
     * ~~BoundedThreadPool~~ (*deprecated@jetty, N/A *)
     * IThreadPool (*done*)
     * IThread (*done*)
@@ -81,13 +81,13 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * LifeCycleTest (*done*)
     * LifeCycleListenerTest (*done*)
     * TestListener (*done*)
- * *Logger* (*done*)
+ * *Logging* (*done*)
     * LogTest (*done*)
  * *Resource*
     * (test data in this package TestData)
     * ResourceTest
     * ResourceCollectionTest
- * *Thread*
+ * *Threading*
     * ThreadPoolTest (*done*)
     * TimeoutTest
  * *Util*
