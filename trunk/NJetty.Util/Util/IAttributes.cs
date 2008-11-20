@@ -22,6 +22,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 
 
 
@@ -43,7 +44,7 @@ namespace NJetty.Util.Util
         void RemoveAttribute(string name);
         void SetAttribute(string name, object attribute);
         object GetAttribute(string name);
-        Enumerable GetAttributeNames();
+        IEnumerable GetAttributeNames();
         void ClearAttributes();
     }
 }
