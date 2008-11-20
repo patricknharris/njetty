@@ -39,11 +39,11 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * TimeoutTask (*done*)
  * *Util*
     * ArrayQue
-    * IAttributes
-    * IAttributesMap    
+    * AttributesMap (*done*)
     * ByteArrayISO8859Writer
     * ByteArrayOutputStream2
-    * DateCache
+    * DateCache    
+    * IAttributes (*done*)
     * Utf8StringBuffer
     * URIUtil
     * Loader
