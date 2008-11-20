@@ -37,7 +37,7 @@ namespace NJetty.Util.Util
     /// <date>
     /// November 2008
     /// </date>
-    public class ArrayQueue<T> : IList<T>
+    public class ArrayQueue<T>// : IList<T>
     {
         const int DEFAULT_CAPACITY = 64;
         const int DEFAULT_GROWTH = 32;
@@ -205,6 +205,17 @@ namespace NJetty.Util.Util
             return (T)_elements[i];
         }
 
+        public override string ToString()
+        {
+            List<string> list = new List<string>();
+            foreach (T item in this)
+            {
+                list.Add(item.ToString());
+            }
+
+            return LazyList.ToString(list);
+        }
+
 
         #endregion
 
@@ -242,55 +253,72 @@ namespace NJetty.Util.Util
 
         public int IndexOf(T item)
         {
-            throw new NotImplementedException();
+            if (item == null)
+            {
+                return -1;
+            }
+
+            lock (_lock)
+            {
+                for (int i = 0; i < _size; i++)
+                {
+                    if (item.Equals(GetUnsafe(i)))
+                    {
+                        return i;
+                    }
+                }
+
+                return -1;
+            }
+
         }
 
         public void Insert(int index, T item)
         {
-            lock(_lock)
+            lock (_lock)
             {
-                if (index<0 || index>_size)
+                if (index < 0 || index > _size)
                     throw new IndexOutOfRangeException("!(" + 0 + "<" + index + "<=" + _size + ")");
 
-                if (index==_size)
+                if (index == _size)
                 {
                     Add(item);
                 }
                 else
                 {
-                    int i = _nextE+index;
-                    if (i>=_elements.Length)
-                        i-=_elements.Length;
-                    
+                    int i = _nextE + index;
+                    if (i >= _elements.Length)
+                        i -= _elements.Length;
+
                     _size++;
                     _nextSlot++;
-                    if (_nextSlot==_elements.Length)
-                        _nextSlot=0;
-                    
-                    if (_nextSlot==_nextE)
+                    if (_nextSlot == _elements.Length)
+                        _nextSlot = 0;
+
+                    if (_nextSlot == _nextE)
                         Grow();
 
-                    if (i<_nextSlot)
+                    if (i < _nextSlot)
                     {
                         // 0                         _elements.length
                         //       _nextE.....i..._nextSlot
                         // 0                         _elements.length
                         // ..i..._nextSlot   _nextE..........
-                        Array.Copy(_elements,i,_elements,i+1,_nextSlot-i);
-                        _elements[i]=item;
+                        Array.Copy(_elements, i, _elements, i + 1, _nextSlot - i);
+                        _elements[i] = item;
                     }
                     else
                     {
                         // 0                         _elements.length
                         // ......_nextSlot   _nextE.....i....
-                        if (_nextSlot>0)
+                        if (_nextSlot > 0)
                         {
                             Array.Copy(_elements, 0, _elements, 1, _nextSlot);
-                            _elements[0]=_elements[_elements.Length-1];
+                            _elements[0] = _elements[_elements.Length - 1];
                         }
 
                         Array.Copy(_elements, i, _elements, i + 1, _elements.Length - i - 1);
-                        _elements[i]=item;
+                        _elements[i] = item;
                     }
                 }
             }
@@ -337,6 +365,45 @@ namespace NJetty.Util.Util
             }
         }
 
+
+
+        private void RemoveUnsafeAt(int index)
+        {
+
+            if (index < 0 || index >= _size)
+                throw new IndexOutOfRangeException("!(" + 0 + "<" + index + "<=" + _size + ")");
+
+            int i = _nextE + index;
+            if (i >= _elements.Length)
+                i -= _elements.Length;
+            T old = (T)_elements[i];
+
+            if (i < _nextSlot)
+            {
+                // 0                         _elements.length
+                //       _nextE........._nextSlot
+                Array.Copy(_elements, i + 1, _elements, i, _nextSlot - i);
+                _nextSlot--;
+                _size--;
+            }
+            else
+            {
+                // 0                         _elements.length
+                // ......_nextSlot   _nextE..........
+                Array.Copy(_elements, i + 1, _elements, i, _elements.Length - 1);
+                if (_nextSlot > 0)
+                {
+                    _elements[_elements.Length] = _elements[0];
+                    Array.Copy(_elements, 1, _elements, 0, _nextSlot - 1);
+                    _nextSlot--;
+                }
+                else
+                    _nextSlot = _elements.Length - 1;
+
+                _size--;
+            }
+        }
+
         public T this[int index]
         {
             get
@@ -373,14 +440,29 @@ namespace NJetty.Util.Util
 
         public void Add(T item)
         {
-            lock(_lock)
+            lock (_lock)
             {
                 _size++;
-                _elements[_nextSlot++]=item;
-                if (_nextSlot==_elements.Length)
-                    _nextSlot=0;
-                if (_nextSlot==_nextE)
+                _elements[_nextSlot++] = item;
+                if (_nextSlot == _elements.Length)
+                    _nextSlot = 0;
+                if (_nextSlot == _nextE)
                     Grow();
+            }
+        }
+
+        public int Enqueue(T item)
+        {
+            lock (_lock)
+            {
+                _size++;
+                _elements[_nextSlot++] = item;
+                if (_nextSlot == _elements.Length)
+                    _nextSlot = 0;
+                if (_nextSlot == _nextE)
+                    Grow();
+
+                return _size;
             }
         }
 
@@ -396,13 +478,29 @@ namespace NJetty.Util.Util
 
         public bool Contains(T item)
         {
-            throw new NotImplementedException();
+            if (item == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            lock (_lock)
+            {
+                for (int i = 0; i < _size; i++)
+                {
+                    if (item.Equals(GetUnsafe(i)))
+                    {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
         }
 
-        public void CopyTo(T[] array, int arrayIndex)
-        {
-            throw new NotImplementedException();
-        }
+        //public void CopyTo(T[] array, int arrayIndex)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         public int Count
         {
@@ -411,32 +509,62 @@ namespace NJetty.Util.Util
 
         public bool IsReadOnly
         {
-            get { throw new NotImplementedException(); }
+            get { return false; }
         }
 
         public bool Remove(T item)
         {
-            throw new NotImplementedException();
+            if (item == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            lock (_lock)
+            {
+                for (int i = 0; i < _size; i++)
+                {
+                    if (item.Equals(GetUnsafe(i)))
+                    {
+                        RemoveUnsafeAt(i);
+                        return true;
+                    }
+                }
+
+                return false;
+            }
         }
 
         #endregion
 
-        #region IEnumerable<E> Members
 
-        public IEnumerator<T> GetEnumerator()
+        // Iterator method.
+        public IEnumerator GetEnumerator()
         {
-            throw new NotImplementedException();
+            lock (_lock)
+            {
+                for (int i = 0; i < _size; i++)
+                {
+                    yield return GetUnsafe(i);
+                }
+            }
         }
 
-        #endregion
+        //#region IEnumerable<E> Members
 
-        #region IEnumerable Members
+        //public IEnumerator<T> GetEnumerator()
+        //{
+        //    throw new NotImplementedException();
+        //}
 
-        IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+        //#endregion
 
-        #endregion
+        //#region IEnumerable Members
+
+        //IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //#endregion
     }
 }
