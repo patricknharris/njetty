@@ -46,9 +46,11 @@ namespace NJetty.Util.Threading
         string _name;
         internal HashSet<QueuedThreadPoolWorker> _threads;
 
-        internal QueueList<QueuedThreadPoolWorker> _idleQue;
+        //internal QueueList<QueuedThreadPoolWorker> _idleQue;
+        internal ArrayQueue<QueuedThreadPoolWorker> _idleQue;
 
-        internal QueueList<ThreadStart> _jobsQue;
+        //internal QueueList<ThreadStart> _jobsQue;
+        internal ArrayQueue<ThreadStart> _jobsQue;
         int _maxQueued;
 
         internal bool _background;
@@ -322,9 +324,10 @@ namespace NJetty.Util.Threading
                 throw new ArgumentException("!0<minThreads<maxThreads");
 
             _threads = new HashSet<QueuedThreadPoolWorker>();
-            _idleQue = new QueueList<QueuedThreadPoolWorker>();
-            
-            _jobsQue = new QueueList<ThreadStart>(_maxThreads);
+            //_idleQue = new QueueList<QueuedThreadPoolWorker>(_maxThreads);
+            _idleQue = new ArrayQueue<QueuedThreadPoolWorker>(_maxThreads);
+            //_jobsQue = new QueueList<ThreadStart>(_maxThreads);
+            _jobsQue = new ArrayQueue<ThreadStart>(_maxThreads, _maxThreads);
             
             for (int i=0;i<_minThreads;i++)
             {
