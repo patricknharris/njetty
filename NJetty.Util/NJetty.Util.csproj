@@ -87,7 +87,7 @@
     <Compile Include="Util\ByteArrayOutputStream2.cs" />
     <Compile Include="Util\DateCache.cs" />
     <Compile Include="Util\IAttributes.cs" />
-    <Compile Include="Util\IAttributesMap.cs" />
+    <Compile Include="Util\AttributesMap.cs" />
     <Compile Include="Util\IntrospectionUtil.cs" />
     <Compile Include="Util\IO.cs" />
     <Compile Include="Util\LazyList.cs" />

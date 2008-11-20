@@ -501,25 +501,43 @@ namespace NJetty.Util.Util
         /// <typeparam name="E">Generic type of list you want to create incase its empty</typeparam>
         /// <param name="list">list you want to get its Enumerator</param>
         /// <returns>Enumerator of the given list</returns>
-        public static IEnumerator GetEnumerator<E>(object list)
+        public static IEnumerable GetEnumerator<E>(object list)
         {
             if (list==null)
             {
-                List<E> empty=new List<E>();
-                return (IEnumerator)empty.GetEnumerator();
+                // yeild nothing;
+                yield break;
             }
+            
+            
             if (list is IList)
             {
-                return ((List<E>)list).GetEnumerator();
+
+                foreach (object item in (IList)list)
+                {
+                    yield return (E)item;
+                }
+                yield break;    
             }
-            IList l = (IList)GetList<E>(list);
-            return l.GetEnumerator();
+
+
+            foreach (E item in GetList<E>(list))
+            {
+                yield return item;
+            }
+
+            yield break;
            
         }
 
         public static IEnumerator GetEnumerator(object list)
         {
-            return GetEnumerator<object>(list);
+            foreach (object item in GetEnumerator<object>(list))
+            {
+                yield return item;
+            }
+
+            yield break;
         }
         
 

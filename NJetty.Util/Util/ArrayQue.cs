@@ -34,7 +34,94 @@ namespace NJetty.Util.Util
     /// <date>
     /// November 2008
     /// </date>
-    public class ArrayQue
+    public class ArrayQue<E> : IList<E>
     {
+        #region IList<E> Members
+
+        public int IndexOf(E item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(int index, E item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveAt(int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public E this[int index]
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        #endregion
+
+        #region ICollection<E> Members
+
+        public void Add(E item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Clear()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Contains(E item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CopyTo(E[] array, int arrayIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Count
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public bool IsReadOnly
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public bool Remove(E item)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region IEnumerable<E> Members
+
+        public IEnumerator<E> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region IEnumerable Members
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }
