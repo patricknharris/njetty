@@ -38,43 +38,63 @@ namespace NJetty.Util.Test.Threading
     [TestFixture]
     public class TimeoutTest
     {
-        object lockObject = new Object();
-        Timeout timeout = new Timeout(null);
-        TimeoutTask[] tasks;
 
-        [TestFixtureSetUp]
-        public void SetUp()
-        {
-            timeout = new Timeout(lockObject);
-            tasks= new TimeoutTask[10]; 
-            
-            for (int i=0;i<tasks.Length;i++)
-            {
-                tasks[i]=new TimeoutTask();
-                timeout.Now=1000+i*100;
-                timeout.Schedule(tasks[i]);
-            }
-            timeout.Now = 100;
-        }
 
-        
-        
+
         [Test]
         public void TestExpiry()
         {
+            #region Initialization
+            object lockObject = new Object();
+            Timeout timeout = new Timeout(null);
+            TimeoutTask[] tasks;
+
+
+            timeout = new Timeout(lockObject);
+            tasks = new TimeoutTask[10];
+
+            for (int i = 0; i < tasks.Length; i++)
+            {
+                tasks[i] = new TimeoutTask();
+                timeout.Now = 1000 + i * 100;
+                timeout.Schedule(tasks[i]);
+            }
+            timeout.Now = 100;
+            #endregion
+
+
+
             timeout.Duration = 200;
             timeout.Now = 1500;
             timeout.Tick();
-            
-            for (int i=0;i<tasks.Length;i++)
-            {
-                Assert.AreEqual(i<4, tasks[i].IsExpired, "IsExpired "+i);
-            }
-        //}
 
-        //[Test]
-        //public void TestCancel()
-        //{
+            for (int i = 0; i < tasks.Length; i++)
+            {
+                Assert.AreEqual(i < 4, tasks[i].IsExpired, "IsExpired " + i);
+            }
+        }
+
+        [Test]
+        public void TestCancel()
+        {
+            #region Initialization
+            object lockObject = new Object();
+            Timeout timeout = new Timeout(null);
+            TimeoutTask[] tasks;
+
+
+            timeout = new Timeout(lockObject);
+            tasks = new TimeoutTask[10];
+
+            for (int i = 0; i < tasks.Length; i++)
+            {
+                tasks[i] = new TimeoutTask();
+                timeout.Now = 1000 + i * 100;
+                timeout.Schedule(tasks[i]);
+            }
+            timeout.Now = 100;
+            #endregion
+
             timeout.Duration = 200;
             timeout.Now = 1700;
 
@@ -88,23 +108,41 @@ namespace NJetty.Util.Test.Threading
             {
                 Assert.AreEqual(i % 2 == 0 && i < 6, tasks[i].IsExpired, "isExpired " + i);
             }
-        //}
+        }
 
-        //[Test]
-        //public void TestTouch()
-        //{
-            timeout.Duration=200;
-            timeout.Now=1350;
+        [Test]
+        public void TestTouch()
+        {
+            #region Initialization
+            object lockObject = new Object();
+            Timeout timeout = new Timeout(null);
+            TimeoutTask[] tasks;
+
+
+            timeout = new Timeout(lockObject);
+            tasks = new TimeoutTask[10];
+
+            for (int i = 0; i < tasks.Length; i++)
+            {
+                tasks[i] = new TimeoutTask();
+                timeout.Now = 1000 + i * 100;
+                timeout.Schedule(tasks[i]);
+            }
+            timeout.Now = 100;
+            #endregion
+
+            timeout.Duration = 200;
+            timeout.Now = 1350;
             timeout.Schedule(tasks[2]);
 
-            timeout.Now=1500;
+            timeout.Now = 1500;
             timeout.Tick();
             for (int i = 0; i < tasks.Length; i++)
             {
                 Assert.AreEqual(i != 2 && i < 4, tasks[i].IsExpired, "isExpired " + i);
             }
 
-            timeout.Now=1550;
+            timeout.Now = 1550;
             timeout.Tick();
             for (int i = 0; i < tasks.Length; i++)
             {
@@ -113,151 +151,205 @@ namespace NJetty.Util.Test.Threading
         }
 
 
-        //public void TestDelay()
-        //{
-        //    Timeout.Task task = new Timeout.Task();
+        public void TestDelay()
+        {
+            #region Initialization
+            object lockObject = new Object();
+            Timeout timeout = new Timeout(null);
+            TimeoutTask[] tasks;
 
-        //    timeout.setNow(1100);
-        //    timeout.schedule(task, 300);
-        //    timeout.setDuration(200);
-            
-        //    timeout.setNow(1300);
-        //    timeout.tick();
-        //    assertEquals("delay", false, task.isExpired());
-            
-        //    timeout.setNow(1500);
-        //    timeout.tick();
-        //    assertEquals("delay", false, task.isExpired());
-            
-        //    timeout.setNow(1700);
-        //    timeout.tick();
-        //    assertEquals("delay", true, task.isExpired());
-        //}
 
-        //public void TestStress() throws Exception
-        //{
-        //    final int LOOP=500;
-        //    final boolean[] running = {true};
-        //    final int[] count = {0,0,0};
+            timeout = new Timeout(lockObject);
+            tasks = new TimeoutTask[10];
 
-        //    timeout.setNow(System.currentTimeMillis());
-        //    timeout.setDuration(500);
-            
-        //    // Start a ticker thread that will tick over the timer frequently.
-        //    Thread ticker = new Thread()
-        //    {
-        //        public void run()
-        //        {
-        //            while (running[0])
-        //            {
-        //                try
-        //                {
-        //                    // use lock.wait so we have a memory barrier and
-        //                    // have no funny optimisation issues.
-        //                    synchronized (lock)
-        //                    {
-        //                        lock.wait(30);
-        //                    }
-        //                    Thread.sleep(30);
-        //                    timeout.tick(System.currentTimeMillis());
-        //                }
-        //                catch(Exception e)
-        //                {
-        //                    e.printStackTrace();
-        //                }
-        //            }
-        //        }
-        //    };
-        //    ticker.start();
+            for (int i = 0; i < tasks.Length; i++)
+            {
+                tasks[i] = new TimeoutTask();
+                timeout.Now = 1000 + i * 100;
+                timeout.Schedule(tasks[i]);
+            }
+            timeout.Now = 100;
+            #endregion
 
-        //    // start lots of test threads
-        //    for (int i=0;i<LOOP;i++)
-        //    {
-        //        // 
-        //        Thread th = new Thread()
-        //        { 
-        //            public void run()
-        //            {
-        //                // count how many threads were started (should == LOOP)
-        //                synchronized(count)
-        //                {
-        //                    count[0]++;
-        //                }
-                        
-        //                // create a task for this thread
-        //                Timeout.Task task = new Timeout.Task()
-        //                {
-        //                    public void expired()
-        //                    {       
-        //                        // count the number of expires
-        //                        synchronized(count)
-        //                        {
-        //                            count[2]++;
-        //                        }
-        //                    }
-        //                };
-                        
-        //                // this thread will loop and each loop with schedule a 
-        //                // task with a delay  on top of the timeouts duration
-        //                // mostly this thread will then cancel the task
-        //                // But once it will wait and the task will expire
-                        
-                        
-        //                int once = (int)( 10+(System.currentTimeMillis() % 50));
-                        
-        //                // do the looping until we are stopped
-        //                int loop=0;
-        //                while (running[0])
-        //                {
-        //                    try
-        //                    {
-        //                        long delay=1000;
-        //                        long wait=100-once;
-        //                        if (loop++==once)
-        //                        { 
-        //                            // THIS loop is the one time we wait 1000ms
-        //                            synchronized(count)
-        //                            {
-        //                                count[1]++;
-        //                            }
-        //                            delay=200;
-        //                            wait=1000;
-        //                        }
-                                
-        //                        timeout.schedule(task,delay);
-                                
-        //                        // do the wait
-        //                        Thread.sleep(wait);
-                                
-        //                        // cancel task (which may have expired)
-        //                        task.cancel();
-        //                    }
-        //                    catch(Exception e)
-        //                    {
-        //                        e.printStackTrace();
-        //                    }
-        //                }
-        //            }
-        //        };
-        //        th.start();
-        //    }
-            
-        //    // run test for 5s
-        //    Thread.sleep(8000);
-        //    synchronized (lock)
-        //    {
-        //        running[0]=false;
-        //    }
-        //    // give some time for test to stop
-        //    Thread.sleep(2000);
-        //    timeout.tick(System.currentTimeMillis());
-        //    Thread.sleep(1000);
-            
-        //    // check the counts
-        //    assertEquals("count threads", LOOP,count[0]);
-        //    assertEquals("count once waits",LOOP,count[1]);
-        //    assertEquals("count expires",LOOP,count[2]);
-        //}
+
+            TimeoutTask task = new TimeoutTask();
+
+            timeout.Now = 1100;
+            timeout.Schedule(task, 300);
+            timeout.Duration = 200;
+
+            timeout.Now = 1300;
+            timeout.Tick();
+            Assert.IsFalse(task.IsExpired, "delay");
+
+            timeout.Now = 1500;
+            timeout.Tick();
+            Assert.IsFalse(task.IsExpired, "delay");
+
+            timeout.Now = 1700;
+            timeout.Tick();
+            Assert.IsTrue(task.IsExpired, "delay");
+        }
+
+        public void TestStress()
+        {
+            #region Initialization
+            object lockObject = new Object();
+            Timeout timeout = new Timeout(null);
+            TimeoutTask[] tasks;
+
+
+            timeout = new Timeout(lockObject);
+            tasks = new TimeoutTask[10];
+
+            for (int i = 0; i < tasks.Length; i++)
+            {
+                tasks[i] = new TimeoutTask();
+                timeout.Now = 1000 + i * 100;
+                timeout.Schedule(tasks[i]);
+            }
+            timeout.Now = 100;
+            #endregion
+
+
+            int LOOP = 500;
+            bool[] running = new bool[] { true };
+            int[] count = new int[] { 0, 0, 0 };
+
+            timeout.Now = (DateTime.UtcNow.Ticks / 1000);
+            timeout.Duration = 500;
+
+            // Start a ticker thread that will tick over the timer frequently.
+            System.Threading.Thread ticker = new System.Threading.Thread(
+
+                new System.Threading.ThreadStart(
+                  () =>
+                  {
+                      while (running[0])
+                      {
+                          try
+                          {
+                              // use lock.wait so we have a memory barrier and
+                              // have no funny optimisation issues.
+                              lock (lockObject)
+                              {
+                                  System.Threading.Monitor.Wait(lockObject, 30);
+                              }
+                              System.Threading.Thread.Sleep(30);
+                              timeout.Tick((DateTime.UtcNow.Ticks / 1000));
+                          }
+                          catch (Exception e)
+                          {
+                              Console.Error.WriteLine(e.StackTrace);
+                          }
+                      }
+                  }
+                    )
+                );
+            ticker.Start();
+
+            // start lots of test threads
+            for (int i = 0; i < LOOP; i++)
+            {
+                // 
+                System.Threading.Thread th = new System.Threading.Thread(
+
+                    new System.Threading.ThreadStart(
+                  () =>
+                  {
+                      // count how many threads were started (should == LOOP)
+                      lock (count)
+                      {
+                          count[0]++;
+                      }
+
+                      // create a task for this thread
+                      TimeoutTask task = new TimeoutTask1(count);
+
+                      // this thread will loop and each loop with schedule a 
+                      // task with a delay  on top of the timeouts duration
+                      // mostly this thread will then cancel the task
+                      // But once it will wait and the task will expire
+
+
+                      int once = (int)(10 + ((DateTime.UtcNow.Ticks / 1000) % 50));
+
+                      // do the looping until we are stopped
+                      int loop = 0;
+                      while (running[0])
+                      {
+                          try
+                          {
+                              long delay = 1000;
+                              long wait = 100 - once;
+                              if (loop++ == once)
+                              {
+                                  // THIS loop is the one time we wait 1000ms
+                                  lock (count)
+                                  {
+                                      count[1]++;
+                                  }
+                                  delay = 200;
+                                  wait = 1000;
+                              }
+
+                              timeout.Schedule(task, delay);
+
+                              // do the wait
+                              System.Threading.Thread.Sleep((int)wait);
+
+                              // cancel task (which may have expired)
+                              task.Cancel();
+                          }
+                          catch (Exception e)
+                          {
+                              Console.Error.WriteLine(e.StackTrace);
+                          }
+                      }
+                  }
+                ));
+                th.Start();
+            }
+
+            // run test for 5s
+            System.Threading.Thread.Sleep(8000);
+            lock (lockObject)
+            {
+                running[0] = false;
+            }
+            // give some time for test to stop
+            System.Threading.Thread.Sleep(2000);
+            timeout.Tick((DateTime.UtcNow.Ticks / 1000));
+            System.Threading.Thread.Sleep(1000);
+
+            // check the counts
+            Assert.AreEqual(LOOP, count[0], "count threads");
+            Assert.AreEqual(LOOP, count[1], "count once waits");
+            Assert.AreEqual(LOOP, count[2], "count expires");
+
+
+        }
 
     }
+
+    class TimeoutTask1 : TimeoutTask
+    {
+
+        int[] count;
+
+        internal TimeoutTask1(int[] count)
+        {
+            this.count = count;
+        }
+
+        public override void Expired()
+        {
+            lock (count)
+            {
+                count[2]++;
+            }
+        }
+
+    }
+
 }
