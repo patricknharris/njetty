@@ -27,9 +27,7 @@ namespace NJetty.Util.Util
 {
 
     /// <summary>
-    /// Queue backed by circular array.
-    /// This partial Queue implementation (also with #Pop() for stack operation)
-    /// is backed by a growable circular array.
+    /// Circualar Array Based Queue, the array is grawable.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
@@ -444,8 +442,9 @@ namespace NJetty.Util.Util
         {
             if (i < _nextSlot)
             {
-                // 0                         _elements.length
-                //       _nextE........._nextSlot
+                // copy the array overriting 
+                // i with i+1 to (i+n) with (n+1) until with the length of (_nextSlot-1)
+                // in other words move the array from i+1 one step backward until (_nextSlot-1)
                 Array.Copy(_elements, i + 1, _elements, i, _nextSlot - i);
 
                 _nextSlot--;
