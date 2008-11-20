@@ -38,7 +38,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * Timeout (*done*)
     * TimeoutTask (*done*)
  * *Util*
-    * ArrayQue
+    * ArrayQueue (*done*)
     * AttributesMap (*done*)
     * ByteArrayISO8859Writer
     * ByteArrayOutputStream2
@@ -93,7 +93,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
  * *Util*
     * LazyListTest (*done*)
     * Utf8StringBufferTest
-    * ArrayQueueTest
+    * ArrayQueueTest (*done*)
     * URITest
     * QuotedStringTokenizerTest
     * StringMapTest
