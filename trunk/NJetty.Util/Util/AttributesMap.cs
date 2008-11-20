@@ -27,7 +27,7 @@ namespace NJetty.Util.Util
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// AttributesMap
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
