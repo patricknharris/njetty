@@ -82,7 +82,7 @@
     <Compile Include="Util\Ajax\JSONEnumConvertor.cs" />
     <Compile Include="Util\Ajax\JSONObjectConvertor.cs" />
     <Compile Include="Util\Ajax\WaitingContinuation.cs" />
-    <Compile Include="Util\ArrayQue.cs" />
+    <Compile Include="Util\ArrayQueue.cs" />
     <Compile Include="Util\ByteArrayISO8859Writer.cs" />
     <Compile Include="Util\ByteArrayOutputStream2.cs" />
     <Compile Include="Util\DateCache.cs" />
