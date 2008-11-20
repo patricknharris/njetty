@@ -54,6 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Threading\ThreadPoolTest.cs" />
     <Compile Include="Threading\TimeoutTest.cs" />
+    <Compile Include="Util\ArrayQueueTest.cs" />
     <Compile Include="Util\LazyListTest.cs" />
   </ItemGroup>
   <ItemGroup>
