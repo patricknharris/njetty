@@ -34,8 +34,49 @@ namespace NJetty.Util.Util
     /// <date>
     /// November 2008
     /// </date>
-    public class ArrayQue<E> : IList<E>
+    public class ArrayQueue<E> : IList<E>
     {
+        const int DEFAULT_CAPACITY = 64;
+        const int DEFAULT_GROWTH = 32;
+        object _lock = new object();
+        object[] _elements;
+        int _nextE;
+        int _nextSlot;
+        int _size;
+        int _growCapacity;
+
+        #region Constructors
+
+        public ArrayQueue()
+        {
+            _elements = new object[DEFAULT_CAPACITY];
+            _growCapacity = 32;
+        }
+
+        public ArrayQueue(int capacity)
+        {
+            _elements = new object[capacity];
+            _growCapacity = -1;
+        }
+
+        /* ------------------------------------------------------------ */
+        public ArrayQueue(int initCapacity, int growBy)
+        {
+            _elements = new object[initCapacity];
+            _growCapacity = growBy;
+        }
+
+        /* ------------------------------------------------------------ */
+        public ArrayQueue(int initCapacity, int growBy, object objectLock)
+        {
+            _elements = new object[initCapacity];
+            _growCapacity = growBy;
+            _lock = objectLock;
+        }
+
+        #endregion
+
+
         #region IList<E> Members
 
         public int IndexOf(E item)
