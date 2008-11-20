@@ -42,7 +42,7 @@ namespace NJetty.Util.Util
         const int DEFAULT_CAPACITY = 64;
         const int DEFAULT_GROWTH = 32;
         object _lock = new object();
-        object[] _elements;
+        T[] _elements;
         int _nextE;
         int _nextSlot;
         int _size;
@@ -52,25 +52,25 @@ namespace NJetty.Util.Util
 
         public ArrayQueue()
         {
-            _elements = new object[DEFAULT_CAPACITY];
+            _elements = new T[DEFAULT_CAPACITY];
             _growCapacity = 32;
         }
 
         public ArrayQueue(int capacity)
         {
-            _elements = new object[capacity];
+            _elements = new T[capacity];
             _growCapacity = -1;
         }
 
         public ArrayQueue(int initCapacity, int growBy)
         {
-            _elements = new object[initCapacity];
+            _elements = new T[initCapacity];
             _growCapacity = growBy;
         }
 
         public ArrayQueue(int initCapacity, int growBy, object objectLock)
         {
-            _elements = new object[initCapacity];
+            _elements = new T[initCapacity];
             _growCapacity = growBy;
             _lock = objectLock;
         }
@@ -85,19 +85,7 @@ namespace NJetty.Util.Util
         }
 
 
-        public void AddUnsafe(T item)
-        {
-            _size++;
-            _elements[_nextSlot++] = item;
-            if (_nextSlot == _elements.Length)
-            {
-                _nextSlot = 0;
-            }
-            if (_nextSlot == _nextE)
-            {
-                Grow();
-            }
-        }
+        
 
         public T Element()
         {
@@ -105,7 +93,7 @@ namespace NJetty.Util.Util
             {
                 if (_nextSlot == _nextE)
                     throw new NoSuchElementException();
-                return (T)_elements[_nextE];
+                return _elements[_nextE];
             }
         }
 
@@ -125,7 +113,7 @@ namespace NJetty.Util.Util
                     if (_growCapacity <= 0)
                         return false;
 
-                    Object[] elements = new Object[_elements.Length + _growCapacity];
+                    T[] elements = new T[_elements.Length + _growCapacity];
 
                     int split = _elements.Length - _nextE;
                     if (split > 0)
@@ -153,8 +141,13 @@ namespace NJetty.Util.Util
             {
                 if (_nextSlot == _nextE)
                     return default(T);
-                return (T)_elements[_nextE];
+                return _elements[_nextE];
             }
+        }
+
+        public T Poll()
+        {
+            return Dequeue();
         }
 
         public T Dequeue()
@@ -163,8 +156,8 @@ namespace NJetty.Util.Util
             {
                 if (_size == 0)
                     return default(T);
-                T e = (T)_elements[_nextE];
-                _elements[_nextE] = null;
+                T e = _elements[_nextE];
+                _elements[_nextE] = default(T);
                 _size--;
                 if (++_nextE == _elements.Length)
                     _nextE = 0;
@@ -178,7 +171,7 @@ namespace NJetty.Util.Util
             {
                 if (_nextSlot == _nextE)
                     throw new NoSuchElementException();
-                T e = (T)_elements[_nextE++];
+                T e = _elements[_nextE++];
                 if (_nextE == _elements.Length)
                     _nextE = 0;
                 return e;
@@ -202,7 +195,7 @@ namespace NJetty.Util.Util
             int i = _nextE + index;
             if (i >= _elements.Length)
                 i -= _elements.Length;
-            return (T)_elements[i];
+            return _elements[i];
         }
 
         public override string ToString()
@@ -228,7 +221,7 @@ namespace NJetty.Util.Util
                 throw new InvalidOperationException("Full");
             }
 
-            object[] elements = new object[_elements.Length + _growCapacity];
+            T[] elements = new T[_elements.Length + _growCapacity];
 
             int split = _elements.Length - _nextE;
 
@@ -324,85 +317,8 @@ namespace NJetty.Util.Util
             }
         }
 
-        public void RemoveAt(int index)
-        {
-            lock (_lock)
-            {
-                if (index < 0 || index >= _size)
-                    throw new IndexOutOfRangeException("!(" + 0 + "<" + index + "<=" + _size + ")");
 
-                int i = _nextE + index;
-                if (i >= _elements.Length)
-                    i -= _elements.Length;
-                T old = (T)_elements[i];
-
-                if (i < _nextSlot)
-                {
-                    // 0                         _elements.length
-                    //       _nextE........._nextSlot
-                    Array.Copy(_elements, i + 1, _elements, i, _nextSlot - i);
-                    _nextSlot--;
-                    _size--;
-                }
-                else
-                {
-                    // 0                         _elements.length
-                    // ......_nextSlot   _nextE..........
-                    Array.Copy(_elements, i + 1, _elements, i, _elements.Length - 1);
-                    if (_nextSlot > 0)
-                    {
-                        _elements[_elements.Length] = _elements[0];
-                        Array.Copy(_elements, 1, _elements, 0, _nextSlot - 1);
-                        _nextSlot--;
-                    }
-                    else
-                        _nextSlot = _elements.Length - 1;
-
-                    _size--;
-                }
-
-                //return old;
-            }
-        }
-
-
-
-        private void RemoveUnsafeAt(int index)
-        {
-
-            if (index < 0 || index >= _size)
-                throw new IndexOutOfRangeException("!(" + 0 + "<" + index + "<=" + _size + ")");
-
-            int i = _nextE + index;
-            if (i >= _elements.Length)
-                i -= _elements.Length;
-            T old = (T)_elements[i];
-
-            if (i < _nextSlot)
-            {
-                // 0                         _elements.length
-                //       _nextE........._nextSlot
-                Array.Copy(_elements, i + 1, _elements, i, _nextSlot - i);
-                _nextSlot--;
-                _size--;
-            }
-            else
-            {
-                // 0                         _elements.length
-                // ......_nextSlot   _nextE..........
-                Array.Copy(_elements, i + 1, _elements, i, _elements.Length - 1);
-                if (_nextSlot > 0)
-                {
-                    _elements[_elements.Length] = _elements[0];
-                    Array.Copy(_elements, 1, _elements, 0, _nextSlot - 1);
-                    _nextSlot--;
-                }
-                else
-                    _nextSlot = _elements.Length - 1;
-
-                _size--;
-            }
-        }
+        
 
         public T this[int index]
         {
@@ -415,7 +331,7 @@ namespace NJetty.Util.Util
                     int i = _nextE + index;
                     if (i >= _elements.Length)
                         i -= _elements.Length;
-                    return (T)_elements[i];
+                    return _elements[i];
                 }
             }
             set
@@ -428,7 +344,7 @@ namespace NJetty.Util.Util
                     int i = _nextE + index;
                     if (i >= _elements.Length)
                         i -= _elements.Length;
-                    T old = (T)_elements[i];
+                    T old = _elements[i];
                     _elements[i] = value;
                 }
             }
@@ -438,29 +354,33 @@ namespace NJetty.Util.Util
 
         #region ICollection<E> Members
 
+
+
+        public void AddUnsafe(T item)
+        {
+            _size++;
+            _elements[_nextSlot++] = item;
+            if (_nextSlot == _elements.Length)
+            {
+                _nextSlot = 0;
+            }
+            if (_nextSlot == _nextE)
+            {
+                Grow();
+            }
+        }
+
+
         public void Add(T item)
         {
-            lock (_lock)
-            {
-                _size++;
-                _elements[_nextSlot++] = item;
-                if (_nextSlot == _elements.Length)
-                    _nextSlot = 0;
-                if (_nextSlot == _nextE)
-                    Grow();
-            }
+            Enqueue(item);
         }
 
         public int Enqueue(T item)
         {
             lock (_lock)
             {
-                _size++;
-                _elements[_nextSlot++] = item;
-                if (_nextSlot == _elements.Length)
-                    _nextSlot = 0;
-                if (_nextSlot == _nextE)
-                    Grow();
+                AddUnsafe(item);
 
                 return _size;
             }
@@ -478,13 +398,15 @@ namespace NJetty.Util.Util
 
         public bool Contains(T item)
         {
-            if (item == null)
-            {
-                throw new ArgumentNullException();
-            }
+
 
             lock (_lock)
             {
+                if (item == null)
+                {
+                    throw new ArgumentNullException();
+                }
+
                 for (int i = 0; i < _size; i++)
                 {
                     if (item.Equals(GetUnsafe(i)))
@@ -504,7 +426,13 @@ namespace NJetty.Util.Util
 
         public int Count
         {
-            get { return _size; }
+            get
+            {
+                lock (_lock) 
+                { 
+                    return _size; 
+                }
+            }
         }
 
         public bool IsReadOnly
@@ -512,25 +440,66 @@ namespace NJetty.Util.Util
             get { return false; }
         }
 
-        public bool Remove(T item)
+        void RemoveRealIndex(int i)
         {
-            if (item == null)
+            if (i < _nextSlot)
             {
-                throw new ArgumentNullException();
-            }
+                // 0                         _elements.length
+                //       _nextE........._nextSlot
+                Array.Copy(_elements, i + 1, _elements, i, _nextSlot - i);
 
-            lock (_lock)
+                _nextSlot--;
+                _size--;
+            }
+            else
             {
-                for (int i = 0; i < _size; i++)
+                
+                // 0                         _elements.length
+                // ......_nextSlot   _nextE..........
+                Array.Copy(_elements, i + 1, _elements, i, (_elements.Length - i) - 1);
+                if (_nextSlot > 0)
                 {
-                    if (item.Equals(GetUnsafe(i)))
-                    {
-                        RemoveUnsafeAt(i);
-                        return true;
-                    }
+                    _elements[_elements.Length-1] = _elements[0];
+                    Array.Copy(_elements, 1, _elements, 0, _nextSlot - 1);
+                    _nextSlot--;
+                }
+                else
+                {
+                    _nextSlot = _elements.Length - 1;
                 }
 
-                return false;
+                _size--;
+            }
+        }
+
+
+        public void RemoveAt(int index)
+        {
+            lock (_lock)
+            {
+                if (index < 0 || index >= _size)
+                    throw new IndexOutOfRangeException("!(" + 0 + "<" + index + "<=" + _size + ")");
+
+                int i = _nextE + index;
+                if (i >= _elements.Length)
+                    i -= _elements.Length;
+
+                RemoveRealIndex(i);
+            }
+        }
+
+        public bool Remove(T item)
+        {
+            lock (_lock)
+            {
+                int i = Array.IndexOf(_elements, item);
+                if (i < 0)
+                {
+                    return false;
+                }
+
+                RemoveRealIndex(i);
+                return true;
             }
         }
 

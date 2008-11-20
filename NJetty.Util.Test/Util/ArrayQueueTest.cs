@@ -150,5 +150,99 @@ namespace NJetty.Util.Test.Util
             Assert.AreEqual(13, queue.Capacity);
 
         }
+
+
+        [Test]
+        public void TestRemoveAt1()
+        {
+            ArrayQueue<object> queue = new ArrayQueue<object>(100, 3);
+
+            for (int i = 1; i <= 16000; i++)
+            {
+                Assert.AreEqual(i, queue.Enqueue(i.ToString()));
+            }
+
+            Assert.AreEqual(16000, queue.Count);
+
+            for (int i = 1; i <= 200; i++)
+            {
+                Assert.IsTrue(queue.Remove((500+i).ToString()));
+                Assert.AreEqual(16000 - i, queue.Count);
+            }
+
+            for (int i = 1; i <= 100; i++)
+            {
+                Assert.IsTrue(queue.Remove(i.ToString()));
+                Assert.AreEqual((16000-200) - i, queue.Count);
+            }
+
+            Log.Info("count = " + queue.Count);
+
+            Assert.IsFalse(queue.Remove(16001.ToString()));
+
+            for (int i = queue.Count; i-- > 0; )
+            {
+                queue.Dequeue();
+            }
+
+            Assert.AreEqual(0, queue.Count);
+
+
+        }
+
+        [Test]
+        public void TestRemoveAt2()
+        {
+            ArrayQueue<object> queue = new ArrayQueue<object>(100, 3);
+            
+            int dataSize = 16000;
+            List<object> list = new List<object>();
+
+
+            for (int i = 1; i <= dataSize; i++)
+            {
+                object o = new object();
+                list.Add(o);
+                queue.Add(o);
+            }
+
+            Assert.AreEqual(list.Count, queue.Count);
+
+            foreach (object item in queue)
+            {
+                Assert.IsNotNull(item);
+            }
+
+            Random rand = new Random((int)(DateTime.UtcNow.Ticks/1000));
+            
+            for (int i = 0; i < list.Count; i++)
+            {
+                int r = rand.Next(0, list.Count - 1);
+                object temp = list[i];
+                list[i] = list[r];
+                list[r] = temp;
+            }
+
+
+            foreach (object item in list)
+            {
+                Assert.IsTrue(queue.Remove(item));
+                queue.Enqueue(item);
+                Assert.IsTrue(queue.Remove(item));
+                Assert.IsFalse(queue.Remove(item));
+            }
+
+
+
+            
+
+            
+
+            Assert.AreEqual(0, queue.Count);
+
+
+        }
+
+        
     }
 }

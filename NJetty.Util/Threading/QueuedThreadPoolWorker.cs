@@ -225,8 +225,6 @@ namespace NJetty.Util.Threading
                 {
                     _queuedThreadPool.Dispatch(job);
                 }
-
-                Log.Info("Finally I am stoped!!!");
             }
         }
         
