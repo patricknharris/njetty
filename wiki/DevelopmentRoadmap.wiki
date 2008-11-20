@@ -87,9 +87,9 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * (test data in this package TestData)
     * ResourceTest
     * ResourceCollectionTest
- * *Threading*
+ * *Threading* (*done*)
     * ThreadPoolTest (*done*)
-    * TimeoutTest
+    * TimeoutTest (*done*)
  * *Util*
     * LazyListTest (*done*)
     * Utf8StringBufferTest
