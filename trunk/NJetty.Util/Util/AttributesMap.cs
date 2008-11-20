@@ -121,7 +121,6 @@ namespace NJetty.Util.Util
 
             }
 
-            //List<string> names = new List<string>();
             foreach (string name in attrs.GetAttributeNames())
             {
                 yield return name;
