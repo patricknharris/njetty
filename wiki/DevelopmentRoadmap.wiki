@@ -54,7 +54,8 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * TypeUtil
     * StringUtil
     * SingletonList
-    * Utf8StringBuilder
+    * Utf8StringBuilder (*done*)
+    * Utf8StringBuffer (*done*)
     * MultiException
     * RolloverFileOutputStream
     * MultiMap
@@ -92,12 +93,12 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * TimeoutTest (*done*)
  * *Util*
     * LazyListTest (*done*)
-    * Utf8StringBufferTest
     * ArrayQueueTest (*done*)
     * URITest
     * QuotedStringTokenizerTest
     * StringMapTest
-    * Utf8StringBuilderTest
+    * Utf8StringBufferTest (*done*)
+    * Utf8StringBuilderTest (*done*)
     * TestIntrospectionUtil
     * URLEncodedTest
     * DateCacheTest
