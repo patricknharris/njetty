@@ -29,7 +29,7 @@ namespace NJetty.Util.Test.Util
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// Test for UtfStringBuffer
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>

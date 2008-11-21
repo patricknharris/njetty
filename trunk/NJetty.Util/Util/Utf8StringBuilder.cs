@@ -26,7 +26,9 @@ namespace NJetty.Util.Util
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// Non-Thread safe Utf8 String Generator
+    /// using per byte input, 
+    /// this makes use of an array of bytes that can grow
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>

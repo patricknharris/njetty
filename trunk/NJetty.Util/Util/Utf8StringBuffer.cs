@@ -26,7 +26,9 @@ namespace NJetty.Util.Util
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// Thread safe Utf8 String Generator
+    /// using per byte input, 
+    /// this makes use of Utf8StringBuilder
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
