@@ -36,5 +36,74 @@ namespace NJetty.Util.Util
     /// </date>
     public class Utf8StringBuilder
     {
+        
+        const int DEFAULT_CAPACITY=256;
+        const int DEFAUlT_GROW_BY=256;
+
+        readonly int _growBy = DEFAUlT_GROW_BY;
+        byte[] _buffer;
+        int _pointer = 0;
+        
+
+        public Utf8StringBuilder()
+        {
+            _buffer = new byte[DEFAULT_CAPACITY];
+        }
+
+        public Utf8StringBuilder(int capacity)
+        {
+            _buffer = new byte[capacity];
+        }
+
+        public Utf8StringBuilder(int capacity, int growBy)
+        {
+            _buffer = new byte[capacity];
+            _growBy = growBy;
+        }
+
+        public void Append(byte[] b, int offset, int length)
+        {
+            int end = offset + length;
+            for (int i = offset; i < end; i++)
+                Append(b[i]);
+        }
+
+        public void Append(byte b)
+        {
+            if (_pointer == _buffer.Length)
+            {
+                byte[] buff = new byte[_pointer + _growBy];
+                Buffer.BlockCopy(_buffer, 0, buff, 0, _pointer);
+                _buffer = buff;
+            }
+
+            _buffer[_pointer++] = b;
+        }
+
+        public int Length
+        {
+            get
+            {
+                return _pointer;
+            }
+        }
+
+        public void Reset()
+        {
+            _pointer = 0;
+        }
+
+        public StringBuilder StringBuilder
+        {
+            get
+            {
+                return new StringBuilder(ToString(), _buffer.Length);
+            }
+        }
+
+        public override string ToString()
+        {
+            return System.Text.Encoding.UTF8.GetString(_buffer, 0, _pointer);
+        }
     }
 }
