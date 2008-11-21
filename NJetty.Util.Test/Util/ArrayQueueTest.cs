@@ -23,7 +23,6 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using NJetty.Util.Util;
-using NJetty.Util.Logging;
 
 namespace NJetty.Util.Test.Util
 {
@@ -175,8 +174,6 @@ namespace NJetty.Util.Test.Util
                 Assert.IsTrue(queue.Remove(i.ToString()));
                 Assert.AreEqual((16000-200) - i, queue.Count);
             }
-
-            Log.Info("count = " + queue.Count);
 
             Assert.IsFalse(queue.Remove(16001.ToString()));
 

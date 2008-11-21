@@ -442,7 +442,7 @@ namespace NJetty.Util.Util
         {
             if (i < _nextSlot)
             {
-                // copy the array overriting 
+                // copy the array overwriting 
                 // i with i+1 to (i+n) with (n+1) until with the length of (_nextSlot-1)
                 // in other words move the array from i+1 one step backward until (_nextSlot-1)
                 Array.Copy(_elements, i + 1, _elements, i, _nextSlot - i);
@@ -452,9 +452,9 @@ namespace NJetty.Util.Util
             }
             else
             {
-                
-                // 0                         _elements.length
-                // ......_nextSlot   _nextE..........
+                // copy the array overwriting 
+                // i with i+1 to (i+n) with (n+1) until with the length of ((_elements.Length-i)-1)
+                // in other words move the array from i+1 one step backward until ((_elements.Length-i)-1)
                 Array.Copy(_elements, i + 1, _elements, i, (_elements.Length - i) - 1);
                 if (_nextSlot > 0)
                 {
