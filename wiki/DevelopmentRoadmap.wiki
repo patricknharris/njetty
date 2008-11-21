@@ -44,7 +44,6 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * ByteArrayOutputStream2
     * DateCache    
     * IAttributes (*done*)
-    * Utf8StringBuffer
     * URIUtil
     * Loader
     * ~~QueueList(no longer needed)~~ (*done*)
