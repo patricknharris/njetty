@@ -138,7 +138,7 @@ namespace NJetty.Util.Test.Util
         }
 
         [Test]
-        public void testTokenizer4()
+        public void TestTokenizer4()
         {
             QuotedStringTokenizer tok = new QuotedStringTokenizer("abc'def,ghi'jkl", ",");
             tok.SingleQuotes = false;
