@@ -34,7 +34,7 @@ namespace NJetty.Util.Util
     /// <date>
     /// November 2008
     /// </date>
-    
+
     public static class StringExtensions
     {
 

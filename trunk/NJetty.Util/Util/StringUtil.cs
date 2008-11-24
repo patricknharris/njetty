@@ -38,36 +38,37 @@ namespace NJetty.Util.Util
     /// </date>
     public class StringUtil
     {
-        public const string ALL_INTERFACES="0.0.0.0";
-        public const string CRLF="\015\012";
-        public const string __LINE_SEPARATOR= "\n"; // TODO: System.getProperty("line.separator","\n");
-           
+        public const string ALL_INTERFACES = "0.0.0.0";
+        public const string CRLF = "\015\012";
+        public const string __LINE_SEPARATOR = "\n"; // TODO: System.getProperty("line.separator","\n");
+
         public static readonly string __ISO_8859_1;
         static StringUtil()
         {
-            string iso=ConfigurationManager.AppSettings["ISO_8859_1"];
-            if (iso==null)
+            string iso = ConfigurationManager.AppSettings["ISO_8859_1"];
+            if (iso == null)
             {
-                try{
-
-                    Encoding latinEuropeanEncoding = Encoding.GetEncoding("iso-8859-1"); 
-                    latinEuropeanEncoding.GetString(new byte[]{(byte)20});
-                    iso="ISO-8859-1";
-                }
-                catch(Exception e)
+                try
                 {
-                    iso="ISO8859_1";
-                }        
+
+                    Encoding latinEuropeanEncoding = Encoding.GetEncoding("iso-8859-1");
+                    latinEuropeanEncoding.GetString(new byte[] { (byte)20 });
+                    iso = "ISO-8859-1";
+                }
+                catch (Exception e)
+                {
+                    iso = "ISO8859_1";
+                }
             }
-            __ISO_8859_1=iso;
+            __ISO_8859_1 = iso;
         }
-        
-        
-        public const string __UTF8="UTF-8";
-        public const string __UTF8Alt="UTF8";
-        public const string __UTF16="UTF-16";
-        
-        
+
+
+        public const string __UTF8 = "UTF-8";
+        public const string __UTF8Alt = "UTF8";
+        public const string __UTF16 = "UTF-16";
+
+
         private static char[] lowercases = new char[]{
         
             (char)0, 
@@ -96,104 +97,104 @@ namespace NJetty.Util.Util
         public static string AsciiToLowerCase(string s)
         {
             char[] c = null;
-            int i=s.Length;
+            int i = s.Length;
 
             // look for first conversion
-            while (i-->0)
+            while (i-- > 0)
             {
-                char c1=s[i];
-                if (c1<=127)
+                char c1 = s[i];
+                if (c1 <= 127)
                 {
-                    char c2=lowercases[c1];
-                    if (c1!=c2)
+                    char c2 = lowercases[c1];
+                    if (c1 != c2)
                     {
-                        c=s.ToCharArray();
-                        c[i]=c2;
+                        c = s.ToCharArray();
+                        c[i] = c2;
                         break;
                     }
                 }
             }
 
-            while (i-->0)
+            while (i-- > 0)
             {
-                if(c[i]<=127)
+                if (c[i] <= 127)
                     c[i] = lowercases[c[i]];
             }
-            
-            return c==null?s:new string(c);
+
+            return c == null ? s : new string(c);
         }
 
 
-        public static bool StartsWithIgnoreCase(string s,string w)
+        public static bool StartsWithIgnoreCase(string s, string w)
         {
-            if (w==null)
+            if (w == null)
                 return true;
-            
-            if (s==null || s.Length<w.Length)
+
+            if (s == null || s.Length < w.Length)
                 return false;
-            
-            for (int i=0;i<w.Length;i++)
+
+            for (int i = 0; i < w.Length; i++)
             {
-                char c1=s[i];
-                char c2=w[i];
-                if (c1!=c2)
+                char c1 = s[i];
+                char c2 = w[i];
+                if (c1 != c2)
                 {
-                    if (c1<=127)
-                        c1=lowercases[c1];
-                    if (c2<=127)
-                        c2=lowercases[c2];
-                    if (c1!=c2)
+                    if (c1 <= 127)
+                        c1 = lowercases[c1];
+                    if (c2 <= 127)
+                        c2 = lowercases[c2];
+                    if (c1 != c2)
                         return false;
                 }
             }
             return true;
         }
-        
-        public static bool EndsWithIgnoreCase(string s,string w)
+
+        public static bool EndsWithIgnoreCase(string s, string w)
         {
-            if (w==null)
+            if (w == null)
                 return true;
 
-            if (s==null)
+            if (s == null)
                 return false;
-                
-            int sl=s.Length;
-            int wl=w.Length;
-            
-            if (sl<wl)
+
+            int sl = s.Length;
+            int wl = w.Length;
+
+            if (sl < wl)
                 return false;
-            
-            for (int i=wl;i-->0;)
+
+            for (int i = wl; i-- > 0; )
             {
-                char c1=s[--sl];
-                char c2=w[i];
-                if (c1!=c2)
+                char c1 = s[--sl];
+                char c2 = w[i];
+                if (c1 != c2)
                 {
-                    if (c1<=127)
-                        c1=lowercases[c1];
-                    if (c2<=127)
-                        c2=lowercases[c2];
-                    if (c1!=c2)
+                    if (c1 <= 127)
+                        c1 = lowercases[c1];
+                    if (c2 <= 127)
+                        c2 = lowercases[c2];
+                    if (c1 != c2)
                         return false;
                 }
             }
             return true;
         }
-        
+
         /// <summary>
         /// returns the next index of a character from the chars string
         /// </summary>
         /// <param name="s"></param>
         /// <param name="chars"></param>
         /// <returns></returns>
-        public static int IndexFrom(string s,string chars)
+        public static int IndexFrom(string s, string chars)
         {
-            for (int i=0;i<s.Length;i++)
-               if (chars.IndexOf(s[i])>=0)
-                  return i;
+            for (int i = 0; i < s.Length; i++)
+                if (chars.IndexOf(s[i]) >= 0)
+                    return i;
             return -1;
         }
-        
+
         /// <summary>
         /// replace substrings within string.
         /// </summary>
@@ -203,25 +204,25 @@ namespace NJetty.Util.Util
         /// <returns></returns>
         public static string Replace(string s, string sub, string with)
         {
-            int c=0;
-            int i=s.IndexOf(sub,c);
+            int c = 0;
+            int i = s.IndexOf(sub, c);
             if (i == -1)
                 return s;
-        
-            StringBuilder buf = new StringBuilder(s.Length+with.Length);
+
+            StringBuilder buf = new StringBuilder(s.Length + with.Length);
 
             do
             {
-                buf.Append(s.Substring(c,i));
+                buf.Append(s.Substring(c, i));
                 buf.Append(with);
-                c=i+sub.Length;
-            } while ((i=s.IndexOf(sub,c))!=-1);
+                c = i + sub.Length;
+            } while ((i = s.IndexOf(sub, c)) != -1);
 
-            if (c<s.Length)
-                buf.Append(s.Substring(c,s.Length));
+            if (c < s.Length)
+                buf.Append(s.Substring(c, s.Length));
 
             return buf.ToString();
-            
+
         }
 
 
@@ -247,12 +248,12 @@ namespace NJetty.Util.Util
                                   int offset,
                                   int length)
         {
-            lock(buf)
+            lock (buf)
             {
-                int end=offset+length;
-                for (int i=offset; i<end;i++)
+                int end = offset + length;
+                for (int i = offset; i < end; i++)
                 {
-                    if (i>=s.Length)
+                    if (i >= s.Length)
                         break;
                     buf.Append(s[i]);
                 }
@@ -265,25 +266,25 @@ namespace NJetty.Util.Util
         /// <param name="buf"></param>
         /// <param name="b"></param>
         /// <param name="radix"></param>
-        public static void Append(StringBuilder buf,byte b,int radix)
+        public static void Append(StringBuilder buf, byte b, int radix)
         {
-            int bi=0xff&b;
+            int bi = 0xff & b;
             int c = '0' + (bi / radix) % radix;
-            if (c>'9')
-                c= 'a'+(c-'0'-10);
+            if (c > '9')
+                c = 'a' + (c - '0' - 10);
             buf.Append((char)c);
             c = '0' + bi % radix;
-            if (c>'9')
-                c= 'a'+(c-'0'-10);
+            if (c > '9')
+                c = 'a' + (c - '0' - 10);
             buf.Append((char)c);
         }
 
-        public static void Append2Digits(StringBuilder buf,int i)
+        public static void Append2Digits(StringBuilder buf, int i)
         {
-            if (i<100)
+            if (i < 100)
             {
-                buf.Append((char)(i/10+'0'));
-                buf.Append((char)(i%10+'0'));
+                buf.Append((char)(i / 10 + '0'));
+                buf.Append((char)(i % 10 + '0'));
             }
         }
 
@@ -294,17 +295,17 @@ namespace NJetty.Util.Util
         /// <returns></returns>
         public static string NonNull(string s)
         {
-            if (s==null)
+            if (s == null)
                 return String.Empty;
             return s;
         }
-        
-        public static bool Equals(string s,char[] buf, int offset, int length)
+
+        public static bool Equals(string s, char[] buf, int offset, int length)
         {
-            if (s.Length!=length)
+            if (s.Length != length)
                 return false;
-            for (int i=0;i<length;i++)
-                if (buf[offset+i]!=s[i])
+            for (int i = 0; i < length; i++)
+                if (buf[offset + i] != s[i])
                     return false;
             return true;
         }
@@ -324,7 +325,7 @@ namespace NJetty.Util.Util
         }
 
 
-        public static string ToString(byte[] b,int offset,int length,Encoding charset)
+        public static string ToString(byte[] b, int offset, int length, Encoding charset)
         {
             try
             {
@@ -351,12 +352,12 @@ namespace NJetty.Util.Util
 
         public static string Printable(string name)
         {
-            if (name==null)
+            if (name == null)
                 return null;
             StringBuilder buf = new StringBuilder(name.Length);
-            for (int i=0;i<name.Length;i++)
+            for (int i = 0; i < name.Length; i++)
             {
-                char c=name[i];
+                char c = name[i];
                 if (!IsISOControl(c))
                 {
                     buf.Append(c);
@@ -364,7 +365,7 @@ namespace NJetty.Util.Util
             }
             return buf.ToString();
         }
-        
+
         public static byte[] GetBytes(string s)
         {
             try
@@ -372,20 +373,20 @@ namespace NJetty.Util.Util
 
                 return Encoding.GetEncoding(__ISO_8859_1).GetBytes(s);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Log.Warn(e);
                 return Encoding.ASCII.GetBytes(s);
             }
         }
-        
-        public static byte[] GetBytes(string s,string charset)
+
+        public static byte[] GetBytes(string s, string charset)
         {
             try
             {
                 return Encoding.GetEncoding(charset).GetBytes(s);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Log.Warn(e);
                 return Encoding.ASCII.GetBytes(s);

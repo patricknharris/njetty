@@ -176,7 +176,7 @@ namespace NJetty.Util.Util
 
         private static Type[] stringArg = new Type[] { typeof(string) };
 
-        
+
         /** Class from a canonical name for a type.
          * @param name A class or type name.
          * @return A class , which may be a primitive TYPE field..
@@ -293,7 +293,7 @@ namespace NJetty.Util.Util
                 {
                     throw new FormatException(s.Substring(offset, offset + length));
                 }
-                    
+
                 value = value * radix + digit;
             }
             return value;
