@@ -44,15 +44,18 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * ByteArrayOutputStream2
     * DateCache    
     * IAttributes (*done*)
-    * URIUtil
     * Loader
     * ~~QueueList(no longer needed)~~ (*done*)
-    * QuotedStringTokenizer
+    * QuotedStringTokenizer (*done*)
     * Scanner
     * IO
-    * TypeUtil
-    * StringUtil
     * SingletonList
+    * StringExtensions (*done*)
+    * StringMap
+    * StringTokenizer (*done*)
+    * StringUtil (*done*)
+    * TypeUtil (*done*)
+    * URIUtil (*done*)
     * Utf8StringBuilder (*done*)
     * Utf8StringBuffer (*done*)
     * MultiException
@@ -60,7 +63,6 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * MultiMap
     * MultiPartOutputStream
     * MultiPartWriter
-    * StringMap
     * IntrospectionUtil
     * LazyList (*done*)
     * UrlEncoded
