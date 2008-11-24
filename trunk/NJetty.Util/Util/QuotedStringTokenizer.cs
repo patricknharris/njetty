@@ -275,7 +275,7 @@ namespace NJetty.Util.Util
                 if (c == '\\' || c == '"' || c == '\'' || Char.IsWhiteSpace(c) || delim.IndexOf(c) >= 0)
                 {
                     StringBuilder b = new StringBuilder(s.Length + 8);
-                    quote(b, s);
+                    Quote(b, s);
                     return b.ToString();
                 }
             }
@@ -299,7 +299,7 @@ namespace NJetty.Util.Util
                 return "\"\"";
 
             StringBuilder b = new StringBuilder(s.Length + 8);
-            quote(b, s);
+            Quote(b, s);
             return b.ToString();
 
         }
@@ -311,7 +311,7 @@ namespace NJetty.Util.Util
         /// </summary>
         /// <param name="buf">StringBuilder Data</param>
         /// <param name="s">string to quote</param>
-        public static void quote(StringBuilder buf, string s)
+        public static void Quote(StringBuilder buf, string s)
         {
             lock (buf)
             {

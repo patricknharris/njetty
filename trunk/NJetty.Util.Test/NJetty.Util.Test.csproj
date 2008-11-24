@@ -56,6 +56,7 @@
     <Compile Include="Threading\TimeoutTest.cs" />
     <Compile Include="Util\ArrayQueueTest.cs" />
     <Compile Include="Util\LazyListTest.cs" />
+    <Compile Include="Util\QuotedStringTokenizerTest.cs" />
     <Compile Include="Util\Utf8StringBufferTest.cs" />
     <Compile Include="Util\Utf8StringBuilderTest.cs" />
   </ItemGroup>
