@@ -37,7 +37,10 @@ namespace NJetty.Util.Util
 
     public static class StringExtensions
     {
-
+        public static byte[] GetBytes(this string str)
+        {
+            return Encoding.ASCII.GetBytes(str);
+        }
 
         public static int CodePointAt(this string str, int index)
         {

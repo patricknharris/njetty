@@ -182,81 +182,82 @@ namespace NJetty.Util.Util
          */
         public static string DecodePath(string path)
         {
-            if (path == null)
-                return null;
-            char[] chars = null;
-            int n = 0;
-            byte[] bytes = null;
-            int b = 0;
+            return System.Uri.UnescapeDataString(path);
+            //if (path == null)
+            //    return null;
+            //char[] chars = null;
+            //int n = 0;
+            //byte[] bytes = null;
+            //int b = 0;
 
-            int len = path.Length;
+            //int len = path.Length;
 
-            for (int i = 0; i < len; i++)
-            {
-                char c = path[i];
+            //for (int i = 0; i < len; i++)
+            //{
+            //    char c = path[i];
 
-                if (c == '%' && (i + 2) < len)
-                {
-                    if (chars == null)
-                    {
-                        chars = new char[len];
-                        bytes = new byte[len];
+            //    if (c == '%' && (i + 2) < len)
+            //    {
+            //        if (chars == null)
+            //        {
+            //            chars = new char[len];
+            //            bytes = new byte[len];
 
-                        //path.getChars(0, i, chars, 0);
-                        Buffer.BlockCopy(path.ToCharArray(0, i), 0, chars, 0, i);
+            //            path.getChars(0, i, chars, 0);
+            //            Buffer.BlockCopy(path.ToCharArray(0, i), 0, chars, 0, i);
 
 
-                    }
-                    bytes[b++] = (byte)(0xff & TypeUtil.ParseInt(path, i + 1, 2, 16));
-                    i += 2;
-                    continue;
-                }
-                else if (bytes == null)
-                {
-                    n++;
-                    continue;
-                }
+            //        }
+            //        bytes[b++] = (byte)(0xff & TypeUtil.ParseInt(path, i + 1, 2, 16));
+            //        i += 2;
+            //        continue;
+            //    }
+            //    else if (bytes == null)
+            //    {
+            //        n++;
+            //        continue;
+            //    }
 
-                if (b > 0)
-                {
-                    string s;
-                    try
-                    {
-                        s = __CHARSET.GetString(bytes, 0, b);
-                    }
-                    catch (Exception e)
-                    {
-                        s = Encoding.ASCII.GetString(bytes, 0, b);
-                    }
-                    //s.getChars(0,s.Length,chars,n);
-                    Buffer.BlockCopy(s.ToCharArray(0, s.Length), 0, chars, 0, s.Length);
-                    n += s.Length;
-                    b = 0;
-                }
+            //    if (b > 0)
+            //    {
+            //        string s;
+            //        try
+            //        {
+            //            s = __CHARSET.GetString(bytes, 0, b);
+            //        }
+            //        catch (Exception e)
+            //        {
+            //            s = Encoding.ASCII.GetString(bytes, 0, b);
+            //        }
+            //        s.getChars(0, s.Length, chars, n);
+            //        Buffer.BlockCopy(s.ToCharArray(0, s.Length), 0, chars, 0, s.Length);
+            //        n += s.Length;
+            //        b = 0;
+            //    }
 
-                chars[n++] = c;
-            }
+            //    chars[n++] = c;
+            //}
 
-            if (chars == null)
-                return path;
+            //if (chars == null)
+            //    return path;
 
-            if (b > 0)
-            {
-                string s;
-                try
-                {
-                    s = __CHARSET.GetString(bytes, 0, b);
-                }
-                catch (Exception e)
-                {
-                    s = Encoding.ASCII.GetString(bytes, 0, b);
-                }
-                //s.getChars(0,s.Length,chars,n);
-                Buffer.BlockCopy(s.ToCharArray(0, s.Length), 0, chars, 0, s.Length);
-                n += s.Length;
-            }
+            //if (b > 0)
+            //{
+            //    string s;
+            //    try
+            //    {
+            //        s = __CHARSET.GetString(bytes, 0, b);
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        s = Encoding.ASCII.GetString(bytes, 0, b);
+            //    }
+            //    s.getChars(0, s.Length, chars, n);
+            //    Buffer.BlockCopy(s.ToCharArray(0, s.Length), 0, chars, 0, s.Length);
+            //    n += s.Length;
+            //}
 
-            return new string(chars, 0, n);
+            //return new string(chars, 0, n);
         }
 
         /* ------------------------------------------------------------ */
@@ -393,12 +394,14 @@ namespace NJetty.Util.Util
          */
         public static string CanonicalPath(string path)
         {
+
+            
             if (path == null || path.Length == 0)
                 return path;
 
             int end = path.Length;
             int queryIdx = path.IndexOf('?');
-            int start = path.LastIndexOf('/', (queryIdx > 0 ? queryIdx : end));
+            int start = path.LastIndexOf('/', (queryIdx > 0 ? queryIdx : end-1));
 
 
             while (end > 0)
@@ -416,7 +419,12 @@ namespace NJetty.Util.Util
                 }
 
                 end = start;
-                start = path.LastIndexOf('/', end - 1);
+
+                try
+                {
+                    start = path.LastIndexOf('/', end - 1);
+                }
+                catch { }
             }
         Search:
 
@@ -578,7 +586,7 @@ namespace NJetty.Util.Util
                 switch (c)
                 {
                     case '?':
-                        buf.Append(path, i, end);
+                        buf.Append(path, i, end-i);
                         goto Loop2;
                     case '/':
                         if (state++ == 0)
