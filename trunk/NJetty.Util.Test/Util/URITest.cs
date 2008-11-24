@@ -183,7 +183,7 @@ namespace NJetty.Util.Test.Util
 
         }
 
-        /* ------------------------------------------------------------ */
+        [Test]
         public void TestCanonicalPath()
         {
             String[][] canonical = 
