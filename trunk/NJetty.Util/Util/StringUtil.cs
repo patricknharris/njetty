@@ -204,24 +204,27 @@ namespace NJetty.Util.Util
         /// <returns></returns>
         public static string Replace(string s, string sub, string with)
         {
-            int c = 0;
-            int i = s.IndexOf(sub, c);
-            if (i == -1)
-                return s;
+            // use the string's Replace
+            return s.Replace(sub, with);
 
-            StringBuilder buf = new StringBuilder(s.Length + with.Length);
+            //int c = 0;
+            //int i = s.IndexOf(sub, c);
+            //if (i == -1)
+            //    return s;
 
-            do
-            {
-                buf.Append(s.Substring(c, i));
-                buf.Append(with);
-                c = i + sub.Length;
-            } while ((i = s.IndexOf(sub, c)) != -1);
+            //StringBuilder buf = new StringBuilder(s.Length + with.Length);
 
-            if (c < s.Length)
-                buf.Append(s.Substring(c, s.Length));
+            //do
+            //{
+            //    buf.Append(s.Substring(c, i));
+            //    buf.Append(with);
+            //    c = i + sub.Length;
+            //} while ((i = s.IndexOf(sub, c)) != -1);
 
-            return buf.ToString();
+            //if (c < s.Length)
+            //    buf.Append(s.Substring(c, s.Length));
+
+            //return buf.ToString();
 
         }
 
