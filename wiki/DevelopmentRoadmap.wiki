@@ -95,7 +95,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
  * *Util*
     * LazyListTest (*done*)
     * ArrayQueueTest (*done*)
-    * URITest
+    * URITest (*done*)
     * QuotedStringTokenizerTest (*done*)
     * StringMapTest
     * Utf8StringBufferTest (*done*)
