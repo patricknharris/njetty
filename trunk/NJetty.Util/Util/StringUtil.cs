@@ -88,12 +88,11 @@ namespace NJetty.Util.Util
         
         };
 
-        /* ------------------------------------------------------------ */
-        /**
-         * fast lower case conversion. Only works on ascii (not unicode)
-         * @param s the string to convert
-         * @return a lower case version of s
-         */
+        /// <summary>
+        /// fast lower case conversion. Only works on ascii (not unicode)
+        /// </summary>
+        /// <param name="s">string to convert</param>
+        /// <returns>lower case version of s</returns>
         public static string AsciiToLowerCase(string s)
         {
             char[] c = null;
@@ -125,7 +124,6 @@ namespace NJetty.Util.Util
         }
 
 
-        /* ------------------------------------------------------------ */
         public static bool StartsWithIgnoreCase(string s,string w)
         {
             if (w==null)
@@ -151,7 +149,6 @@ namespace NJetty.Util.Util
             return true;
         }
         
-        /* ------------------------------------------------------------ */
         public static bool EndsWithIgnoreCase(string s,string w)
         {
             if (w==null)
@@ -183,10 +180,12 @@ namespace NJetty.Util.Util
             return true;
         }
         
-        /* ------------------------------------------------------------ */
-        /**
-         * returns the next index of a character from the chars string
-         */
+        /// <summary>
+        /// returns the next index of a character from the chars string
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="chars"></param>
+        /// <returns></returns>
         public static int IndexFrom(string s,string chars)
         {
             for (int i=0;i<s.Length;i++)
@@ -195,10 +194,13 @@ namespace NJetty.Util.Util
             return -1;
         }
         
-        /* ------------------------------------------------------------ */
-        /**
-         * replace substrings within string.
-         */
+        /// <summary>
+        /// replace substrings within string.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="sub"></param>
+        /// <param name="with"></param>
+        /// <returns></returns>
         public static string Replace(string s, string sub, string with)
         {
             int c=0;
@@ -223,22 +225,23 @@ namespace NJetty.Util.Util
         }
 
 
-        /* ------------------------------------------------------------ */
-        /** Remove single or double quotes.
-         */
+        /// <summary>
+        /// Remove single or double quotes.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public static string Unquote(string s)
         {
             return QuotedStringTokenizer.Unquote(s);
         }
 
-
-        /* ------------------------------------------------------------ */
-        /** Append substring to StringBuilder 
-         * @param buf StringBuilder to append to
-         * @param s string to append from
-         * @param offset The offset of the substring
-         * @param length The length of the substring
-         */
+        /// <summary>
+        /// Append substring to StringBuilder
+        /// </summary>
+        /// <param name="buf">StringBuilder to append to</param>
+        /// <param name="s">string to append from</param>
+        /// <param name="offset">The offset of the substring</param>
+        /// <param name="length">The length of the substring</param>
         public static void Append(StringBuilder buf,
                                   string s,
                                   int offset,
@@ -256,12 +259,12 @@ namespace NJetty.Util.Util
             }
         }
 
-        
-        /* ------------------------------------------------------------ */
-        /**
-         * append hex digit
-         * 
-         */
+        /// <summary>
+        /// append hex digit 
+        /// </summary>
+        /// <param name="buf"></param>
+        /// <param name="b"></param>
+        /// <param name="radix"></param>
         public static void Append(StringBuilder buf,byte b,int radix)
         {
             int bi=0xff&b;
@@ -275,7 +278,6 @@ namespace NJetty.Util.Util
             buf.Append((char)c);
         }
 
-        /* ------------------------------------------------------------ */
         public static void Append2Digits(StringBuilder buf,int i)
         {
             if (i<100)
@@ -284,14 +286,12 @@ namespace NJetty.Util.Util
                 buf.Append((char)(i%10+'0'));
             }
         }
-        
-        
-        
-        /* ------------------------------------------------------------ */
-        /** Return a non null string.
-         * @param s string
-         * @return The string passed in or empty string if it is null. 
-         */
+
+        /// <summary>
+        /// Return a non null string.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public static string NonNull(string s)
         {
             if (s==null)
@@ -299,7 +299,6 @@ namespace NJetty.Util.Util
             return s;
         }
         
-        /* ------------------------------------------------------------ */
         public static bool Equals(string s,char[] buf, int offset, int length)
         {
             if (s.Length!=length)
@@ -350,7 +349,6 @@ namespace NJetty.Util.Util
         }
 
 
-        /* ------------------------------------------------------------ */
         public static string Printable(string name)
         {
             if (name==null)
