@@ -36,54 +36,57 @@ namespace NJetty.Util.Util
     /// </date>
     public class QuotedStringTokenizer : StringTokenizer
     {
-        
-        const string __delim="\t\n\r";
+
+        const string __delim = "\t\n\r";
         string _string;
         string _delim = __delim;
-        bool _returnQuotes=false;
-        bool _returnDelimiters=false;
+        bool _returnQuotes = false;
+        bool _returnDelimiters = false;
         StringBuilder _token;
-        bool _hasToken=false;
-        int _i=0;
-        int _lastStart=0;
-        bool _double=true;
-        bool _single=true;
-        
+        bool _hasToken = false;
+        int _i = 0;
+        int _lastStart = 0;
+        bool _double = true;
+        bool _single = true;
+
         public QuotedStringTokenizer(string str,
                                      string delim,
                                      bool returnDelimiters,
-                                     bool returnQuotes)  : base("")
+                                     bool returnQuotes)
+            : base("")
         {
-            _string=str;
-            if (delim!=null)
-                _delim=delim;
-            _returnDelimiters=returnDelimiters;
-            _returnQuotes=returnQuotes;
-            
-            if (_delim.IndexOf('\'')>=0 ||
-                _delim.IndexOf('"')>=0)
-                throw new SystemException("Can't use quotes as delimiters: "+_delim);
-            
-            _token=new StringBuilder(_string.Length>1024?512:_string.Length/2);
+            _string = str;
+            if (delim != null)
+                _delim = delim;
+            _returnDelimiters = returnDelimiters;
+            _returnQuotes = returnQuotes;
+
+            if (_delim.IndexOf('\'') >= 0 ||
+                _delim.IndexOf('"') >= 0)
+                throw new SystemException("Can't use quotes as delimiters: " + _delim);
+
+            _token = new StringBuilder(_string.Length > 1024 ? 512 : _string.Length / 2);
         }
 
         public QuotedStringTokenizer(string str,
                                      string delim,
-                                     bool returnDelimiters) : this(str,delim,returnDelimiters,false)
-        
+                                     bool returnDelimiters)
+            : this(str, delim, returnDelimiters, false)
         {
-            
-        }
-        
-        public QuotedStringTokenizer(string str,
-                                     string delim) : this(str,delim,false,false)
-        {
-            
+
         }
 
-        public QuotedStringTokenizer(string str) : this(str,null,false,false)
+        public QuotedStringTokenizer(string str,
+                                     string delim)
+            : this(str, delim, false, false)
         {
-            
+
+        }
+
+        public QuotedStringTokenizer(string str)
+            : this(str, null, false, false)
+        {
+
         }
 
         /* ------------------------------------------------------------ */
@@ -92,117 +95,117 @@ namespace NJetty.Util.Util
             // Already found a token
             if (_hasToken)
                 return true;
-            
-            _lastStart=_i;
-            
-            int state=0;
-            bool escape=false;
-            while (_i<_string.Length)
+
+            _lastStart = _i;
+
+            int state = 0;
+            bool escape = false;
+            while (_i < _string.Length)
             {
-                char c=_string[_i++];
-                
+                char c = _string[_i++];
+
                 switch (state)
                 {
-                  case 0: // Start
-                      if(_delim.IndexOf(c)>=0)
-                      {
-                          if (_returnDelimiters)
-                          {
-                              _token.Append(c);
-                              return _hasToken=true;
-                          }
-                      }
-                      else if (c=='\'' && _single)
-                      {
-                          if (_returnQuotes)
-                              _token.Append(c);
-                          state=2;
-                      }
-                      else if (c=='\"' && _double)
-                      {
-                          if (_returnQuotes)
-                              _token.Append(c);
-                          state=3;
-                      }
-                      else
-                      {
-                          _token.Append(c);
-                          _hasToken=true;
-                          state=1;
-                      }
-                      continue;
-                      
-                  case 1: // Token
-                      _hasToken=true;
-                      if(_delim.IndexOf(c)>=0)
-                      {
-                          if (_returnDelimiters)
-                              _i--;
-                          return _hasToken;
-                      }
-                      else if (c=='\'' && _single)
-                      {
-                          if (_returnQuotes)
-                              _token.Append(c);
-                          state=2;
-                      }
-                      else if (c=='\"' && _double)
-                      {
-                          if (_returnQuotes)
-                              _token.Append(c);
-                          state=3;
-                      }
-                      else
-                          _token.Append(c);
-                      continue;
+                    case 0: // Start
+                        if (_delim.IndexOf(c) >= 0)
+                        {
+                            if (_returnDelimiters)
+                            {
+                                _token.Append(c);
+                                return _hasToken = true;
+                            }
+                        }
+                        else if (c == '\'' && _single)
+                        {
+                            if (_returnQuotes)
+                                _token.Append(c);
+                            state = 2;
+                        }
+                        else if (c == '\"' && _double)
+                        {
+                            if (_returnQuotes)
+                                _token.Append(c);
+                            state = 3;
+                        }
+                        else
+                        {
+                            _token.Append(c);
+                            _hasToken = true;
+                            state = 1;
+                        }
+                        continue;
 
-                      
-                  case 2: // Single Quote
-                      _hasToken=true;
-                      if (escape)
-                      {
-                          escape=false;
-                          _token.Append(c);
-                      }
-                      else if (c=='\'')
-                      {
-                          if (_returnQuotes)
-                              _token.Append(c);
-                          state=1;
-                      }
-                      else if (c=='\\')
-                      {
-                          if (_returnQuotes)
-                              _token.Append(c);
-                          escape=true;
-                      }
-                      else
-                          _token.Append(c);
-                      continue;
+                    case 1: // Token
+                        _hasToken = true;
+                        if (_delim.IndexOf(c) >= 0)
+                        {
+                            if (_returnDelimiters)
+                                _i--;
+                            return _hasToken;
+                        }
+                        else if (c == '\'' && _single)
+                        {
+                            if (_returnQuotes)
+                                _token.Append(c);
+                            state = 2;
+                        }
+                        else if (c == '\"' && _double)
+                        {
+                            if (_returnQuotes)
+                                _token.Append(c);
+                            state = 3;
+                        }
+                        else
+                            _token.Append(c);
+                        continue;
 
-                      
-                  case 3: // Double Quote
-                      _hasToken=true;
-                      if (escape)
-                      {
-                          escape=false;
-                          _token.Append(c);
-                      }
-                      else if (c=='\"')
-                      {
-                          if (_returnQuotes)
-                              _token.Append(c);
-                          state=1;
-                      }
-                      else if (c=='\\')
-                      {
-                          if (_returnQuotes)
-                              _token.Append(c);
-                          escape=true;
-                      }
-                      else
-                          _token.Append(c);
-                      continue;
+
+                    case 2: // Single Quote
+                        _hasToken = true;
+                        if (escape)
+                        {
+                            escape = false;
+                            _token.Append(c);
+                        }
+                        else if (c == '\'')
+                        {
+                            if (_returnQuotes)
+                                _token.Append(c);
+                            state = 1;
+                        }
+                        else if (c == '\\')
+                        {
+                            if (_returnQuotes)
+                                _token.Append(c);
+                            escape = true;
+                        }
+                        else
+                            _token.Append(c);
+                        continue;
+
+
+                    case 3: // Double Quote
+                        _hasToken = true;
+                        if (escape)
+                        {
+                            escape = false;
+                            _token.Append(c);
+                        }
+                        else if (c == '\"')
+                        {
+                            if (_returnQuotes)
+                                _token.Append(c);
+                            state = 1;
+                        }
+                        else if (c == '\\')
+                        {
+                            if (_returnQuotes)
+                                _token.Append(c);
+                            escape = true;
+                        }
+                        else
+                            _token.Append(c);
+                        continue;
                 }
             }
 
@@ -211,21 +214,21 @@ namespace NJetty.Util.Util
 
         public string NextToken()
         {
-            if (!hasMoreTokens() || _token==null)
+            if (!hasMoreTokens() || _token == null)
                 throw new NoSuchElementException();
-            string t=_token.ToString();
+            string t = _token.ToString();
             _token.Length = 0;
-            _hasToken=false;
+            _hasToken = false;
             return t;
         }
 
         /* ------------------------------------------------------------ */
         public string NextToken(string delim)
         {
-            _delim=delim;
-            _i=_lastStart;
+            _delim = delim;
+            _i = _lastStart;
             _token.Length = 0;
-            _hasToken=false;
+            _hasToken = false;
             return NextToken();
         }
 
@@ -249,7 +252,7 @@ namespace NJetty.Util.Util
             return -1;
         }
 
-        
+
         /* ------------------------------------------------------------ */
         /** Quote a string.
          * The string is quoted only if quoting is required due to
@@ -260,23 +263,23 @@ namespace NJetty.Util.Util
          */
         public static string Quote(string s, string delim)
         {
-            if (s==null)
+            if (s == null)
                 return null;
-            if (s.Length==0)
+            if (s.Length == 0)
                 return "\"\"";
 
-            
-            for (int i=0;i<s.Length;i++)
+
+            for (int i = 0; i < s.Length; i++)
             {
                 char c = s[i];
-                if (c=='\\' || c=='"' || c=='\'' || Char.IsWhiteSpace(c) || delim.IndexOf(c)>=0)
+                if (c == '\\' || c == '"' || c == '\'' || Char.IsWhiteSpace(c) || delim.IndexOf(c) >= 0)
                 {
-                    StringBuilder b=new StringBuilder(s.Length+8);
-                    quote(b,s);
+                    StringBuilder b = new StringBuilder(s.Length + 8);
+                    quote(b, s);
                     return b.ToString();
                 }
             }
-            
+
             return s;
         }
 
@@ -290,18 +293,18 @@ namespace NJetty.Util.Util
          */
         public static string Quote(string s)
         {
-            if (s==null)
+            if (s == null)
                 return null;
-            if (s.Length==0)
+            if (s.Length == 0)
                 return "\"\"";
-            
-            StringBuilder b=new StringBuilder(s.Length+8);
-            quote(b,s);
+
+            StringBuilder b = new StringBuilder(s.Length + 8);
+            quote(b, s);
             return b.ToString();
-       
+
         }
 
-        
+
         /// <summary>
         /// Quote a string into a StringBuilder.
         /// The characters ", \, \n, \r, \t, \f and \b are escaped
@@ -310,61 +313,61 @@ namespace NJetty.Util.Util
         /// <param name="s">string to quote</param>
         public static void quote(StringBuilder buf, string s)
         {
-            lock(buf)
+            lock (buf)
             {
                 buf.Append('"');
-                
-                int i=0;
-                for (;i<s.Length;i++)
+
+                int i = 0;
+                for (; i < s.Length; i++)
                 {
                     char c = s[i];
-                    switch(c)
+                    switch (c)
                     {
                         case '"':
-                            buf.Append(s,0,i);
+                            buf.Append(s, 0, i);
                             buf.Append("\\\"");
                             goto EndOfLoop;
                         case '\\':
-                            buf.Append(s,0,i);
+                            buf.Append(s, 0, i);
                             buf.Append("\\\\");
                             goto EndOfLoop;
                         case '\n':
-                            buf.Append(s,0,i);
+                            buf.Append(s, 0, i);
                             buf.Append("\\n");
                             goto EndOfLoop;
                         case '\r':
-                            buf.Append(s,0,i);
+                            buf.Append(s, 0, i);
                             buf.Append("\\r");
                             goto EndOfLoop;
                         case '\t':
-                            buf.Append(s,0,i);
+                            buf.Append(s, 0, i);
                             buf.Append("\\t");
                             goto EndOfLoop;
                         case '\f':
-                            buf.Append(s,0,i);
+                            buf.Append(s, 0, i);
                             buf.Append("\\f");
                             goto EndOfLoop;
                         case '\b':
-                            buf.Append(s,0,i);
+                            buf.Append(s, 0, i);
                             buf.Append("\\b");
                             goto EndOfLoop;
-                            
+
                         default:
                             continue;
                             break;
                     }
                 }
-                EndOfLoop:
-                
-                if (i==s.Length)
+            EndOfLoop:
+
+                if (i == s.Length)
                     buf.Append(s);
                 else
                 {
                     i++;
-                    for (;i<s.Length;i++)
+                    for (; i < s.Length; i++)
                     {
                         char c = s[i];
-                        switch(c)
+                        switch (c)
                         {
                             case '"':
                                 buf.Append("\\\"");
@@ -390,19 +393,19 @@ namespace NJetty.Util.Util
 
                             default:
                                 buf.Append(c);
-                            continue;
+                                continue;
                         }
                     }
                 }
-                
+
                 buf.Append('"');
-            } 
-            
-            
-            
+            }
+
+
+
         }
 
-        
+
         /// <summary>
         /// Quote a string into a StringBuilder.
         /// The characters ", \, \n, \r, \t, \f, \b are escaped.
@@ -413,14 +416,14 @@ namespace NJetty.Util.Util
         /// <param name="s">string to quote</param>
         public static void QuoteIfNeeded(StringBuilder buf, string s)
         {
-            lock(buf)
+            lock (buf)
             {
-                int e=-1;
-                
-                for (int i=0;i<s.Length;i++)
+                int e = -1;
+
+                for (int i = 0; i < s.Length; i++)
                 {
                     char c = s[i];
-                    switch(c)
+                    switch (c)
                     {
                         case '"':
                         case '\\':
@@ -432,31 +435,31 @@ namespace NJetty.Util.Util
                         case '%':
                         case '+':
                         case ' ':
-                            e=i;
+                            e = i;
                             buf.Append('"');
                             // TODO when 1.4 support is dropped: buf.Append(s,0,e);
-                            for (int j=0;j<e;j++)
+                            for (int j = 0; j < e; j++)
                                 buf.Append(s[j]);
                             goto search;
-                            
+
                         default:
                             continue;
                             break;
                     }
                 }
 
-                search:
-                
-                if (e<0)
+            search:
+
+                if (e < 0)
                 {
                     buf.Append(s);
                     return;
                 }
-                
-                for (int i=e;i<s.Length;i++)
+
+                for (int i = e; i < s.Length; i++)
                 {
                     char c = s[i];
-                    switch(c)
+                    switch (c)
                     {
                         case '"':
                             buf.Append("\\\"");
@@ -479,7 +482,7 @@ namespace NJetty.Util.Util
                         case '\b':
                             buf.Append("\\b");
                             continue;
-                            
+
                         default:
                             buf.Append(c);
                             continue;
@@ -488,7 +491,7 @@ namespace NJetty.Util.Util
                 buf.Append('"');
             }
         }
-        
+
         /// <summary>
         /// Unquote a string.
         /// </summary>
@@ -496,27 +499,27 @@ namespace NJetty.Util.Util
         /// <returns></returns>
         public static string Unquote(string s)
         {
-            if (s==null)
+            if (s == null)
                 return null;
-            if (s.Length<2)
+            if (s.Length < 2)
                 return s;
 
-            char first=s[0];
-            char last=s[s.Length-1];
-            if (first!=last || (first!='"' && first!='\''))
+            char first = s[0];
+            char last = s[s.Length - 1];
+            if (first != last || (first != '"' && first != '\''))
                 return s;
-            
-            StringBuilder b=new StringBuilder(s.Length-2);
-            lock(b)
+
+            StringBuilder b = new StringBuilder(s.Length - 2);
+            lock (b)
             {
-                bool escape=false;
-                for (int i=1;i<s.Length-1;i++)
+                bool escape = false;
+                for (int i = 1; i < s.Length - 1; i++)
                 {
                     char c = s[i];
 
                     if (escape)
                     {
-                        escape=false;
+                        escape = false;
                         switch (c)
                         {
                             case 'n':
@@ -548,15 +551,15 @@ namespace NJetty.Util.Util
                                 break;
                         }
                     }
-                    else if (c=='\\')
+                    else if (c == '\\')
                     {
-                        escape=true;
+                        escape = true;
                         continue;
                     }
                     else
                         b.Append(c);
                 }
-                
+
                 return b.ToString();
             }
         }
@@ -567,7 +570,7 @@ namespace NJetty.Util.Util
         public bool DoubleQuotes
         {
             get { return _double; }
-            set { _double = value;  }
+            set { _double = value; }
         }
 
         /// <summary>

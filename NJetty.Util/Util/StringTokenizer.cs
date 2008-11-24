@@ -34,7 +34,7 @@ namespace NJetty.Util.Util
     /// <date>
     /// November 2008
     /// </date>
-    
+
     public class StringTokenizer
     {
         int currentPosition;
@@ -66,11 +66,11 @@ namespace NJetty.Util.Util
             SetMaxDelimCodePoint();
         }
 
-        
+
         public StringTokenizer(string str, string delim)
             : this(str, delim, false)
         {
-            
+
         }
 
         public StringTokenizer(string str)
@@ -122,7 +122,7 @@ namespace NJetty.Util.Util
             }
         }
 
-        
+
         /// <summary>
         /// Skips delimiters starting from the specified position. If retDelims
         /// is false, returns the index of the first non-delimiter character at or
@@ -212,7 +212,7 @@ namespace NJetty.Util.Util
             return false;
         }
 
-        
+
         public bool HasMoreTokens()
         {
             /*
