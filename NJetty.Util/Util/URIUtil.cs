@@ -47,16 +47,15 @@ namespace NJetty.Util.Util
         // Use UTF-8 as per http://www.w3.org/TR/html40/appendix/notes.html#non-ascii-chars
         public static readonly Encoding __CHARSET = System.Text.Encoding.GetEncoding(StringUtil.__UTF8); //System.getProperty("org.mortbay.util.URI.charset",StringUtil.__UTF8);
 
-        //private URIUtil()
-        //{}
+        
 
-        /* ------------------------------------------------------------ */
-        /** Encode a URI path.
-         * This is the same encoding offered by URLEncoder, except that
-         * the '/' character is not encoded.
-         * @param path The path the encode
-         * @return The encoded path
-         */
+        /// <summary>
+        /// Encode a URI path.
+        /// This is the same encoding offered by URLEncoder, except that
+        /// the '/' character is not encoded.
+        /// </summary>
+        /// <param name="path">Path To Encode</param>
+        /// <returns>Encoded Path</returns>
         public static string EncodePath(string path)
         {
             if (string.IsNullOrEmpty(path))
@@ -66,12 +65,12 @@ namespace NJetty.Util.Util
             return buf == null ? path : buf.ToString();
         }
 
-        /* ------------------------------------------------------------ */
-        /** Encode a URI path.
-         * @param path The path the encode
-         * @param buf StringBuilder to encode path into (or null)
-         * @return The StringBuilder or null if no substitutions required.
-         */
+        /// <summary>
+        /// Encode a URI path.
+        /// </summary>
+        /// <param name="buf">StringBuilder to encode path into (or null)</param>
+        /// <param name="path">Path to Encode</param>
+        /// <returns>StringBuilder or null if no substitutions required.</returns>
         public static StringBuilder EncodePath(StringBuilder buf, string path)
         {
             if (buf == null)
@@ -128,13 +127,13 @@ namespace NJetty.Util.Util
             return buf;
         }
 
-        /* ------------------------------------------------------------ */
-        /** Encode a URI path.
-         * @param path The path the encode
-         * @param buf StringBuilder to encode path into (or null)
-         * @param encode string of characters to encode. % is always encoded.
-         * @return The StringBuilder or null if no substitutions required.
-         */
+        /// <summary>
+        /// Encode a URI path.
+        /// </summary>
+        /// <param name="buf">StringBuilder to encode path into (or null)</param>
+        /// <param name="path">Path to encode</param>
+        /// <param name="encode">string of characters to encode. % is always encoded.</param>
+        /// <returns>StringBuilder or null if no substitutions required.</returns>
         public static StringBuilder EncodeString(StringBuilder buf,
                                                  string path,
                                                  string encode)
@@ -175,96 +174,24 @@ namespace NJetty.Util.Util
             return buf;
         }
 
-        /* ------------------------------------------------------------ */
-        /* Decode a URI path.
-         * @param path The path the encode
-         * @param buf StringBuilder to encode path into
-         */
+        /// <summary>
+        /// Decode a URI path. 
+        /// </summary>
+        /// <param name="path">The Path to decode</param>
+        /// <returns>StringBuilder to encode path into</returns>
         public static string DecodePath(string path)
         {
             return System.Uri.UnescapeDataString(path);
-            //if (path == null)
-            //    return null;
-            //char[] chars = null;
-            //int n = 0;
-            //byte[] bytes = null;
-            //int b = 0;
-
-            //int len = path.Length;
-
-            //for (int i = 0; i < len; i++)
-            //{
-            //    char c = path[i];
-
-            //    if (c == '%' && (i + 2) < len)
-            //    {
-            //        if (chars == null)
-            //        {
-            //            chars = new char[len];
-            //            bytes = new byte[len];
-
-            //            path.getChars(0, i, chars, 0);
-            //            Buffer.BlockCopy(path.ToCharArray(0, i), 0, chars, 0, i);
-
-
-            //        }
-            //        bytes[b++] = (byte)(0xff & TypeUtil.ParseInt(path, i + 1, 2, 16));
-            //        i += 2;
-            //        continue;
-            //    }
-            //    else if (bytes == null)
-            //    {
-            //        n++;
-            //        continue;
-            //    }
-
-            //    if (b > 0)
-            //    {
-            //        string s;
-            //        try
-            //        {
-            //            s = __CHARSET.GetString(bytes, 0, b);
-            //        }
-            //        catch (Exception e)
-            //        {
-            //            s = Encoding.ASCII.GetString(bytes, 0, b);
-            //        }
-            //        s.getChars(0, s.Length, chars, n);
-            //        Buffer.BlockCopy(s.ToCharArray(0, s.Length), 0, chars, 0, s.Length);
-            //        n += s.Length;
-            //        b = 0;
-            //    }
-
-            //    chars[n++] = c;
-            //}
-
-            //if (chars == null)
-            //    return path;
-
-            //if (b > 0)
-            //{
-            //    string s;
-            //    try
-            //    {
-            //        s = __CHARSET.GetString(bytes, 0, b);
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        s = Encoding.ASCII.GetString(bytes, 0, b);
-            //    }
-            //    s.getChars(0, s.Length, chars, n);
-            //    Buffer.BlockCopy(s.ToCharArray(0, s.Length), 0, chars, 0, s.Length);
-            //    n += s.Length;
-            //}
-
-            //return new string(chars, 0, n);
         }
 
-        /* ------------------------------------------------------------ */
-        /* Decode a URI path.
-         * @param path The path the encode
-         * @param buf StringBuilder to encode path into
-         */
+       
+        /// <summary>
+        /// Decode a URI path.
+        /// </summary>
+        /// <param name="buf">StringBuilder to encode path into</param>
+        /// <param name="offset"></param>
+        /// <param name="length"></param>
+        /// <returns></returns>
         public static string DecodePath(byte[] buf, int offset, int length)
         {
             byte[] bytes = null;
@@ -300,15 +227,14 @@ namespace NJetty.Util.Util
             return StringUtil.ToString(bytes, 0, n, __CHARSET);
         }
 
-
-        /* ------------------------------------------------------------ */
-        /** Add two URI path segments.
-         * Handles null and empty paths, path and query params (eg ?a=b or
-         * ;JSESSIONID=xxx) and avoids duplicate '/'
-         * @param p1 URI path segment 
-         * @param p2 URI path segment
-         * @return Legally combined path segments.
-         */
+        /// <summary>
+        /// Add two URI path segments.
+        /// Handles null and empty paths, path and query params (eg ?a=b or
+        /// ;JSESSIONID=xxx) and avoids duplicate '/'
+        /// </summary>
+        /// <param name="p1">URI path segment</param>
+        /// <param name="p2">URI path segment</param>
+        /// <returns>Legally combined path segments.</returns>
         public static string AddPaths(string p1, string p2)
         {
             if (p1 == null || p1.Length == 0)
@@ -357,10 +283,13 @@ namespace NJetty.Util.Util
             return buf.ToString();
         }
 
-        /* ------------------------------------------------------------ */
-        /** Return the parent Path.
-         * Treat a URI like a directory path and return the parent directory.
-         */
+        
+        /// <summary>
+        /// Return the parent Path.
+        /// Treat a URI like a directory path and return the parent directory.
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
         public static string ParentPath(string p)
         {
             if (p == null || URIUtil.SLASH.Equals(p))
@@ -371,10 +300,12 @@ namespace NJetty.Util.Util
             return null;
         }
 
-        /* ------------------------------------------------------------ */
-        /** Strip parameters from a path.
-         * Return path upto any semicolon parameters.
-         */
+        
+        /// <summary>
+        /// Strip parameters from a path.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns>Return path upto any semicolon parameters.</returns>
         public static string StripPath(string path)
         {
             if (path == null)
@@ -385,13 +316,14 @@ namespace NJetty.Util.Util
             return path.Substring(0, semi);
         }
 
-        /* ------------------------------------------------------------ */
-        /** Convert a path to a cananonical form.
-         * All instances of "." and ".." are factored out.  Null is returned
-         * if the path tries to .. above its root.
-         * @param path 
-         * @return path or null.
-         */
+        
+        /// <summary>
+        /// Convert a path to a cananonical form.
+        /// All instances of "." and ".." are factored out.  Null is returned
+        /// if the path tries to .. above its root.
+        /// </summary>
+        /// <param name="path">Path</param>
+        /// <returns>path or null.</returns>
         public static string CanonicalPath(string path)
         {
 
@@ -605,11 +537,12 @@ namespace NJetty.Util.Util
             return buf.ToString();
         }
 
-        /* ------------------------------------------------------------ */
-        /** 
-         * @param uri URI
-         * @return True if the uri has a scheme
-         */
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="uri">uri URI</param>
+        /// <returns>True if the uri has a scheme</returns>
         public static bool HasScheme(string uri)
         {
             for (int i = 0; i < uri.Length; i++)
