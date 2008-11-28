@@ -66,7 +66,7 @@ namespace NJetty.Util.Util
 
         public ConcurrentDictionary(SerializationInfo info, StreamingContext context)
             : base(info, context)
-        { }
+        {}
 
 
         public ConcurrentDictionary(IDictionary<TKey, TValue> dictionary, IEqualityComparer<TKey> comparer)
@@ -77,7 +77,7 @@ namespace NJetty.Util.Util
 
         object _lock = new object();
 
-        #region IDictionary<TKey,TValue> Members
+        #region Dictionary Overrides
 
         public void Add(TKey key, TValue value)
         {
