@@ -40,38 +40,38 @@ namespace NJetty.Util.Util
 
         #region Constructors
 
-        public ConcurrentDictionary() 
+        public ConcurrentDictionary()
             : base()
-        {}
+        { }
 
-        public ConcurrentDictionary(int capacity) 
+        public ConcurrentDictionary(int capacity)
             : base(capacity)
-        {}
+        { }
 
         public ConcurrentDictionary(IEqualityComparer<TKey> comparer)
             : base(comparer)
-        {}
+        { }
 
 
 
         public ConcurrentDictionary(IDictionary<TKey, TValue> dictionary)
             : base(dictionary)
-        {}
+        { }
 
         public ConcurrentDictionary(int capacity, IEqualityComparer<TKey> comparer)
             : base(capacity, comparer)
-        {}
+        { }
 
 
 
         public ConcurrentDictionary(SerializationInfo info, StreamingContext context)
             : base(info, context)
-        {}
+        { }
 
 
         public ConcurrentDictionary(IDictionary<TKey, TValue> dictionary, IEqualityComparer<TKey> comparer)
             : base(dictionary, comparer)
-        {}
+        { }
 
         #endregion
 
@@ -107,7 +107,7 @@ namespace NJetty.Util.Util
         }
 
         public bool Remove(TKey key)
-        {   
+        {
             lock (_lock)
             {
                 return base.Remove(key);
@@ -116,7 +116,7 @@ namespace NJetty.Util.Util
         }
 
         public bool TryGetValue(TKey key, out TValue value)
-        {   
+        {
             lock (_lock)
             {
                 return base.TryGetValue(key, out value);
@@ -137,7 +137,7 @@ namespace NJetty.Util.Util
         public TValue this[TKey key]
         {
             get
-            {   
+            {
                 lock (_lock)
                 {
                     return base[key];
@@ -156,7 +156,7 @@ namespace NJetty.Util.Util
 
         #region ICollection<KeyValuePair<TKey,TValue>> Members
 
-      
+
 
         public void Clear()
         {
