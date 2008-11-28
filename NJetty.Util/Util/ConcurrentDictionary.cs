@@ -95,7 +95,7 @@ namespace NJetty.Util.Util
             }
         }
 
-        public ICollection<TKey> Keys
+        public Dictionary<TKey, TValue>.KeyCollection Keys
         {
             get
             {
@@ -123,7 +123,7 @@ namespace NJetty.Util.Util
             }
         }
 
-        public ICollection<TValue> Values
+        public Dictionary<TKey, TValue>.ValueCollection Values
         {
             get
             {
@@ -179,5 +179,53 @@ namespace NJetty.Util.Util
 
         #endregion
 
+
+        public void AddIfAbsent(TKey key, TValue value)
+        {
+            lock (_lock)
+            {
+                if (!base.ContainsKey(key))
+                {
+                    base.Add(key, value);
+                }
+            }
+        }
+
+        public bool Remove(TKey key, TValue value)
+        {
+            lock (_lock)
+            {
+                if (base.ContainsKey(key) && base[key].Equals(value))
+                {
+                    base.Remove(key);
+                    return true;
+                }
+                else
+                    return false;
+            }
+        }
+
+        public bool Replace(TKey key, TValue oldValue, TValue newValue)
+        {
+            lock (_lock)
+            {
+                if (base.ContainsKey(key) && base[key].Equals(oldValue)) 
+                {
+                     base.Add(key, newValue);
+                     return true;
+                } 
+                else 
+                    return false;
+
+            }
+        }
+
+        public void Replace(TKey key, TValue value)
+        {
+            if(base.ContainsKey(key))
+            {
+                base[key] = value;
+            }
+        }
     }
 }
