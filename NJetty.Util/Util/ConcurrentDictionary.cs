@@ -27,7 +27,7 @@ namespace NJetty.Util.Util
 {
 
     /// <summary>
-    /// Thread safe dictionary
+    /// Thread safe wrapper for Dictionary
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
