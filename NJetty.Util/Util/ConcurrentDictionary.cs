@@ -71,7 +71,7 @@ namespace NJetty.Util.Util
 
         public ConcurrentDictionary(IDictionary<TKey, TValue> dictionary, IEqualityComparer<TKey> comparer)
             : base(dictionary, comparer)
-        { }
+        {}
 
         #endregion
 
@@ -89,7 +89,6 @@ namespace NJetty.Util.Util
 
         public bool ContainsKey(TKey key)
         {
-
             lock (_lock)
             {
                 return base.ContainsKey(key);
@@ -108,8 +107,7 @@ namespace NJetty.Util.Util
         }
 
         public bool Remove(TKey key)
-        {
-            
+        {   
             lock (_lock)
             {
                 return base.Remove(key);
@@ -118,8 +116,7 @@ namespace NJetty.Util.Util
         }
 
         public bool TryGetValue(TKey key, out TValue value)
-        {
-            
+        {   
             lock (_lock)
             {
                 return base.TryGetValue(key, out value);
