@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 
 namespace NJetty.Util.Util
 {
@@ -34,8 +35,8 @@ namespace NJetty.Util.Util
     /// <date>
     /// November 2008
     /// </date>
-    public class MultiMap
+    public class MultiMap<K> //: IDictionary<K, object>
     {
-        // TODO: might want to rename this to MulitiDictionary to make it more dotnet style
+        
     }
 }

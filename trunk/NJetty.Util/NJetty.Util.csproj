@@ -86,6 +86,7 @@
     <Compile Include="Util\ByteArrayISO8859Writer.cs" />
     <Compile Include="Util\ByteArrayOutputStream2.cs" />
     <Compile Include="Util\CharExtensions.cs" />
+    <Compile Include="Util\ConcurrentDictionary.cs" />
     <Compile Include="Util\DateCache.cs" />
     <Compile Include="Util\IAttributes.cs" />
     <Compile Include="Util\AttributesMap.cs" />
