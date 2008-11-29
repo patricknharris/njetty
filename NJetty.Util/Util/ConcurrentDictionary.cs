@@ -220,12 +220,14 @@ namespace NJetty.Util.Util
             }
         }
 
-        public void Replace(TKey key, TValue value)
+        public bool Replace(TKey key, TValue value)
         {
             if(base.ContainsKey(key))
             {
                 base[key] = value;
+                return true;
             }
+            return false;
         }
     }
 }

@@ -41,6 +41,8 @@ namespace NJetty.Util.Util
         Dictionary<K, object> _map;
         ConcurrentDictionary<K, object> _cmap;
 
+        #region Constructors
+
         public MultiMap()
         {
             _map = new Dictionary<K, object>();
@@ -67,26 +69,28 @@ namespace NJetty.Util.Util
                 _map = new Dictionary<K, object>();
         }
 
+        #endregion
 
-        /* ------------------------------------------------------------ */
-        /** Get multiple values.
-         * Single valued entries are converted to singleton lists.
-         * @param name The entry key. 
-         * @return Unmodifieable List of values.
-         */
+
+        /// <summary>
+        /// Get multiple values.
+        /// Single valued entries are converted to singleton lists.
+        /// </summary>
+        /// <param name="name">The entry key.</param>
+        /// <returns>Unmodifieable List of values.</returns>
         public List<object> GetValues(K name)
         {
             return LazyList.GetList(_map[name], true);
         }
 
-        /* ------------------------------------------------------------ */
-        /** Get a value from a multiple value.
-         * If the value is not a multivalue, then index 0 retrieves the
-         * value or null.
-         * @param name The entry key.
-         * @param i Index of element to get.
-         * @return Unmodifieable List of values.
-         */
+        /// <summary>
+        /// Get a value from a multiple value.
+        /// If the value is not a multivalue, then index 0 retrieves the
+        /// value or null.
+        /// </summary>
+        /// <param name="name">The entry key.</param>
+        /// <param name="i">Index of element to get.</param>
+        /// <returns>Unmodifieable List of values.</returns>
         public object GetValue(K name, int i)
         {
             object l = _map[name];
@@ -96,14 +100,14 @@ namespace NJetty.Util.Util
         }
 
 
-        /* ------------------------------------------------------------ */
-        /** Get value as string.
-         * Single valued items are converted to a string with the toString()
-         * object method. Multi valued entries are converted to a comma separated
-         * List.  No quoting of commas within values is performed.
-         * @param name The entry key. 
-         * @return string value.
-         */
+        /// <summary>
+        /// Get value as string.
+        /// Single valued items are converted to a string with the ToString()
+        /// object method. Multi valued entries are converted to a comma separated
+        /// List.  No quoting of commas within values is performed.
+        /// </summary>
+        /// <param name="name">The entry key</param>
+        /// <returns>string value</returns>
         public string GetString(K name)
         {
             object l = _map[name];
@@ -132,10 +136,7 @@ namespace NJetty.Util.Util
             }
         }
 
-        /* ------------------------------------------------------------ */
-
-
-
+        
         public object this[K name]
         {
             get
@@ -154,39 +155,39 @@ namespace NJetty.Util.Util
             }
             set
             {
-                
+                Add(name, value);
             }
         }
 
-        /* ------------------------------------------------------------ */
-        /** Put and entry into the map.
-         * @param name The entry key. 
-         * @param value The entry value.
-         * @return The previous value or null.
-         */
+        /// <summary>
+        /// Put and entry into the map.
+        /// Existing values will be relaced with the new value
+        /// </summary>
+        /// <param name="name">The entry key.</param>
+        /// <param name="value">The entry value.</param>
         public void Add(K name, object value)
         {
             _map.Add(name, LazyList.Add(null, value));
         }
 
-        /* ------------------------------------------------------------ */
-        /** Put multi valued entry.
-         * @param name The entry key. 
-         * @param values The List of multiple values.
-         * @return The previous value or null.
-         */
+        /// <summary>
+        /// Put multi valued entry.
+        /// Existing values will be relaced with the new value
+        /// </summary>
+        /// <param name="name">The entry key.</param>
+        /// <param name="values">The List of multiple values.</param>
         public void AddValues(K name, IList values)
         {
             _map.Add(name, values);
         }
 
-        /* ------------------------------------------------------------ */
-        /** Put multi valued entry.
-         * @param name The entry key. 
-         * @param values The string array of multiple values.
-         * @return The previous value or null.
-         */
-        public void AppendValues(K name, string[] values)
+        /// <summary>
+        /// Put multi valued entry.
+        /// Existing values will be relaced with the new value
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="values"></param>
+        public void AddValues(K name, string[] values)
         {
             object list = null;
             for (int i = 0; i < values.Length; i++)
@@ -195,13 +196,14 @@ namespace NJetty.Util.Util
         }
 
 
-        /* ------------------------------------------------------------ */
-        /** Add value to multi valued entry.
-         * If the entry is single valued, it is converted to the first
-         * value of a multi valued entry.
-         * @param name The entry key. 
-         * @param value The entry value.
-         */
+        /// <summary>
+        /// Add value to multi valued entry.
+        /// If the entry is single valued, it is converted to the first
+        /// value of a multi valued entry.
+        /// The value will be (existing value[s] + the new value[s])
+        /// </summary>
+        /// <param name="name">The entry key.</param>
+        /// <param name="value">The entry value.</param>
         public void Append(K name, object value)
         {
             object lo = _map[name];
@@ -210,13 +212,14 @@ namespace NJetty.Util.Util
                 _map.Add(name, ln);
         }
 
-        /* ------------------------------------------------------------ */
-        /** Add values to multi valued entry.
-         * If the entry is single valued, it is converted to the first
-         * value of a multi valued entry.
-         * @param name The entry key. 
-         * @param values The List of multiple values.
-         */
+        /// <summary>
+        /// Add values to multi valued entry.
+        /// If the entry is single valued, it is converted to the first
+        /// value of a multi valued entry.
+        /// The value will be (existing value[s] + the new value[s])
+        /// </summary>
+        /// <param name="name">The entry key.</param>
+        /// <param name="values">The List of multiple values.</param>
         public void AppendValues(K name, ICollection<object> values)
         {
             object lo = _map[name];
@@ -225,14 +228,17 @@ namespace NJetty.Util.Util
                 _map.Add(name, ln);
         }
 
-        /* ------------------------------------------------------------ */
-        /** Add values to multi valued entry.
-         * If the entry is single valued, it is converted to the first
-         * value of a multi valued entry.
-         * @param name The entry key. 
-         * @param values The string array of multiple values.
-         */
-        public void AddValues(K name, string[] values)
+        
+
+        /// <summary>
+        /// Add values to multi valued entry.
+        /// If the entry is single valued, it is converted to the first
+        /// value of a multi valued entry.
+        /// The value will be (existing value[s] + the new value[s])
+        /// </summary>
+        /// <param name="name">The entry key</param>
+        /// <param name="values">The string array of multiple values.</param>
+        public void AppendValues(K name, string[] values)
         {
             object lo = _map[name];
             object ln = LazyList.AddArray(lo, values);
@@ -240,12 +246,14 @@ namespace NJetty.Util.Util
                 _map.Add(name, ln);
         }
 
-        /* ------------------------------------------------------------ */
-        /** Remove value.
-         * @param name The entry key. 
-         * @param value The entry value. 
-         * @return true if it was removed.
-         */
+       
+
+        /// <summary>
+        /// Remove value.
+        /// </summary>
+        /// <param name="name">The entry key</param>
+        /// <param name="value">The entry value</param>
+        /// <returns>true if it was removed</returns>
         public bool RemoveValue(K name, object value)
         {
             object lo = _map[name];
@@ -262,10 +270,11 @@ namespace NJetty.Util.Util
             return LazyList.Size(ln) != s;
         }
 
-        /* ------------------------------------------------------------ */
-        /** Put all contents of map.
-         * @param m Map
-         */
+        /// <summary>
+        /// Add all contents of dictionary in our multi-map,
+        /// replacing existing once with new onces
+        /// </summary>
+        /// <param name="m">Dictionary</param>
         public void AddAll(Dictionary<K, object> m)
         {
             bool multi = m is MultiMap<K>;
@@ -282,10 +291,10 @@ namespace NJetty.Util.Util
 
         }
 
-        /* ------------------------------------------------------------ */
-        /** 
-         * @return Map of string arrays
-         */
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Dictionary of string arrays</returns>
         public Dictionary<K, object>  ToStringArrayMap()
         {
             Dictionary<K, object> map = new Dictionary<K, object>(_map.Count * 3 / 2);
@@ -313,11 +322,6 @@ namespace NJetty.Util.Util
         {
             return _map.ContainsValue(value);
         }
-
-        //public Set<Entry<K, object>> entrySet()
-        //{
-        //    return _map.
-        //}
 
         public bool Equals(object o)
         {
@@ -382,11 +386,11 @@ namespace NJetty.Util.Util
             return _cmap.Replace(key, oldValue, newValue);
         }
 
-        public void Replace(K key, object value)
+        public bool Replace(K key, object value)
         {
             if (_cmap == null)
                 throw new NotSupportedException();
-            _cmap.Replace(key, value);
+            return _cmap.Replace(key, value);
         }
 
        
