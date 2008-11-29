@@ -42,6 +42,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * AttributesMap (*done*)
     * ByteArrayISO8859Writer
     * ByteArrayOutputStream2
+	* ConcurrentDictionary (*done*)
     * DateCache    
     * IAttributes (*done*)
     * Loader
@@ -60,7 +61,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * Utf8StringBuffer (*done*)
     * MultiException
     * RolloverFileOutputStream
-    * MultiMap
+    * MultiMap (*done*)
     * MultiPartOutputStream
     * MultiPartWriter
     * IntrospectionUtil
