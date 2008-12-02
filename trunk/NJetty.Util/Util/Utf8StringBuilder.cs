@@ -82,6 +82,30 @@ namespace NJetty.Util.Util
             _buffer[_pointer++] = b;
         }
 
+
+
+
+        public void Append(byte[] bytes)
+        {
+            Append(bytes, 0, bytes.Length);
+        }
+
+
+
+        public void Append(string str, int offset, int lenght)
+        {
+            byte[] bytes = System.Text.Encoding.UTF8.GetBytes(str.Substring(offset, lenght));
+            Append(bytes);
+        }
+
+        public void Append(string str)
+        {
+            if (!string.IsNullOrEmpty(str))
+            {
+                Append(str, 0, str.Length);
+            }
+        }
+
         public int Length
         {
             get

@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace NJetty.Util.Util
 {
@@ -75,7 +76,7 @@ namespace NJetty.Util.Util
         /* ----------------------------------------------------------------- */
         public void Decode(string query, string charset)
         {
-            decodeTo(query, this, charset);
+            DecodeTo(query, this, charset);
         }
 
         /* -------------------------------------------------------------- */
@@ -120,50 +121,53 @@ namespace NJetty.Util.Util
                 charset = StringUtil.__UTF8;
 
             StringBuilder result = new StringBuilder(128);
-
-            Iterator iter = map.entrySet().iterator();
-            while (iter.hasNext())
+            
+            bool first = true;
+            foreach (string key in map.Keys)
             {
-                Map.Entry entry = (Map.Entry)iter.next();
+                if (!first)
+                    result.Append('&');
 
-                string key = entry.getKey().toString();
-                object list = entry.getValue();
-                int s = LazyList.size(list);
+                object list = map[key];
+                int s = LazyList.Size(list);
 
                 if (s == 0)
                 {
-                    result.append(encodeString(key, charset));
+                    result.Append(EncodeString(key, charset));
                     if (equalsForNullValue)
-                        result.append('=');
+                        result.Append('=');
                 }
                 else
                 {
                     for (int i = 0; i < s; i++)
                     {
                         if (i > 0)
-                            result.append('&');
-                        object val = LazyList.get(list, i);
-                        result.append(encodeString(key, charset));
+                            result.Append('&');
+                        object val = LazyList.Get(list, i);
+                        result.Append(EncodeString(key, charset));
 
                         if (val != null)
                         {
-                            string str = val.toString();
-                            if (str.length() > 0)
+                            string str = val.ToString();
+                            if (str.Length > 0)
                             {
-                                result.append('=');
-                                result.append(encodeString(str, charset));
+                                result.Append('=');
+                                result.Append(EncodeString(str, charset));
                             }
                             else if (equalsForNullValue)
-                                result.append('=');
+                                result.Append('=');
                         }
                         else if (equalsForNullValue)
-                            result.append('=');
+                            result.Append('=');
                     }
                 }
-                if (iter.hasNext())
-                    result.append('&');
+
+                first = false;
+
             }
-            return result.toString();
+
+
+            return result.ToString();
         }
 
 
@@ -183,24 +187,24 @@ namespace NJetty.Util.Util
                 string value = null;
                 int mark = -1;
                 bool encoded = false;
-                for (int i = 0; i < content.length(); i++)
+                for (int i = 0; i < content.Length; i++)
                 {
-                    char c = content.charAt(i);
+                    char c = content[i];
                     switch (c)
                     {
                         case '&':
                             int l = i - mark - 1;
                             value = l == 0 ? "" :
-                                (encoded ? decodeString(content, mark + 1, l, charset) : content.substring(mark + 1, i));
+                                (encoded ? DecodeString(content, mark + 1, l, charset) : content.Substring(mark + 1, i));
                             mark = i;
                             encoded = false;
                             if (key != null)
                             {
-                                map.add(key, value);
+                                map.Add(key, value);
                             }
-                            else if (value != null && value.length() > 0)
+                            else if (value != null && value.Length > 0)
                             {
-                                map.add(value, "");
+                                map.Add(value, "");
                             }
                             key = null;
                             value = null;
@@ -208,7 +212,7 @@ namespace NJetty.Util.Util
                         case '=':
                             if (key != null)
                                 break;
-                            key = encoded ? decodeString(content, mark + 1, i - mark - 1, charset) : content.substring(mark + 1, i);
+                            key = encoded ? DecodeString(content, mark + 1, i - mark - 1, charset) : content.Substring(mark + 1, i);
                             mark = i;
                             encoded = false;
                             break;
@@ -223,16 +227,16 @@ namespace NJetty.Util.Util
 
                 if (key != null)
                 {
-                    int l = content.length() - mark - 1;
-                    value = l == 0 ? "" : (encoded ? decodeString(content, mark + 1, l, charset) : content.substring(mark + 1));
-                    map.add(key, value);
+                    int l = content.Length - mark - 1;
+                    value = l == 0 ? "" : (encoded ? DecodeString(content, mark + 1, l, charset) : content.Substring(mark + 1));
+                    map.Add(key, value);
                 }
-                else if (mark < content.length())
+                else if (mark < content.Length)
                 {
                     key = encoded
-                        ? decodeString(content, mark + 1, content.length() - mark - 1, charset)
-                        : content.substring(mark + 1);
-                    map.add(key, "");
+                        ? DecodeString(content, mark + 1, content.Length - mark - 1, charset)
+                        : content.Substring(mark + 1);
+                    map.Add(key, "");
                 }
             }
         }
@@ -243,7 +247,7 @@ namespace NJetty.Util.Util
          */
         public static void DecodeUtf8To(byte[] raw, int offset, int length, MultiMap<string> map)
         {
-            decodeUtf8To(raw, offset, length, map, new Utf8StringBuilder());
+            DecodeUtf8To(raw, offset, length, map, new Utf8StringBuilder());
         }
 
         /* -------------------------------------------------------------- */
@@ -265,15 +269,15 @@ namespace NJetty.Util.Util
                     switch ((char)(0xff & b))
                     {
                         case '&':
-                            value = buffer.length() == 0 ? "" : buffer.toString();
-                            buffer.reset();
+                            value = buffer.Length == 0 ? "" : buffer.ToString();
+                            buffer.Reset();
                             if (key != null)
                             {
-                                map.add(key, value);
+                                map.Add(key, value);
                             }
-                            else if (value != null && value.length() > 0)
+                            else if (value != null && value.Length > 0)
                             {
-                                map.add(value, "");
+                                map.Add(value, "");
                             }
                             key = null;
                             value = null;
@@ -282,36 +286,36 @@ namespace NJetty.Util.Util
                         case '=':
                             if (key != null)
                             {
-                                buffer.append(b);
+                                buffer.Append(b);
                                 break;
                             }
-                            key = buffer.toString();
-                            buffer.reset();
+                            key = buffer.ToString();
+                            buffer.Reset();
                             break;
 
                         case '+':
-                            buffer.append((byte)' ');
+                            buffer.Append((byte)' ');
                             break;
 
                         case '%':
                             if (i + 2 < end)
-                                buffer.append((byte)((TypeUtil.convertHexDigit(raw[++i]) << 4) + TypeUtil.convertHexDigit(raw[++i])));
+                                buffer.Append((byte)((TypeUtil.ConvertHexDigit(raw[++i]) << 4) + TypeUtil.ConvertHexDigit(raw[++i])));
                             break;
                         default:
-                            buffer.append(b);
+                            buffer.Append(b);
                             break;
                     }
                 }
 
                 if (key != null)
                 {
-                    value = buffer.length() == 0 ? "" : buffer.toString();
-                    buffer.reset();
-                    map.add(key, value);
+                    value = buffer.Length == 0 ? "" : buffer.ToString();
+                    buffer.Reset();
+                    map.Add(key, value);
                 }
-                else if (buffer.length() > 0)
+                else if (buffer.Length > 0)
                 {
-                    map.add(buffer.toString(), "");
+                    map.Add(buffer.ToString(), "");
                 }
             }
         }
@@ -319,10 +323,10 @@ namespace NJetty.Util.Util
         /* -------------------------------------------------------------- */
         /** Decoded parameters to Map.
          * @param input InputSteam to read
-         * @param map MultiMap to add parameters to
+         * @param map MultiMap to Add parameters to
          * @param maxLength maximum length of content to read 0r -1 for no limit
          */
-        public static void Decode88591To(InputStream input, MultiMap<string> map, int maxLength)
+        public static void Decode88591To(Stream input, MultiMap<string> map, int maxLength)
         {
             lock (map)
             {
@@ -334,20 +338,20 @@ namespace NJetty.Util.Util
 
                 // TODO cache of parameter names ???
                 int totalLength = 0;
-                while ((b = input.read()) >= 0)
+                while ((b = input.ReadByte()) >= 0)
                 {
                     switch ((char)b)
                     {
                         case '&':
-                            value = buffer.length() == 0 ? "" : buffer.toString();
-                            buffer.setLength(0);
+                            value = buffer.Length == 0 ? "" : buffer.ToString();
+                            buffer.Length = 0;
                             if (key != null)
                             {
-                                map.add(key, value);
+                                map.Add(key, value);
                             }
-                            else if (value != null && value.length() > 0)
+                            else if (value != null && value.Length > 0)
                             {
-                                map.add(value, "");
+                                map.Add(value, "");
                             }
                             key = null;
                             value = null;
@@ -356,41 +360,41 @@ namespace NJetty.Util.Util
                         case '=':
                             if (key != null)
                             {
-                                buffer.append((char)b);
+                                buffer.Append((char)b);
                                 break;
                             }
-                            key = buffer.toString();
-                            buffer.setLength(0);
+                            key = buffer.ToString();
+                            buffer.Length = 0;
                             break;
 
                         case '+':
-                            buffer.append((char)' ');
+                            buffer.Append((char)' ');
                             break;
 
                         case '%':
-                            int dh = input.read();
-                            int dl = input.read();
+                            int dh = input.ReadByte();
+                            int dl = input.ReadByte();
                             if (dh < 0 || dl < 0)
                                 break;
-                            buffer.append((char)((TypeUtil.convertHexDigit((byte)dh) << 4) + TypeUtil.convertHexDigit((byte)dl)));
+                            buffer.Append((char)((TypeUtil.ConvertHexDigit((byte)dh) << 4) + TypeUtil.ConvertHexDigit((byte)dl)));
                             break;
                         default:
-                            buffer.append((char)b);
+                            buffer.Append((char)b);
                             break;
                     }
                     if (maxLength >= 0 && (++totalLength > maxLength))
-                        throw new IllegalStateException("Form too large");
+                        throw new InvalidOperationException("Form too large");
                 }
 
                 if (key != null)
                 {
-                    value = buffer.length() == 0 ? "" : buffer.toString();
-                    buffer.setLength(0);
-                    map.add(key, value);
+                    value = buffer.Length == 0 ? "" : buffer.ToString();
+                    buffer.Length = 0;
+                    map.Add(key, value);
                 }
-                else if (buffer.length() > 0)
+                else if (buffer.Length > 0)
                 {
-                    map.add(buffer.toString(), "");
+                    map.Add(buffer.ToString(), "");
                 }
             }
         }
@@ -398,10 +402,10 @@ namespace NJetty.Util.Util
         /* -------------------------------------------------------------- */
         /** Decoded parameters to Map.
          * @param input InputSteam to read
-         * @param map MultiMap to add parameters to
+         * @param map MultiMap to Add parameters to
          * @param maxLength maximum length of conent to read 0r -1 for no limit
          */
-        public static void DecodeUtf8To(InputStream input, MultiMap<string> map, int maxLength)
+        public static void DecodeUtf8To(Stream input, MultiMap<string> map, int maxLength)
         {
             lock (map)
             {
@@ -413,20 +417,20 @@ namespace NJetty.Util.Util
 
                 // TODO cache of parameter names ???
                 int totalLength = 0;
-                while ((b = input.read()) >= 0)
+                while ((b = input.ReadByte()) >= 0)
                 {
                     switch ((char)b)
                     {
                         case '&':
-                            value = buffer.length() == 0 ? "" : buffer.toString();
-                            buffer.reset();
+                            value = buffer.Length == 0 ? "" : buffer.ToString();
+                            buffer.Reset();
                             if (key != null)
                             {
-                                map.add(key, value);
+                                map.Add(key, value);
                             }
-                            else if (value != null && value.length() > 0)
+                            else if (value != null && value.Length > 0)
                             {
-                                map.add(value, "");
+                                map.Add(value, "");
                             }
                             key = null;
                             value = null;
@@ -435,81 +439,83 @@ namespace NJetty.Util.Util
                         case '=':
                             if (key != null)
                             {
-                                buffer.append((byte)b);
+                                buffer.Append((byte)b);
                                 break;
                             }
-                            key = buffer.toString();
-                            buffer.reset();
+                            key = buffer.ToString();
+                            buffer.Reset();
                             break;
 
                         case '+':
-                            buffer.append((byte)' ');
+                            buffer.Append((byte)' ');
                             break;
 
                         case '%':
-                            int dh = input.read();
-                            int dl = input.read();
+                            int dh = input.ReadByte();
+                            int dl = input.ReadByte();
                             if (dh < 0 || dl < 0)
                                 break;
-                            buffer.append((byte)((TypeUtil.convertHexDigit((byte)dh) << 4) + TypeUtil.convertHexDigit((byte)dl)));
+                            buffer.Append((byte)((TypeUtil.ConvertHexDigit((byte)dh) << 4) + TypeUtil.ConvertHexDigit((byte)dl)));
                             break;
                         default:
-                            buffer.append((byte)b);
+                            buffer.Append((byte)b);
                             break;
                     }
                     if (maxLength >= 0 && (++totalLength > maxLength))
-                        throw new IllegalStateException("Form too large");
+                        throw new InvalidOperationException("Form too large");
                 }
 
                 if (key != null)
                 {
-                    value = buffer.length() == 0 ? "" : buffer.toString();
-                    buffer.reset();
-                    map.add(key, value);
+                    value = buffer.Length == 0 ? "" : buffer.ToString();
+                    buffer.Reset();
+                    map.Add(key, value);
                 }
-                else if (buffer.length() > 0)
+                else if (buffer.Length > 0)
                 {
-                    map.add(buffer.toString(), "");
+                    map.Add(buffer.ToString(), "");
                 }
             }
         }
 
         /* -------------------------------------------------------------- */
-        public static void DecodeUtf16To(InputStream input, MultiMap<string> map, int maxLength)
+        public static void DecodeUtf16To(Stream input, MultiMap<string> map, int maxLength)
         {
-            InputStreamReader input = new InputStreamReader(input, StringUtil.__UTF16);
+            StreamReader reader = new StreamReader(input, Encoding.GetEncoding(StringUtil.__UTF16));
             StringBuilder buf = new StringBuilder();
+
+            
 
             int c;
             int length = 0;
             if (maxLength < 0)
-                maxLength = Integer.MAX_VALUE;
-            while ((c = input.read()) > 0 && length++ < maxLength)
-                buf.append((char)c);
-            DecodeTo(buf.toString(), map, StringUtil.__UTF8);
+                maxLength = int.MaxValue;
+            while ((c = reader.Read()) > 0 && length++ < maxLength)
+                buf.Append((char)c);
+            DecodeTo(buf.ToString(), map, StringUtil.__UTF8);
         }
 
         /* -------------------------------------------------------------- */
         /** Decoded parameters to Map.
          * @param input the stream containing the encoded parameters
          */
-        public static void DecodeTo(InputStream input, MultiMap<string> map, string charset, int maxLength)
+        public static void DecodeTo(Stream input, MultiMap<string> map, string charset, int maxLength)
         {
-            if (charset == null || StringUtil.__ISO_8859_1.equals(charset))
+            if (charset == null || StringUtil.__ISO_8859_1.Equals(charset))
             {
                 Decode88591To(input, map, maxLength);
                 return;
             }
 
-            if (StringUtil.__UTF8.equalsIgnoreCase(charset))
+            if (StringUtil.__UTF8.Equals(charset, StringComparison.OrdinalIgnoreCase))
             {
                 DecodeUtf8To(input, map, maxLength);
                 return;
             }
 
-            if (StringUtil.__UTF16.equalsIgnoreCase(charset)) // Should be all 2 byte encodings
+            if (StringUtil.__UTF16.Equals(charset, StringComparison.OrdinalIgnoreCase)) // Should be all 2 byte encodings
             {
-                decodeUtf16To(input, map, maxLength);
+                DecodeUtf16To(input, map, maxLength);
                 return;
             }
 
@@ -526,23 +532,23 @@ namespace NJetty.Util.Util
                 int totalLength = 0;
                 ByteArrayOutputStream2 output = new ByteArrayOutputStream2();
 
-                int size = 0;
+                long size = 0;
 
-                while ((c = input.read()) > 0)
+                while ((c = input.ReadByte()) > 0)
                 {
                     switch ((char)c)
                     {
                         case '&':
-                            size = output.size();
-                            value = size == 0 ? "" : output.toString(charset);
-                            output.setCount(0);
+                            size = output.Length;
+                            value = size == 0 ? "" : Encoding.GetEncoding(charset).GetString(output.GetBuffer());
+                            output.Position = 0;
                             if (key != null)
                             {
-                                map.add(key, value);
+                                map.Add(key, value);
                             }
-                            else if (value != null && value.length() > 0)
+                            else if (value != null && value.Length > 0)
                             {
-                                map.add(value, "");
+                                map.Add(value, "");
                             }
                             key = null;
                             value = null;
@@ -550,15 +556,15 @@ namespace NJetty.Util.Util
                         case '=':
                             if (key != null)
                             {
-                                output.write(c);
+                                output.WriteByte(c);
                                 break;
                             }
-                            size = output.size();
-                            key = size == 0 ? "" : output.toString(charset);
-                            output.setCount(0);
+                            size = output.Length;
+                            key = size == 0 ? "" : Encoding.GetEncoding(charset).GetString(output.GetBuffer());
+                            output.Position = 0;
                             break;
                         case '+':
-                            output.write(' ');
+                            output.WriteByte(' ');
                             break;
                         case '%':
                             digits = 2;
@@ -566,33 +572,33 @@ namespace NJetty.Util.Util
                         default:
                             if (digits == 2)
                             {
-                                digit = TypeUtil.convertHexDigit((byte)c);
+                                digit = TypeUtil.ConvertHexDigit((byte)c);
                                 digits = 1;
                             }
                             else if (digits == 1)
                             {
-                                output.write((digit << 4) + TypeUtil.convertHexDigit((byte)c));
+                                output.WriteByte((digit << 4) + TypeUtil.ConvertHexDigit((byte)c));
                                 digits = 0;
                             }
                             else
-                                output.write(c);
+                                output.WriteByte(c);
                             break;
                     }
 
                     totalLength++;
                     if (maxLength >= 0 && totalLength > maxLength)
-                        throw new IllegalStateException("Form too large");
+                        throw new InvalidOperationException("Form too large");
                 }
 
-                size = output.size();
+                size = output.Length;
                 if (key != null)
                 {
-                    value = size == 0 ? "" : output.toString(charset);
-                    output.setCount(0);
-                    map.add(key, value);
+                    value = size == 0 ? "" : Encoding.GetEncoding(charset).GetString(output.GetBuffer());
+                    output.Position = 0;
+                    map.Add(key, value);
                 }
                 else if (size > 0)
-                    map.add(output.toString(charset), "");
+                    map.Add(Encoding.GetEncoding(charset).GetString(output.GetBuffer()), "");
             }
         }
 
@@ -603,63 +609,65 @@ namespace NJetty.Util.Util
          */
         public static string DecodeString(string encoded, int offset, int length, string charset)
         {
-            if (charset == null || StringUtil.isUTF8(charset))
+            if (charset == null || StringUtil.IsUTF8(charset))
             {
                 Utf8StringBuffer buffer = null;
 
                 for (int i = 0; i < length; i++)
                 {
-                    char c = encoded.charAt(offset + i);
+                    char c = encoded[offset + i];
                     if (c < 0 || c > 0xff)
                     {
                         if (buffer == null)
                         {
                             buffer = new Utf8StringBuffer(length);
-                            buffer.getStringBuffer().append(encoded, offset, offset + i + 1);
+                            buffer.Append(encoded, offset, offset + i + 1);
+                            
+
                         }
                         else
-                            buffer.getStringBuffer().append(c);
+                            buffer.Append((byte)c);
                     }
                     else if (c == '+')
                     {
                         if (buffer == null)
                         {
                             buffer = new Utf8StringBuffer(length);
-                            buffer.getStringBuffer().append(encoded, offset, offset + i);
+                            buffer.Append(encoded, offset, offset + i);
                         }
 
-                        buffer.getStringBuffer().append(' ');
+                        buffer.Append((byte)' ');
                     }
                     else if (c == '%' && (i + 2) < length)
                     {
                         if (buffer == null)
                         {
                             buffer = new Utf8StringBuffer(length);
-                            buffer.getStringBuffer().append(encoded, offset, offset + i);
+                            buffer.Append(encoded, offset, offset + i);
                         }
 
                         while (c == '%' && (i + 2) < length)
                         {
-                            byte b = (byte)TypeUtil.parseInt(encoded, offset + i + 1, 2, 16);
-                            buffer.append(b);
+                            byte b = (byte)TypeUtil.ParseInt(encoded, offset + i + 1, 2, 16);
+                            buffer.Append(b);
                             i += 3;
                             if (i < length)
-                                c = encoded.charAt(offset + i);
+                                c = encoded[offset + i];
                         }
                         i--;
                     }
                     else if (buffer != null)
-                        buffer.getStringBuffer().append(c);
+                        buffer.Append((byte)c);
                 }
 
                 if (buffer == null)
                 {
-                    if (offset == 0 && encoded.length() == length)
+                    if (offset == 0 && encoded.Length == length)
                         return encoded;
-                    return encoded.substring(offset, offset + length);
+                    return encoded.Substring(offset, offset + length);
                 }
 
-                return buffer.toString();
+                return buffer.ToString();
             }
             else
             {
@@ -669,33 +677,33 @@ namespace NJetty.Util.Util
                 {
                     for (int i = 0; i < length; i++)
                     {
-                        char c = encoded.charAt(offset + i);
+                        char c = encoded[offset + i];
                         if (c < 0 || c > 0xff)
                         {
                             if (buffer == null)
                             {
                                 buffer = new StringBuilder(length);
-                                buffer.append(encoded, offset, offset + i + 1);
+                                buffer.Append(encoded, offset, offset + i + 1);
                             }
                             else
-                                buffer.append(c);
+                                buffer.Append(c);
                         }
                         else if (c == '+')
                         {
                             if (buffer == null)
                             {
                                 buffer = new StringBuilder(length);
-                                buffer.append(encoded, offset, offset + i);
+                                buffer.Append(encoded, offset, offset + i);
                             }
 
-                            buffer.append(' ');
+                            buffer.Append(' ');
                         }
                         else if (c == '%' && (i + 2) < length)
                         {
                             if (buffer == null)
                             {
                                 buffer = new StringBuilder(length);
-                                buffer.append(encoded, offset, offset + i);
+                                buffer.Append(encoded, offset, offset + i);
                             }
 
                             byte[] ba = new byte[length];
@@ -704,7 +712,7 @@ namespace NJetty.Util.Util
                             {
                                 if (c == '%')
                                 {
-                                    ba[n++] = (byte)TypeUtil.parseInt(encoded, offset + i + 1, 2, 16);
+                                    ba[n++] = (byte)TypeUtil.ParseInt(encoded, offset + i + 1, 2, 16);
                                     i += 3;
                                 }
                                 else
@@ -715,29 +723,29 @@ namespace NJetty.Util.Util
 
                                 if (i >= length)
                                     break;
-                                c = encoded.charAt(offset + i);
+                                c = encoded[offset + i];
                             }
 
                             i--;
-                            buffer.append(new string(ba, 0, n, charset));
+                            buffer.Append(Encoding.GetEncoding(charset).GetString(ba, 0,n));
 
                         }
                         else if (buffer != null)
-                            buffer.append(c);
+                            buffer.Append(c);
                     }
 
                     if (buffer == null)
                     {
-                        if (offset == 0 && encoded.length() == length)
+                        if (offset == 0 && encoded.Length == length)
                             return encoded;
-                        return encoded.substring(offset, offset + length);
+                        return encoded.Substring(offset, offset + length);
                     }
 
-                    return buffer.toString();
+                    return buffer.ToString();
                 }
-                catch (UnsupportedEncodingException e)
+                catch (ArgumentException e)
                 {
-                    throw new RuntimeException(e);
+                    throw new SystemException(e.Message, e);
                 }
             }
 
@@ -766,16 +774,16 @@ namespace NJetty.Util.Util
             byte[] bytes = null;
             try
             {
-                bytes = str.getBytes(charset);
+                bytes = Encoding.GetEncoding(charset).GetBytes(str);
             }
-            catch (UnsupportedEncodingException e)
+            catch (ArgumentException e)
             {
                 // Log.warn(LogSupport.EXCEPTION,e);
-                bytes = str.getBytes();
+                bytes = Encoding.ASCII.GetBytes(str);
             }
 
-            int len = bytes.length;
-            byte[] encoded = new byte[bytes.length * 3];
+            int len = bytes.Length;
+            byte[] encoded = new byte[bytes.Length * 3];
             int n = 0;
             bool noEncode = true;
 
@@ -816,12 +824,12 @@ namespace NJetty.Util.Util
 
             try
             {
-                return new string(encoded, 0, n, charset);
+                return Encoding.GetEncoding(charset).GetString(encoded, 0, n);
             }
-            catch (UnsupportedEncodingException e)
+            catch (ArgumentException e)
             {
                 // Log.warn(LogSupport.EXCEPTION,e);
-                return new string(encoded, 0, n);
+                return Encoding.ASCII.GetString(encoded, 0, n);
             }
         }
 

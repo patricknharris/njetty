@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace NJetty.Util.Util
 {
@@ -34,7 +35,35 @@ namespace NJetty.Util.Util
     /// <date>
     /// November 2008
     /// </date>
-    public class ByteArrayOutputStream2
+    public class ByteArrayOutputStream2 : MemoryStream
     {
+
+        public ByteArrayOutputStream2() : base()
+        {}
+        public ByteArrayOutputStream2(int size) : base(size)
+        {}
+
+        public void WriteByte(int b)
+        {
+            WriteByte((byte) b);
+        }
+
+        //public int getCount() { return count; }
+        //public void setCount(int count) { this.count = count; }
+
+        //public void Reset(int minSize)
+        //{
+        //    this.
+        //    reset()
+        //    if (buf.length < minSize)
+        //    {
+        //        buf = new byte[minSize];
+        //    }
+        //}
+
+        //public void writeUnchecked(int b)
+        //{
+        //    buf[count++] = (byte)b;
+        //}
     }
 }
