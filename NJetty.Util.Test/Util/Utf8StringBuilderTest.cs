@@ -42,7 +42,7 @@ namespace NJetty.Util.Test.Util
     public class Utf8StringBuilderTest
     {
 
-        public void TestUtfStringBuilder()
+        public void TestUtfStringBuilder1()
         {
             string source = "abcd012345\n\r\u0000\u00a4\u10fb\ufffdnjetty";
 
@@ -61,6 +61,25 @@ namespace NJetty.Util.Test.Util
 
             Assert.AreEqual(source, buffer.ToString());
             Assert.IsTrue(buffer.ToString().EndsWith("njetty")); 
+        }
+
+        public void TestUtfStringBuilder2()
+        {
+            string source = "abcd012345\n\r\u0000\u00a4\u10fb\ufffdnjetty";
+            Utf8StringBuilder buffer = new Utf8StringBuilder();
+            buffer.Append(source);
+
+            for (int i = 0; i < 100; i++)
+            {
+                source += "abcd012345\n\r\u0000\u00a4\u10fb\ufffdnjetty";
+                buffer.Append("abcd012345\n\r\u0000\u00a4\u10fb\ufffdnjetty");
+            }
+
+
+
+
+            Assert.AreEqual(source, buffer.ToString());
+            Assert.IsTrue(buffer.ToString().EndsWith("njetty"));
         }
     }
 }

@@ -74,6 +74,36 @@ namespace NJetty.Util.Util
             }
         }
 
+
+
+
+        public void Append(byte[] bytes)
+        {
+            lock (_lock)
+            {
+                _sb.Append(bytes);
+            }
+        }
+
+
+
+        public void Append(string str, int offset, int lenght)
+        {
+            lock (_lock)
+            {
+                _sb.Append(str, offset, lenght);
+            }
+
+        }
+
+        public void Append(string str)
+        {
+            lock (_lock)
+            {
+                _sb.Append(str);
+            }
+        }
+
         public int Length
         {
             get
