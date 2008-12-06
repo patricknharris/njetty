@@ -76,6 +76,16 @@ namespace NJetty.Util.Util
 
 
 
+        public void Append(char c)
+        {
+            lock (_lock)
+            {
+                _sb.Append(c);
+            }
+        }
+
+
+
 
         public void Append(byte[] bytes)
         {

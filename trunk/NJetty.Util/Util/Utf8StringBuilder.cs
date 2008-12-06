@@ -82,7 +82,10 @@ namespace NJetty.Util.Util
             _buffer[_pointer++] = b;
         }
 
-
+        public void Append(char c)
+        {
+            Append(BitConverter.GetBytes(c));
+        }
 
 
         public void Append(byte[] bytes)
