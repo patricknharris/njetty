@@ -67,41 +67,48 @@ namespace NJetty.Util.Util
             Decode(s, charset);
         }
 
-        /* ----------------------------------------------------------------- */
         public void Decode(string query)
         {
             DecodeTo(query, this, StringUtil.__UTF8);
         }
 
-        /* ----------------------------------------------------------------- */
         public void Decode(string query, string charset)
         {
             DecodeTo(query, this, charset);
         }
 
-        /* -------------------------------------------------------------- */
-        /** Encode Hashtable with % encoding.
-         */
+        /// <summary>
+        /// Encode Hashtable with % encoding.
+        /// </summary>
+        /// <returns></returns>
         public string Encode()
         {
             return Encode(StringUtil.__UTF8, false);
         }
 
-        /* -------------------------------------------------------------- */
-        /** Encode Hashtable with % encoding.
-         */
+        /// <summary>
+        /// Encode Hashtable with % encoding.
+        /// </summary>
+        /// <param name="charset"></param>
+        /// <returns></returns>
         public string Encode(string charset)
         {
             return Encode(charset, false);
         }
 
-        /* -------------------------------------------------------------- */
-        /** Encode Hashtable with % encoding.
-         * @param equalsForNullValue if True, then an '=' is always used, even
-         * for parameters without a value. e.g. "blah?a=&b=&c=".
-         */
+        /// <summary>
+        /// Lock object
+        /// </summary>
         object _lock = new object();
 
+        /// <summary>
+        /// Encode Hashtable with % encoding.
+        /// </summary>
+        /// <param name="charset">Characterset Encoding</param>
+        /// <param name="equalsForNullValue">if True, then an '=' is always used, even
+        /// for parameters without a value. e.g. "blah?a=&b=&c=".
+        /// </param>
+        /// <returns></returns>
         public string Encode(string charset, bool equalsForNullValue)
         {
             lock (_lock)
@@ -110,11 +117,15 @@ namespace NJetty.Util.Util
             }
         }
 
-        /* -------------------------------------------------------------- */
-        /** Encode Hashtable with % encoding.
-         * @param equalsForNullValue if True, then an '=' is always used, even
-         * for parameters without a value. e.g. "blah?a=&b=&c=".
-         */
+        /// <summary>
+        /// Encode Hashtable with % encoding.
+        /// </summary>
+        /// <param name="map">multimap values to encode</param>
+        /// <param name="charset">Characterset Encoding</param>
+        /// <param name="equalsForNullValue">if True, then an '=' is always used, even
+        /// for parameters without a value. e.g. "blah?a=&b=&c=".
+        /// </param>
+        /// <returns>Encoded String Value</returns>
         public static string Encode(MultiMap<string> map, string charset, bool equalsForNullValue)
         {
             if (charset == null)
@@ -171,11 +182,12 @@ namespace NJetty.Util.Util
         }
 
 
-
-        /* -------------------------------------------------------------- */
-        /** Decoded parameters to Map.
-         * @param content the string containing the encoded parameters
-         */
+        /// <summary>
+        /// Decoded parameters to Map.
+        /// </summary>
+        /// <param name="content">the string containing the encoded parameters</param>
+        /// <param name="map"></param>
+        /// <param name="charset"></param>
         public static void DecodeTo(string content, MultiMap<string> map, string charset)
         {
             if (charset == null)
@@ -241,10 +253,13 @@ namespace NJetty.Util.Util
             }
         }
 
-        /* -------------------------------------------------------------- */
-        /** Decoded parameters to Map.
-         * @param data the byte[] containing the encoded parameters
-         */
+        /// <summary>
+        /// Decoded parameters to Map.
+        /// </summary>
+        /// <param name="raw">the byte[] containing the encoded parameters</param>
+        /// <param name="offset"></param>
+        /// <param name="length"></param>
+        /// <param name="map"></param>
         public static void DecodeUtf8To(byte[] raw, int offset, int length, MultiMap<string> map)
         {
             DecodeUtf8To(raw, offset, length, map, new Utf8StringBuilder());
@@ -320,12 +335,12 @@ namespace NJetty.Util.Util
             }
         }
 
-        /* -------------------------------------------------------------- */
-        /** Decoded parameters to Map.
-         * @param input InputSteam to read
-         * @param map MultiMap to Add parameters to
-         * @param maxLength maximum length of content to read 0r -1 for no limit
-         */
+        /// <summary>
+        /// Decoded parameters to Map.
+        /// </summary>
+        /// <param name="input">InputSteam to read</param>
+        /// <param name="map">MultiMap to Add parameters to</param>
+        /// <param name="maxLength">maximum length of content to read 0r -1 for no limit</param>
         public static void Decode88591To(Stream input, MultiMap<string> map, int maxLength)
         {
             lock (map)
@@ -399,12 +414,13 @@ namespace NJetty.Util.Util
             }
         }
 
-        /* -------------------------------------------------------------- */
-        /** Decoded parameters to Map.
-         * @param input InputSteam to read
-         * @param map MultiMap to Add parameters to
-         * @param maxLength maximum length of conent to read 0r -1 for no limit
-         */
+
+        /// <summary>
+        /// Decoded parameters to Map.
+        /// </summary>
+        /// <param name="input">InputSteam to read</param>
+        /// <param name="map">MultiMap to Add parameters to</param>
+        /// <param name="maxLength">maximum length of conent to read 0r -1 for no limit</param>
         public static void DecodeUtf8To(Stream input, MultiMap<string> map, int maxLength)
         {
             lock (map)
@@ -478,7 +494,6 @@ namespace NJetty.Util.Util
             }
         }
 
-        /* -------------------------------------------------------------- */
         public static void DecodeUtf16To(Stream input, MultiMap<string> map, int maxLength)
         {
             StreamReader reader = new StreamReader(input, Encoding.GetEncoding(StringUtil.__UTF16));
@@ -495,10 +510,14 @@ namespace NJetty.Util.Util
             DecodeTo(buf.ToString(), map, StringUtil.__UTF8);
         }
 
-        /* -------------------------------------------------------------- */
-        /** Decoded parameters to Map.
-         * @param input the stream containing the encoded parameters
-         */
+        
+        /// <summary>
+        /// Decoded parameters to Map.
+        /// </summary>
+        /// <param name="input">the stream containing the encoded parameters</param>
+        /// <param name="map"></param>
+        /// <param name="charset"></param>
+        /// <param name="maxLength"></param>
         public static void DecodeTo(Stream input, MultiMap<string> map, string charset, int maxLength)
         {
             if (charset == null || StringUtil.__ISO_8859_1.Equals(charset))
@@ -540,7 +559,7 @@ namespace NJetty.Util.Util
                     {
                         case '&':
                             size = output.Length;
-                            value = size == 0 ? "" : Encoding.GetEncoding(charset).GetString(output.GetBuffer());
+                            value = size == 0 ? "" : Encoding.GetEncoding(charset).GetString(output.GetBuffer(), 0, (int)size);
                             output.Position = 0;
                             if (key != null)
                             {
@@ -603,11 +622,17 @@ namespace NJetty.Util.Util
             }
         }
 
-        /* -------------------------------------------------------------- */
-        /** Decode string with % encoding.
-         * This method makes the assumption that the majority of calls
-         * will need no decoding.
-         */
+        
+        /// <summary>
+        /// Decode string with % encoding.
+        /// This method makes the assumption that the majority of calls
+        /// will need no decoding.
+        /// </summary>
+        /// <param name="encoded"></param>
+        /// <param name="offset"></param>
+        /// <param name="length"></param>
+        /// <param name="charset"></param>
+        /// <returns></returns>
         public static string DecodeString(string encoded, int offset, int length, string charset)
         {
             if (charset == null || StringUtil.IsUTF8(charset))
@@ -752,22 +777,24 @@ namespace NJetty.Util.Util
 
         }
 
-        /* ------------------------------------------------------------ */
-        /** Perform URL encoding.
-         * Assumes 8859 charset
-         * @param string 
-         * @return encoded string.
-         */
+   
+        /// <summary>
+        /// Perform URL encoding.
+        /// Assumes 8859 charset/ UTF-8 charset
+        /// </summary>
+        /// <param name="str">string to encode</param>
+        /// <returns>encoded string.</returns>
         public static string EncodeString(string str)
         {
             return EncodeString(str, StringUtil.__UTF8);
         }
 
-        /* ------------------------------------------------------------ */
-        /** Perform URL encoding.
-         * @param string 
-         * @return encoded string.
-         */
+        /// <summary>
+        /// Perform URL encoding.
+        /// </summary>
+        /// <param name="str">string to encode</param>
+        /// <param name="charset">Characterset Encoding</param>
+        /// <returns></returns>
         public static string EncodeString(string str, string charset)
         {
             if (charset == null)
@@ -835,9 +862,6 @@ namespace NJetty.Util.Util
         }
 
 
-        /* ------------------------------------------------------------ */
-        /** 
-         */
         public object Clone()
         {
             return new UrlEncoded(this);
