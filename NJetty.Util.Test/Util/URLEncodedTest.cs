@@ -87,13 +87,14 @@ namespace NJetty.Util.Test.Util
             url_encoded.Clear();
             url_encoded.Decode("Name5=aaa&Name6=bbb");
             Assert.AreEqual(2, url_encoded.Count, "multi param size");
+            string str = url_encoded.Encode();
             Assert.IsTrue(
-                       url_encoded.Encode().Equals("Name5=aaa&Name6=bbb") ||
-                       url_encoded.Encode().Equals("Name6=bbb&Name5=aaa"),
+                       str.Equals("Name5=aaa&Name6=bbb") ||
+                       str.Equals("Name6=bbb&Name5=aaa"),
                        "multi encode " + url_encoded.Encode()
                        );
-            Assert.AreEqual("multi get", "aaa", url_encoded.GetString("Name5"));
-            Assert.AreEqual("multi get", "bbb", url_encoded.GetString("Name6"));
+            Assert.AreEqual("aaa", url_encoded.GetString("Name5"), "multi get");
+            Assert.AreEqual("bbb", url_encoded.GetString("Name6"), "multi get");
 
             url_encoded.Clear();
             url_encoded.Decode("Name7=aaa&Name7=b%2Cb&Name7=ccc");

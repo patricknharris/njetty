@@ -195,7 +195,7 @@ namespace NJetty.Util.Util
                         case '&':
                             int l = i - mark - 1;
                             value = l == 0 ? "" :
-                                (encoded ? DecodeString(content, mark + 1, l, charset) : content.Substring(mark + 1, i));
+                                (encoded ? DecodeString(content, mark + 1, l, charset) : content.Substring(mark + 1, i - (mark + 1)));
                             mark = i;
                             encoded = false;
                             if (key != null)
@@ -212,7 +212,7 @@ namespace NJetty.Util.Util
                         case '=':
                             if (key != null)
                                 break;
-                            key = encoded ? DecodeString(content, mark + 1, i - mark - 1, charset) : content.Substring(mark + 1, i);
+                            key = encoded ? DecodeString(content, mark + 1, i - mark - 1, charset) : content.Substring(mark + 1, i - (mark + 1));
                             mark = i;
                             encoded = false;
                             break;
@@ -621,7 +621,7 @@ namespace NJetty.Util.Util
                         if (buffer == null)
                         {
                             buffer = new Utf8StringBuffer(length);
-                            buffer.Append(encoded, offset, offset + i + 1);
+                            buffer.Append(encoded, offset, i+1);
                             
 
                         }
@@ -633,7 +633,7 @@ namespace NJetty.Util.Util
                         if (buffer == null)
                         {
                             buffer = new Utf8StringBuffer(length);
-                            buffer.Append(encoded, offset, offset + i);
+                            buffer.Append(encoded, offset, i);
                         }
 
                         buffer.Append((byte)' ');
@@ -643,7 +643,7 @@ namespace NJetty.Util.Util
                         if (buffer == null)
                         {
                             buffer = new Utf8StringBuffer(length);
-                            buffer.Append(encoded, offset, offset + i);
+                            buffer.Append(encoded, offset, i);
                         }
 
                         while (c == '%' && (i + 2) < length)
@@ -664,7 +664,7 @@ namespace NJetty.Util.Util
                 {
                     if (offset == 0 && encoded.Length == length)
                         return encoded;
-                    return encoded.Substring(offset, offset + length);
+                    return encoded.Substring(offset, length);
                 }
 
                 return buffer.ToString();
@@ -683,7 +683,7 @@ namespace NJetty.Util.Util
                             if (buffer == null)
                             {
                                 buffer = new StringBuilder(length);
-                                buffer.Append(encoded, offset, offset + i + 1);
+                                buffer.Append(encoded, offset, i + 1);
                             }
                             else
                                 buffer.Append(c);
@@ -693,7 +693,7 @@ namespace NJetty.Util.Util
                             if (buffer == null)
                             {
                                 buffer = new StringBuilder(length);
-                                buffer.Append(encoded, offset, offset + i);
+                                buffer.Append(encoded, offset, i);
                             }
 
                             buffer.Append(' ');
@@ -703,7 +703,7 @@ namespace NJetty.Util.Util
                             if (buffer == null)
                             {
                                 buffer = new StringBuilder(length);
-                                buffer.Append(encoded, offset, offset + i);
+                                buffer.Append(encoded, offset, i);
                             }
 
                             byte[] ba = new byte[length];
@@ -738,7 +738,7 @@ namespace NJetty.Util.Util
                     {
                         if (offset == 0 && encoded.Length == length)
                             return encoded;
-                        return encoded.Substring(offset, offset + length);
+                        return encoded.Substring(offset, length);
                     }
 
                     return buffer.ToString();
