@@ -181,7 +181,19 @@ namespace NJetty.Util.Util
         /// <returns>StringBuilder to encode path into</returns>
         public static string DecodePath(string path)
         {
-            return System.Uri.UnescapeDataString(path);
+            byte[] b;
+
+            try
+            {
+                b = __CHARSET.GetBytes(path);
+            }
+            catch (ArgumentException)
+            {
+
+                b = Encoding.ASCII.GetBytes(path);
+            }
+            return DecodePath(b, 0, b.Length);
+
         }
 
        
