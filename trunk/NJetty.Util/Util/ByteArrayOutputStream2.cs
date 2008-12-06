@@ -45,7 +45,7 @@ namespace NJetty.Util.Util
 
         public void WriteByte(int b)
         {
-            WriteByte((byte) b);
+            base.WriteByte((byte) b);
         }
 
         //public int getCount() { return count; }
