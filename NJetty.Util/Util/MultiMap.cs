@@ -93,7 +93,7 @@ namespace NJetty.Util.Util
         /// <returns>Unmodifieable List of values.</returns>
         public object GetValue(K name, int i)
         {
-            object l = _map[name];
+            object l = _map.ContainsKey(name) ? _map[name] : null;
             if (i == 0 && LazyList.Size(l) == 0)
                 return null;
             return LazyList.Get(l, i);
@@ -110,7 +110,7 @@ namespace NJetty.Util.Util
         /// <returns>string value</returns>
         public string GetString(K name)
         {
-            object l = _map[name];
+            object l = _map.ContainsKey(name) ? _map[name] : null;
             switch (LazyList.Size(l))
             {
                 case 0:
@@ -141,7 +141,7 @@ namespace NJetty.Util.Util
         {
             get
             {
-                object l = _map[name];
+                object l = _map.ContainsKey(name) ? _map[name] : null;
                 switch (LazyList.Size(l))
                 {
                     case 0:
@@ -206,10 +206,20 @@ namespace NJetty.Util.Util
         /// <param name="value">The entry value.</param>
         public void Append(K name, object value)
         {
-            object lo = _map[name];
+            object lo = _map.ContainsKey(name) ? _map[name] : null; 
             object ln = LazyList.Add(lo, value);
             if (lo != ln)
-                _map.Add(name, ln);
+            {
+                if (_map.ContainsKey(name))
+                {
+                    _map[name] = ln;
+                }
+                else
+                {
+                    _map.Add(name, ln);
+                }
+            }
+            
         }
 
         /// <summary>
@@ -222,10 +232,19 @@ namespace NJetty.Util.Util
         /// <param name="values">The List of multiple values.</param>
         public void AppendValues(K name, ICollection<object> values)
         {
-            object lo = _map[name];
+            object lo = _map.ContainsKey(name) ? _map[name] : null;
             object ln = LazyList.AddCollection(lo, values);
             if (lo != ln)
-                _map.Add(name, ln);
+            {
+                if (_map.ContainsKey(name))
+                {
+                    _map[name] = ln;
+                }
+                else
+                {
+                    _map.Add(name, ln);
+                }
+            }
         }
 
         
@@ -240,10 +259,19 @@ namespace NJetty.Util.Util
         /// <param name="values">The string array of multiple values.</param>
         public void AppendValues(K name, string[] values)
         {
-            object lo = _map[name];
+            object lo = _map.ContainsKey(name) ? _map[name] : null;
             object ln = LazyList.AddArray(lo, values);
             if (lo != ln)
-                _map.Add(name, ln);
+            {
+                if (_map.ContainsKey(name))
+                {
+                    _map[name] = ln;
+                }
+                else
+                {
+                    _map.Add(name, ln);
+                }
+            }
         }
 
        
@@ -256,7 +284,7 @@ namespace NJetty.Util.Util
         /// <returns>true if it was removed</returns>
         public bool RemoveValue(K name, object value)
         {
-            object lo = _map[name];
+            object lo = _map.ContainsKey(name) ? _map[name] : null;
             object ln = lo;
             int s = LazyList.Size(lo);
             if (s > 0)
