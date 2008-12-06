@@ -368,7 +368,7 @@ namespace NJetty.Util.Util
                             break;
 
                         case '+':
-                            buffer.Append((char)' ');
+                            buffer.Append(' ');
                             break;
 
                         case '%':
@@ -531,7 +531,7 @@ namespace NJetty.Util.Util
 
                 int totalLength = 0;
                 ByteArrayOutputStream2 output = new ByteArrayOutputStream2();
-
+                input.Position = 0;
                 long size = 0;
 
                 while ((c = input.ReadByte()) > 0)
@@ -560,7 +560,7 @@ namespace NJetty.Util.Util
                                 break;
                             }
                             size = output.Length;
-                            key = size == 0 ? "" : Encoding.GetEncoding(charset).GetString(output.GetBuffer());
+                            key = size == 0 ? "" : Encoding.GetEncoding(charset).GetString(output.GetBuffer(), 0, (int)size);
                             output.Position = 0;
                             break;
                         case '+':
@@ -577,11 +577,12 @@ namespace NJetty.Util.Util
                             }
                             else if (digits == 1)
                             {
-                                output.WriteByte((digit << 4) + TypeUtil.ConvertHexDigit((byte)c));
+                                int v = (byte)(digit << 4) + TypeUtil.ConvertHexDigit((byte)c);
+                                output.WriteByte(v);
                                 digits = 0;
                             }
                             else
-                                output.WriteByte(c);
+                                output.WriteByte((byte)c);
                             break;
                     }
 
@@ -593,12 +594,12 @@ namespace NJetty.Util.Util
                 size = output.Length;
                 if (key != null)
                 {
-                    value = size == 0 ? "" : Encoding.GetEncoding(charset).GetString(output.GetBuffer());
+                    value = size == 0 ? "" : Encoding.GetEncoding(charset).GetString(output.GetBuffer(),0, (int)size);
                     output.Position = 0;
                     map.Append(key, value);
                 }
                 else if (size > 0)
-                    map.Append(Encoding.GetEncoding(charset).GetString(output.GetBuffer()), "");
+                    map.Append(Encoding.GetEncoding(charset).GetString(output.GetBuffer(),0, (int)size), "");
             }
         }
 

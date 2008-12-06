@@ -140,10 +140,9 @@ namespace NJetty.Util.Test.Util
             for (int i=0;i<charsets.Length;i++)
             {
                 MemoryStream input = new MemoryStream(Encoding.GetEncoding(charsets[i][0]).GetBytes("name\n=value+%30&name1=&name2&n\u00e3me3=value+3"));
-
                 MultiMap<string> m = new MultiMap<string>();
                 UrlEncoded.DecodeTo(input, m, charsets[i][1], -1);
-                //System.err.println(m);
+                Log.Info(m.ToString());
                 Assert.AreEqual(4, m.Count, i + " stream length");
                 Assert.AreEqual("value 0", m.GetString("name\n"), i + " stream name\\n");
                 Assert.AreEqual("", m.GetString("name1"), i + " stream name1");
@@ -153,7 +152,7 @@ namespace NJetty.Util.Test.Util
 
             try
             {
-                byte[] bytes = Encoding.ASCII.GetBytes("name=%83e%83X%83g");
+                byte[] bytes = Encoding.GetEncoding("Shift_JIS").GetBytes("name=%83e%83X%83g");
                 MemoryStream in2 = new MemoryStream();
                 in2.Write(bytes, 0, bytes.Length);
                 MultiMap<string> m2 = new MultiMap<string>();
