@@ -24,6 +24,7 @@ using System.Text;
 using NUnit.Framework;
 using NJetty.Util.Util;
 using System.IO;
+using NJetty.Util.Logging;
 
 namespace NJetty.Util.Test.Util
 {
@@ -113,15 +114,18 @@ namespace NJetty.Util.Test.Util
 
             /* Not every jvm supports this encoding */
 
-            //if (java.nio.charset.Charset.isSupported("SJIS"))
-            //{
-            //    url_encoded.clear();
-            //    url_encoded.decode("Name9=%83e%83X%83g", "SJIS"); // "Test" in Japanese Katakana
-            //    Assert.AreEqual("encoded param size", 1, url_encoded.Count);
-            //    Assert.AreEqual("encoded get", "\u30c6\u30b9\u30c8", url_encoded.getString("Name9"));
-            //}
-            //else
-            //    Assert.IsTrue("Charset SJIS not supported by jvm", true);
+            try
+            {
+                Encoding.GetEncoding("SJIS");
+                url_encoded.Clear();
+                url_encoded.Decode("Name9=%83e%83X%83g", "SJIS"); // "Test" in Japanese Katakana
+                Assert.AreEqual(1, url_encoded.Count, "encoded param size");
+                Assert.AreEqual("\u30c6\u30b9\u30c8", url_encoded.GetString("Name9"), "encoded get");
+            }
+            catch (ArgumentException)
+            {
+                Assert.IsTrue(true, "Charset SJIS not supported by dotnet runtime");
+            }
         }
 
         [Test]
@@ -148,18 +152,21 @@ namespace NJetty.Util.Test.Util
                 Assert.AreEqual("", m.GetString("name2"), i + " stream name2");
                 Assert.AreEqual("value 3", m.GetString("n\u00e3me3"), i + " stream n\u00e3me3");
             }
-            
-            
-            //if (java.nio.charset.Charset.isSupported("Shift_JIS"))
-            //{
-            //    ByteArrayInputStream in2 = new ByteArrayInputStream ("name=%83e%83X%83g".getBytes());
-            //    MultiMap m2 = new MultiMap();
-            //    UrlEncoded.decodeTo(in2, m2, "Shift_JIS", -1);
-            //    Assert.AreEqual("stream length",1,m2.Count);
-            //    Assert.AreEqual("stream name","\u30c6\u30b9\u30c8",m2.getString("name"));
-            //}
-            //else
-            //    Assert.IsTrue("Charset Shift_JIS not supported by jvm", true);
+
+            try
+            {
+                byte[] bytes = Encoding.GetEncoding("Shift_JIS").GetBytes("name=%83e%83X%83g");
+                MemoryStream in2 = new MemoryStream();
+                in2.Write(bytes, 0, bytes.Length);
+                MultiMap<string> m2 = new MultiMap<string>();
+                UrlEncoded.DecodeTo(in2, m2, "Shift_JIS", -1);
+                Assert.AreEqual(1, m2.Count, "stream length");
+                Assert.AreEqual("\u30c6\u30b9\u30c8", m2.GetString("name"), "stream name");
+            }
+            catch (ArgumentException ae)
+            {
+                Assert.IsTrue(true, "Charset Shift_JIS not supported by Dotnet Runtime");
+            }
         }
 
 
