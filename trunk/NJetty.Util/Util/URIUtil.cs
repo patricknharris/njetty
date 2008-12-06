@@ -26,7 +26,7 @@ namespace NJetty.Util.Util
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// URI Utility
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
@@ -479,12 +479,12 @@ namespace NJetty.Util.Util
             return buf.ToString();
         }
 
-        /* ------------------------------------------------------------ */
-        /** Convert a path to a compact form.
-         * All instances of "//" and "///" etc. are factored out to single "/" 
-         * @param path 
-         * @return path
-         */
+        /// <summary>
+        /// Convert a path to a compact form.
+        /// All instances of "//" and "///" etc. are factored out to single "/" 
+        /// </summary>
+        /// <param name="path">path to compact</param>
+        /// <returns>compacted path</returns>
         public static string CompactPath(string path)
         {
             if (path == null || path.Length == 0)
