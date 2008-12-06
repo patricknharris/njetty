@@ -112,6 +112,10 @@ namespace NJetty.Util.Util
             {
                 return _pointer;
             }
+            set
+            {
+                _pointer = value;
+            }
         }
 
         public void Reset()

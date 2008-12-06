@@ -41,7 +41,7 @@ namespace NJetty.Util.Test.Util
     [TestFixture]
     public class Utf8StringBuilderTest
     {
-
+        [Test]
         public void TestUtfStringBuilder1()
         {
             string source = "abcd012345\n\r\u0000\u00a4\u10fb\ufffdnjetty";
@@ -63,6 +63,7 @@ namespace NJetty.Util.Test.Util
             Assert.IsTrue(buffer.ToString().EndsWith("njetty")); 
         }
 
+        [Test]
         public void TestUtfStringBuilder2()
         {
             string source = "abcd012345\n\r\u0000\u00a4\u10fb\ufffdnjetty";
