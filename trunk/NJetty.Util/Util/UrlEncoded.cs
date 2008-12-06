@@ -200,11 +200,11 @@ namespace NJetty.Util.Util
                             encoded = false;
                             if (key != null)
                             {
-                                map.Add(key, value);
+                                map.Append(key, value);
                             }
                             else if (value != null && value.Length > 0)
                             {
-                                map.Add(value, "");
+                                map.Append(value, "");
                             }
                             key = null;
                             value = null;
@@ -229,14 +229,14 @@ namespace NJetty.Util.Util
                 {
                     int l = content.Length - mark - 1;
                     value = l == 0 ? "" : (encoded ? DecodeString(content, mark + 1, l, charset) : content.Substring(mark + 1));
-                    map.Add(key, value);
+                    map.Append(key, value);
                 }
                 else if (mark < content.Length)
                 {
                     key = encoded
                         ? DecodeString(content, mark + 1, content.Length - mark - 1, charset)
                         : content.Substring(mark + 1);
-                    map.Add(key, "");
+                    map.Append(key, "");
                 }
             }
         }
@@ -273,11 +273,11 @@ namespace NJetty.Util.Util
                             buffer.Reset();
                             if (key != null)
                             {
-                                map.Add(key, value);
+                                map.Append(key, value);
                             }
                             else if (value != null && value.Length > 0)
                             {
-                                map.Add(value, "");
+                                map.Append(value, "");
                             }
                             key = null;
                             value = null;
@@ -311,11 +311,11 @@ namespace NJetty.Util.Util
                 {
                     value = buffer.Length == 0 ? "" : buffer.ToString();
                     buffer.Reset();
-                    map.Add(key, value);
+                    map.Append(key, value);
                 }
                 else if (buffer.Length > 0)
                 {
-                    map.Add(buffer.ToString(), "");
+                    map.Append(buffer.ToString(), "");
                 }
             }
         }
@@ -347,11 +347,11 @@ namespace NJetty.Util.Util
                             buffer.Length = 0;
                             if (key != null)
                             {
-                                map.Add(key, value);
+                                map.Append(key, value);
                             }
                             else if (value != null && value.Length > 0)
                             {
-                                map.Add(value, "");
+                                map.Append(value, "");
                             }
                             key = null;
                             value = null;
@@ -390,11 +390,11 @@ namespace NJetty.Util.Util
                 {
                     value = buffer.Length == 0 ? "" : buffer.ToString();
                     buffer.Length = 0;
-                    map.Add(key, value);
+                    map.Append(key, value);
                 }
                 else if (buffer.Length > 0)
                 {
-                    map.Add(buffer.ToString(), "");
+                    map.Append(buffer.ToString(), "");
                 }
             }
         }
@@ -426,11 +426,11 @@ namespace NJetty.Util.Util
                             buffer.Reset();
                             if (key != null)
                             {
-                                map.Add(key, value);
+                                map.Append(key, value);
                             }
                             else if (value != null && value.Length > 0)
                             {
-                                map.Add(value, "");
+                                map.Append(value, "");
                             }
                             key = null;
                             value = null;
@@ -469,11 +469,11 @@ namespace NJetty.Util.Util
                 {
                     value = buffer.Length == 0 ? "" : buffer.ToString();
                     buffer.Reset();
-                    map.Add(key, value);
+                    map.Append(key, value);
                 }
                 else if (buffer.Length > 0)
                 {
-                    map.Add(buffer.ToString(), "");
+                    map.Append(buffer.ToString(), "");
                 }
             }
         }
@@ -544,11 +544,11 @@ namespace NJetty.Util.Util
                             output.Position = 0;
                             if (key != null)
                             {
-                                map.Add(key, value);
+                                map.Append(key, value);
                             }
                             else if (value != null && value.Length > 0)
                             {
-                                map.Add(value, "");
+                                map.Append(value, "");
                             }
                             key = null;
                             value = null;
@@ -595,10 +595,10 @@ namespace NJetty.Util.Util
                 {
                     value = size == 0 ? "" : Encoding.GetEncoding(charset).GetString(output.GetBuffer());
                     output.Position = 0;
-                    map.Add(key, value);
+                    map.Append(key, value);
                 }
                 else if (size > 0)
-                    map.Add(Encoding.GetEncoding(charset).GetString(output.GetBuffer()), "");
+                    map.Append(Encoding.GetEncoding(charset).GetString(output.GetBuffer()), "");
             }
         }
 

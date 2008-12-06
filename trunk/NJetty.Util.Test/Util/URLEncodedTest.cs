@@ -23,6 +23,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using NJetty.Util.Util;
+using System.IO;
 
 namespace NJetty.Util.Test.Util
 {
@@ -123,42 +124,43 @@ namespace NJetty.Util.Test.Util
             //    Assert.IsTrue("Charset SJIS not supported by jvm", true);
         }
 
-        //[Test]
-        //public void TestUrlEncodedStream()
-        //{
-        //    String [][] charsets = new String[][]
-        //    {
-        //       {StringUtil.__ISO_8859_1,null},
-        //       {StringUtil.__ISO_8859_1,StringUtil.__ISO_8859_1},
-        //       {StringUtil.__UTF8,StringUtil.__UTF8},
-        //       {StringUtil.__UTF16,StringUtil.__UTF16},
-        //    };
+        [Test]
+        public void TestUrlEncodedStream()
+        {
+            String [][] charsets = new String[][]
+            {
+               new string[] {StringUtil.__ISO_8859_1,null},
+               new string[] {StringUtil.__ISO_8859_1,StringUtil.__ISO_8859_1},
+               new string[] {StringUtil.__UTF8,StringUtil.__UTF8},
+               new string[] {StringUtil.__UTF16,StringUtil.__UTF16},
+            };
             
-        //    for (int i=0;i<charsets.length;i++)
-        //    {
-        //        ByteArrayInputStream in = new ByteArrayInputStream("name\n=value+%30&name1=&name2&n\u00e3me3=value+3".getBytes(charsets[i][0]));
-        //        MultiMap m = new MultiMap();
-        //        UrlEncoded.decodeTo(in, m, charsets[i][1], -1);
-        //        System.err.println(m);
-        //        Assert.AreEqual(i+" stream length",4,m.Count);
-        //        Assert.AreEqual(i+" stream name\\n","value 0",m.getString("name\n"));
-        //        Assert.AreEqual(i+" stream name1","",m.getString("name1"));
-        //        Assert.AreEqual(i+" stream name2","",m.getString("name2"));
-        //        Assert.AreEqual(i+" stream n\u00e3me3","value 3",m.getString("n\u00e3me3"));
-        //    }
+            for (int i=0;i<charsets.Length;i++)
+            {
+                MemoryStream input = new MemoryStream(Encoding.GetEncoding(charsets[i][0]).GetBytes("name\n=value+%30&name1=&name2&n\u00e3me3=value+3"));
+
+                MultiMap<string> m = new MultiMap<string>();
+                UrlEncoded.DecodeTo(input, m, charsets[i][1], -1);
+                //System.err.println(m);
+                Assert.AreEqual(4, m.Count, i + " stream length");
+                Assert.AreEqual("value 0", m.GetString("name\n"), i + " stream name\\n");
+                Assert.AreEqual("", m.GetString("name1"), i + " stream name1");
+                Assert.AreEqual("", m.GetString("name2"), i + " stream name2");
+                Assert.AreEqual("value 3", m.GetString("n\u00e3me3"), i + " stream n\u00e3me3");
+            }
             
             
-        //    if (java.nio.charset.Charset.isSupported("Shift_JIS"))
-        //    {
-        //        ByteArrayInputStream in2 = new ByteArrayInputStream ("name=%83e%83X%83g".getBytes());
-        //        MultiMap m2 = new MultiMap();
-        //        UrlEncoded.decodeTo(in2, m2, "Shift_JIS", -1);
-        //        Assert.AreEqual("stream length",1,m2.Count);
-        //        Assert.AreEqual("stream name","\u30c6\u30b9\u30c8",m2.getString("name"));
-        //    }
-        //    else
-        //        Assert.IsTrue("Charset Shift_JIS not supported by jvm", true);
-        //}
+            //if (java.nio.charset.Charset.isSupported("Shift_JIS"))
+            //{
+            //    ByteArrayInputStream in2 = new ByteArrayInputStream ("name=%83e%83X%83g".getBytes());
+            //    MultiMap m2 = new MultiMap();
+            //    UrlEncoded.decodeTo(in2, m2, "Shift_JIS", -1);
+            //    Assert.AreEqual("stream length",1,m2.Count);
+            //    Assert.AreEqual("stream name","\u30c6\u30b9\u30c8",m2.getString("name"));
+            //}
+            //else
+            //    Assert.IsTrue("Charset Shift_JIS not supported by jvm", true);
+        }
 
 
 
