@@ -112,8 +112,6 @@ namespace NJetty.Util.Test.Util
             Assert.AreEqual("Name8=xx%2C++yy++%2Czz", url_encoded.Encode(), "encoded encode");
             Assert.AreEqual(url_encoded.GetString("Name8"), "xx,  yy  ,zz", "encoded get");
 
-            /* Not every jvm supports this encoding */
-
             try
             {
                 Encoding.GetEncoding("SJIS");
@@ -124,7 +122,7 @@ namespace NJetty.Util.Test.Util
             }
             catch (ArgumentException)
             {
-                Assert.IsTrue(true, "Charset SJIS not supported by dotnet runtime");
+                Assert.IsTrue(true, "Charset SJIS not supported by CLR");
             }
         }
 
@@ -155,7 +153,7 @@ namespace NJetty.Util.Test.Util
 
             try
             {
-                byte[] bytes = Encoding.GetEncoding("Shift_JIS").GetBytes("name=%83e%83X%83g");
+                byte[] bytes = Encoding.ASCII.GetBytes("name=%83e%83X%83g");
                 MemoryStream in2 = new MemoryStream();
                 in2.Write(bytes, 0, bytes.Length);
                 MultiMap<string> m2 = new MultiMap<string>();
@@ -165,7 +163,7 @@ namespace NJetty.Util.Test.Util
             }
             catch (ArgumentException ae)
             {
-                Assert.IsTrue(true, "Charset Shift_JIS not supported by Dotnet Runtime");
+                Assert.IsTrue(true, "Charset Shift_JIS not supported by CLR");
             }
         }
 
