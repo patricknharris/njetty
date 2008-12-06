@@ -53,10 +53,10 @@ namespace NJetty.Util.Util
             _sb = new Utf8StringBuilder(capacity);
         }
 
-        public Utf8StringBuffer(int capacity, int growBy)
-        {
-            _sb = new Utf8StringBuilder(capacity, growBy);
-        }
+        //public Utf8StringBuffer(int capacity, int growBy)
+        //{
+        //    _sb = new Utf8StringBuilder(capacity, growBy);
+        //}
 
         public void Append(byte[] b, int offset, int length)
         {

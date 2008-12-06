@@ -59,6 +59,7 @@
     <Compile Include="Util\QuotedStringTokenizerTest.cs" />
     <Compile Include="Util\StringUtilTest.cs" />
     <Compile Include="Util\URITest.cs" />
+    <Compile Include="Util\URLEncodedTest.cs" />
     <Compile Include="Util\Utf8StringBufferTest.cs" />
     <Compile Include="Util\Utf8StringBuilderTest.cs" />
   </ItemGroup>
