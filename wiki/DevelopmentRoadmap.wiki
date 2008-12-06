@@ -66,7 +66,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * MultiPartWriter
     * IntrospectionUtil
     * LazyList (*done*)
-    * UrlEncoded
+    * UrlEncoded (*done*)
  * *Util.Ajax*
     * AjaxFilter
     * IContinuation (*deprecated@etty, might not need to implement*)
@@ -102,7 +102,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * Utf8StringBufferTest (*done*)
     * Utf8StringBuilderTest (*done*)
     * TestIntrospectionUtil
-    * URLEncodedTest
+    * URLEncodedTest (*done*)
     * DateCacheTest
     * StringUtilTest (*done*)
  * *Util.Ajax*
