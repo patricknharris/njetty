@@ -101,7 +101,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * StringMapTest
     * Utf8StringBufferTest (*done*)
     * Utf8StringBuilderTest (*done*)
-    * TestIntrospectionUtil
+    * TestIntrospectionUtil (*done*)
     * URLEncodedTest (*done*)
     * DateCacheTest
     * StringUtilTest (*done*)
