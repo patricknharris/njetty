@@ -64,7 +64,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * MultiMap (*done*)
     * MultiPartOutputStream
     * MultiPartWriter
-    * IntrospectionUtil
+    * IntrospectionUtil (*done*)
     * LazyList (*done*)
     * UrlEncoded (*done*)
  * *Util.Ajax*
