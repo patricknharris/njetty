@@ -180,14 +180,8 @@ namespace NJetty.Util.Util
             if (member == null)
                 return false;
 
-            foreach (MethodInfo item in member.GetAccessors())
-            {
-                if (IsInheritable(assembly, item))
-                {
-                    return true;
-                }
-            }
-            return false;
+
+            return IsInheritable(assembly, member.GetSetMethod(true)) || IsInheritable(assembly, member.GetGetMethod(true));
         }
 
 
@@ -422,7 +416,7 @@ namespace NJetty.Util.Util
             }
             else if (type.BaseType == null)
             {
-                return null;
+                throw new ArgumentException("No such property " + propertyName + " on class " + type.Name);
             }
             else
                 return FindInheritedProperty(type.Assembly, type.BaseType, propertyName);
