@@ -64,6 +64,17 @@ namespace NJetty.Util.Test.Util
         MethodInfo defaultDMethod;
 
 
+
+        PropertyInfo privateEProperty;
+        PropertyInfo protectedEProperty;
+        PropertyInfo publicEProperty;
+        PropertyInfo defaultEProperty;
+        PropertyInfo privateFProperty;
+        PropertyInfo protectedFProperty;
+        PropertyInfo publicFProperty;
+        PropertyInfo defaultFProperty;
+
+
         public class ClassFixtureA
         {
             private int privateA;
@@ -97,6 +108,57 @@ namespace NJetty.Util.Test.Util
             internal void setInternalD(int d) { }
         }
 
+
+
+
+        public class ClassFixtureE
+        {
+            private int PrivateE 
+            {
+                get { return 0; }
+                set { }
+            }
+            protected int ProtectedE
+            {
+                get { return 0; }
+                set { }
+            }
+            public int PublicE
+            {
+                get { return 0; }
+                set { }
+            }
+            internal int InternalE
+            {
+                get { return 0; }
+                set { }
+            }
+        }
+
+        public class ClassFixtureF : ClassFixtureE
+        {
+            private int PrivateF
+            {
+                get { return 0; }
+                set { }
+            }
+            protected int ProtectedF
+            {
+                get { return 0; }
+                set { }
+            }
+            public int PublicF
+            {
+                get { return 0; }
+                set { }
+            }
+            internal int InternalF
+            {
+                get { return 0; }
+                set { }
+            }
+        }
+
         
         [TestFixtureSetUp]
         public void SetUp()
@@ -117,6 +179,17 @@ namespace NJetty.Util.Test.Util
             protectedDMethod = typeof(ClassFixtureD).GetMethod("setProtectedD", _BINDINGFLAGS, null, __INTEGER_ARG, null);
             publicDMethod = typeof(ClassFixtureD).GetMethod("setPublicD", _BINDINGFLAGS, null, __INTEGER_ARG, null);
             defaultDMethod = typeof(ClassFixtureD).GetMethod("setInternalD", _BINDINGFLAGS, null, __INTEGER_ARG, null);
+
+
+            privateEProperty = typeof(ClassFixtureE).GetProperty("PrivateE", _BINDINGFLAGS);
+            protectedEProperty = typeof(ClassFixtureE).GetProperty("ProtectedE", _BINDINGFLAGS);
+            publicEProperty = typeof(ClassFixtureE).GetProperty("PublicE", _BINDINGFLAGS);
+            defaultEProperty = typeof(ClassFixtureE).GetProperty("InternalE", _BINDINGFLAGS);
+            privateFProperty = typeof(ClassFixtureF).GetProperty("PrivateF", _BINDINGFLAGS);
+            protectedFProperty = typeof(ClassFixtureF).GetProperty("ProtectedF", _BINDINGFLAGS);
+            publicFProperty = typeof(ClassFixtureF).GetProperty("PublicF", _BINDINGFLAGS);
+            defaultFProperty = typeof(ClassFixtureF).GetProperty("InternalF", _BINDINGFLAGS);
+
         }
 
 
@@ -214,6 +287,66 @@ namespace NJetty.Util.Test.Util
             m = IntrospectionUtil.FindMethod(typeof(ClassFixtureD), "setInternalC", __INTEGER_ARG, true, false);
             Assert.AreEqual(m, defaultCMethod);
         }
+
+
+
+
+
+        [Test]
+        public void TestPropertyPrivate()
+        {
+            // direct
+            PropertyInfo m = IntrospectionUtil.FindProperty(typeof(ClassFixtureE), "PrivateE", false);
+            Assert.AreEqual(m, privateEProperty);
+
+            try
+            {
+                IntrospectionUtil.FindProperty(typeof(ClassFixtureF), "PrivateE", true);
+                Assert.Fail("Should Be Null");
+            }
+            catch (ArgumentException)
+            {
+                
+            }
+
+        }
+
+        [Test]
+        public void TestPropertyProtected()
+        {
+            // direct
+            PropertyInfo m = IntrospectionUtil.FindProperty(typeof(ClassFixtureE), "ProtectedE", false);
+            Assert.AreEqual(m, protectedEProperty);
+
+            //inherited
+            m = IntrospectionUtil.FindProperty(typeof(ClassFixtureF), "ProtectedE", true);
+            Assert.AreEqual(m, protectedEProperty);
+        }
+
+        [Test]
+        public void TestPropertyPublic()
+        {
+            // direct
+            PropertyInfo m = IntrospectionUtil.FindProperty(typeof(ClassFixtureE), "PublicE", false);
+            Assert.AreEqual(m, publicEProperty);
+
+            //inherited
+            m = IntrospectionUtil.FindProperty(typeof(ClassFixtureF), "PublicE", true);
+            Assert.AreEqual(m, publicEProperty);
+        }
+
+        [Test]
+        public void TestPropertyDefault()
+        {
+            // direct
+            PropertyInfo m = IntrospectionUtil.FindProperty(typeof(ClassFixtureE), "InternalE", false);
+            Assert.AreEqual(m, defaultEProperty);
+
+            //inherited
+            m = IntrospectionUtil.FindProperty(typeof(ClassFixtureF), "InternalE", true);
+            Assert.AreEqual(m, defaultEProperty);
+        }
+
 
 
 
