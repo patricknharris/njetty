@@ -64,7 +64,7 @@ namespace NJetty.Util.Test.Util
         MethodInfo defaultDMethod;
 
 
-        public class ServletA
+        public class ClassFixtureA
         {
             private int privateA;
             protected int protectedA;
@@ -73,7 +73,7 @@ namespace NJetty.Util.Test.Util
             private static int bong;
         }
 
-        public class ServletB : ServletA
+        public class ClassFixtureB : ClassFixtureA
         {
             private string privateB;
             protected string protectedB;
@@ -81,7 +81,7 @@ namespace NJetty.Util.Test.Util
             internal string internalB;
         }
 
-        public class ServletC
+        public class ClassFixtureC
         {
             private void setPrivateC(int c) { }
             protected void setProtectedC(int c) { }
@@ -89,7 +89,7 @@ namespace NJetty.Util.Test.Util
             internal void setInternalC(int c) { }
         }
 
-        public class ServletD : ServletC
+        public class ClassFixtureD : ClassFixtureC
         {
             private void setPrivateD(int d) { }
             protected void setProtectedD(int d) { }
@@ -101,22 +101,22 @@ namespace NJetty.Util.Test.Util
         [TestFixtureSetUp]
         public void SetUp()
         {
-            privateAField = typeof(ServletA).GetField("privateA", _BINDINGFLAGS);
-            protectedAField = typeof(ServletA).GetField("protectedA", _BINDINGFLAGS);
-            publicAField = typeof(ServletA).GetField("publicA", _BINDINGFLAGS);
-            defaultAField = typeof(ServletA).GetField("internalA", _BINDINGFLAGS);
-            privateBField = typeof(ServletB).GetField("privateB", _BINDINGFLAGS);
-            protectedBField = typeof(ServletB).GetField("protectedB", _BINDINGFLAGS);
-            publicBField = typeof(ServletB).GetField("publicB", _BINDINGFLAGS);
-            defaultBField = typeof(ServletB).GetField("internalB", _BINDINGFLAGS);
-            privateCMethod = typeof(ServletC).GetMethod("setPrivateC", _BINDINGFLAGS, null, __INTEGER_ARG, null);
-            protectedCMethod = typeof(ServletC).GetMethod("setProtectedC", _BINDINGFLAGS, null, __INTEGER_ARG, null);
-            publicCMethod = typeof(ServletC).GetMethod("setPublicC", _BINDINGFLAGS, null, __INTEGER_ARG, null);
-            defaultCMethod = typeof(ServletC).GetMethod("setInternalC", _BINDINGFLAGS, null, __INTEGER_ARG, null);
-            privateDMethod = typeof(ServletD).GetMethod("setPrivateD", _BINDINGFLAGS, null, __INTEGER_ARG, null);
-            protectedDMethod = typeof(ServletD).GetMethod("setProtectedD", _BINDINGFLAGS, null, __INTEGER_ARG, null);
-            publicDMethod = typeof(ServletD).GetMethod("setPublicD", _BINDINGFLAGS, null, __INTEGER_ARG, null);
-            defaultDMethod = typeof(ServletD).GetMethod("setInternalD", _BINDINGFLAGS, null, __INTEGER_ARG, null);
+            privateAField = typeof(ClassFixtureA).GetField("privateA", _BINDINGFLAGS);
+            protectedAField = typeof(ClassFixtureA).GetField("protectedA", _BINDINGFLAGS);
+            publicAField = typeof(ClassFixtureA).GetField("publicA", _BINDINGFLAGS);
+            defaultAField = typeof(ClassFixtureA).GetField("internalA", _BINDINGFLAGS);
+            privateBField = typeof(ClassFixtureB).GetField("privateB", _BINDINGFLAGS);
+            protectedBField = typeof(ClassFixtureB).GetField("protectedB", _BINDINGFLAGS);
+            publicBField = typeof(ClassFixtureB).GetField("publicB", _BINDINGFLAGS);
+            defaultBField = typeof(ClassFixtureB).GetField("internalB", _BINDINGFLAGS);
+            privateCMethod = typeof(ClassFixtureC).GetMethod("setPrivateC", _BINDINGFLAGS, null, __INTEGER_ARG, null);
+            protectedCMethod = typeof(ClassFixtureC).GetMethod("setProtectedC", _BINDINGFLAGS, null, __INTEGER_ARG, null);
+            publicCMethod = typeof(ClassFixtureC).GetMethod("setPublicC", _BINDINGFLAGS, null, __INTEGER_ARG, null);
+            defaultCMethod = typeof(ClassFixtureC).GetMethod("setInternalC", _BINDINGFLAGS, null, __INTEGER_ARG, null);
+            privateDMethod = typeof(ClassFixtureD).GetMethod("setPrivateD", _BINDINGFLAGS, null, __INTEGER_ARG, null);
+            protectedDMethod = typeof(ClassFixtureD).GetMethod("setProtectedD", _BINDINGFLAGS, null, __INTEGER_ARG, null);
+            publicDMethod = typeof(ClassFixtureD).GetMethod("setPublicD", _BINDINGFLAGS, null, __INTEGER_ARG, null);
+            defaultDMethod = typeof(ClassFixtureD).GetMethod("setInternalD", _BINDINGFLAGS, null, __INTEGER_ARG, null);
         }
 
 
@@ -124,11 +124,11 @@ namespace NJetty.Util.Test.Util
         public void TestFieldPrivate ()
         {
             //direct
-            FieldInfo f = IntrospectionUtil.FindField(typeof(ServletA), "privateA", typeof(int), true, false);
+            FieldInfo f = IntrospectionUtil.FindField(typeof(ClassFixtureA), "privateA", typeof(int), true, false);
             Assert.AreEqual(privateAField, f);
 
             //inheritance
-            Assert.IsNull(IntrospectionUtil.FindField(typeof(ServletB), "privateB", typeof(int), true, false), "Private fields should not be inherited");
+            Assert.IsNull(IntrospectionUtil.FindField(typeof(ClassFixtureB), "privateB", typeof(int), true, false), "Private fields should not be inherited");
             
         }
 
@@ -136,11 +136,11 @@ namespace NJetty.Util.Test.Util
         public void TestFieldProtected()    
         {
             //direct
-            FieldInfo f = IntrospectionUtil.FindField(typeof(ServletA), "protectedA", typeof(int), true, false);
+            FieldInfo f = IntrospectionUtil.FindField(typeof(ClassFixtureA), "protectedA", typeof(int), true, false);
             Assert.AreEqual(f, protectedAField);
 
             //inheritance
-            f = IntrospectionUtil.FindField(typeof(ServletB), "protectedA", typeof(int), true, false);
+            f = IntrospectionUtil.FindField(typeof(ClassFixtureB), "protectedA", typeof(int), true, false);
             Assert.AreEqual(f, protectedAField);
         }
 
@@ -148,11 +148,11 @@ namespace NJetty.Util.Test.Util
         public void TestFieldPublic()
         {
             //direct
-            FieldInfo f = IntrospectionUtil.FindField(typeof(ServletA), "publicA", typeof(int), true, false);
+            FieldInfo f = IntrospectionUtil.FindField(typeof(ClassFixtureA), "publicA", typeof(int), true, false);
             Assert.AreEqual(f, publicAField);
 
             //inheritance
-            f = IntrospectionUtil.FindField(typeof(ServletB), "publicA", typeof(int), true, false);
+            f = IntrospectionUtil.FindField(typeof(ClassFixtureB), "publicA", typeof(int), true, false);
             Assert.AreEqual(f, publicAField);
         }
 
@@ -160,11 +160,11 @@ namespace NJetty.Util.Test.Util
         public void TestFieldDefault()
         {
             //direct
-            FieldInfo f = IntrospectionUtil.FindField(typeof(ServletA), "internalA", typeof(int), true, false);
+            FieldInfo f = IntrospectionUtil.FindField(typeof(ClassFixtureA), "internalA", typeof(int), true, false);
             Assert.AreEqual(f, defaultAField);
 
             //inheritance
-            f = IntrospectionUtil.FindField(typeof(ServletB), "internalA", typeof(int), true, false);
+            f = IntrospectionUtil.FindField(typeof(ClassFixtureB), "internalA", typeof(int), true, false);
             Assert.AreEqual(f, defaultAField);
         }
 
@@ -172,10 +172,10 @@ namespace NJetty.Util.Test.Util
         public void TestMethodPrivate ()
         {
             //direct
-            MethodInfo m = IntrospectionUtil.FindMethod(typeof(ServletC), "setPrivateC", __INTEGER_ARG, true, false);
+            MethodInfo m = IntrospectionUtil.FindMethod(typeof(ClassFixtureC), "setPrivateC", __INTEGER_ARG, true, false);
             Assert.AreEqual(m, privateCMethod);
 
-            Assert.IsNull(IntrospectionUtil.FindMethod(typeof(ServletD), "setPrivateC", __INTEGER_ARG, true, false), "Should Be Null");
+            Assert.IsNull(IntrospectionUtil.FindMethod(typeof(ClassFixtureD), "setPrivateC", __INTEGER_ARG, true, false), "Should Be Null");
       
         }
 
@@ -183,11 +183,11 @@ namespace NJetty.Util.Test.Util
         public void TestMethodProtected ()
         {
             // direct
-            MethodInfo m = IntrospectionUtil.FindMethod(typeof(ServletC), "setProtectedC", __INTEGER_ARG, true, false);
+            MethodInfo m = IntrospectionUtil.FindMethod(typeof(ClassFixtureC), "setProtectedC", __INTEGER_ARG, true, false);
             Assert.AreEqual(m, protectedCMethod);
 
             //inherited
-            m = IntrospectionUtil.FindMethod(typeof(ServletD), "setProtectedC", __INTEGER_ARG, true, false);
+            m = IntrospectionUtil.FindMethod(typeof(ClassFixtureD), "setProtectedC", __INTEGER_ARG, true, false);
             Assert.AreEqual(m, protectedCMethod);
         }
 
@@ -195,11 +195,11 @@ namespace NJetty.Util.Test.Util
         public void TestMethodPublic()
         {
             // direct
-            MethodInfo m = IntrospectionUtil.FindMethod(typeof(ServletC), "setPublicC", __INTEGER_ARG, true, false);
+            MethodInfo m = IntrospectionUtil.FindMethod(typeof(ClassFixtureC), "setPublicC", __INTEGER_ARG, true, false);
             Assert.AreEqual(m, publicCMethod);
 
             //inherited
-            m = IntrospectionUtil.FindMethod(typeof(ServletD), "setPublicC", __INTEGER_ARG, true, false);
+            m = IntrospectionUtil.FindMethod(typeof(ClassFixtureD), "setPublicC", __INTEGER_ARG, true, false);
             Assert.AreEqual(m, publicCMethod);
         }
 
@@ -207,11 +207,11 @@ namespace NJetty.Util.Test.Util
         public void TestMethodDefault()
         {
             // direct
-            MethodInfo m = IntrospectionUtil.FindMethod(typeof(ServletC), "setInternalC", __INTEGER_ARG, true, false);
+            MethodInfo m = IntrospectionUtil.FindMethod(typeof(ClassFixtureC), "setInternalC", __INTEGER_ARG, true, false);
             Assert.AreEqual(m, defaultCMethod);
 
             //inherited
-            m = IntrospectionUtil.FindMethod(typeof(ServletD), "setInternalC", __INTEGER_ARG, true, false);
+            m = IntrospectionUtil.FindMethod(typeof(ClassFixtureD), "setInternalC", __INTEGER_ARG, true, false);
             Assert.AreEqual(m, defaultCMethod);
         }
 
