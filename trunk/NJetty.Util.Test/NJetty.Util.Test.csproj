@@ -58,6 +58,7 @@
     <Compile Include="Util\LazyListTest.cs" />
     <Compile Include="Util\QuotedStringTokenizerTest.cs" />
     <Compile Include="Util\StringUtilTest.cs" />
+    <Compile Include="Util\TestIntrospectionUtil.cs" />
     <Compile Include="Util\URITest.cs" />
     <Compile Include="Util\URLEncodedTest.cs" />
     <Compile Include="Util\Utf8StringBufferTest.cs" />

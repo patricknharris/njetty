@@ -37,6 +37,8 @@ namespace NJetty.Util.Util
     /// </date>
     public class IntrospectionUtil
     {
+
+        const BindingFlags _BINDINGFLAGS = BindingFlags.NonPublic  | BindingFlags.Public | BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Static;
         
         public static MethodInfo FindMethod(Type type, string methodName, Type[] args, bool checkInheritance, bool strictArgs)
         {
@@ -46,7 +48,7 @@ namespace NJetty.Util.Util
                 throw new ArgumentNullException("No method name");
 
             MethodInfo method = null;
-            MethodInfo[] methods = type.GetMethods(BindingFlags.DeclaredOnly);
+            MethodInfo[] methods = type.GetMethods(_BINDINGFLAGS);
             for (int i=0;i<methods.Length && method==null;i++)
             {
                 if (methods[i].Name.Equals(methodName) && CheckParams(methods[i].GetParameters(), (args==null?new Type[] {}:args), strictArgs))
@@ -82,7 +84,7 @@ namespace NJetty.Util.Util
                 throw new ArgumentNullException("No property name");
 
             PropertyInfo property = null;
-            PropertyInfo[] properties = type.GetProperties(BindingFlags.DeclaredOnly);
+            PropertyInfo[] properties = type.GetProperties(_BINDINGFLAGS);
             for (int i = 0; i < properties.Length && property == null; i++)
             {
                 if (properties[i].Name.Equals(properttName))
@@ -121,15 +123,21 @@ namespace NJetty.Util.Util
             
             try
             {
-                FieldInfo field = type.GetField(targetName, BindingFlags.DeclaredOnly);
+                FieldInfo field = type.GetField(targetName, _BINDINGFLAGS);
+                if (field == null)
+                {
+                    return FindInheritedField(type.Assembly, type.BaseType, targetName, targetType, strictType);
+                }
+               
+
                 if (strictType)
                 {
-                    if (field.DeclaringType.Equals(targetType))
+                    if (field.FieldType.Equals(targetType))
                         return field;
                 }
                 else
                 {
-                    if (field.DeclaringType.IsAssignableFrom(targetType))
+                    if (field.FieldType.IsAssignableFrom(targetType))
                         return field;
                 }
 
@@ -315,7 +323,7 @@ namespace NJetty.Util.Util
             }
             
             bool samesig = false;
-            MethodInfo[] methods = c.GetMethods(BindingFlags.DeclaredOnly);
+            MethodInfo[] methods = c.GetMethods(_BINDINGFLAGS);
             for (int i=0; i<methods.Length && !samesig; i++)
             {
                 if (IntrospectionUtil.IsSameSignature(method, methods[i]))
@@ -334,7 +342,7 @@ namespace NJetty.Util.Util
             }
 
             bool sameName = false;
-            PropertyInfo[] properties = c.GetProperties(BindingFlags.DeclaredOnly);
+            PropertyInfo[] properties = c.GetProperties(_BINDINGFLAGS);
             for (int i = 0; i < properties.Length && !sameName; i++)
             {
                 if (properties[i].Name.Equals(property.Name))
@@ -352,7 +360,7 @@ namespace NJetty.Util.Util
             }
             
             bool sameName = false;
-            FieldInfo[] fields = c.GetFields(BindingFlags.DeclaredOnly);
+            FieldInfo[] fields = c.GetFields(_BINDINGFLAGS);
             for (int i=0;i<fields.Length && !sameName; i++)
             {
                 if (fields[i].Name.Equals(field.Name))
@@ -371,7 +379,7 @@ namespace NJetty.Util.Util
                 throw new ArgumentNullException("No method name");
             
             MethodInfo method = null;
-            MethodInfo[] methods = type.GetMethods(BindingFlags.DeclaredOnly);
+            MethodInfo[] methods = type.GetMethods(_BINDINGFLAGS);
             for (int i=0;i<methods.Length && method==null;i++)
             {
                 if (methods[i].Name.Equals(methodName) 
@@ -382,6 +390,10 @@ namespace NJetty.Util.Util
             if (method!=null)
             {
                 return method;
+            }
+            else if (type.BaseType == null)
+            {
+                return null;
             }
             else
                 return FindInheritedMethod(type.Assembly, type.BaseType, methodName, args, strictArgs);
@@ -397,7 +409,7 @@ namespace NJetty.Util.Util
                 throw new ArgumentNullException("No property name");
 
             PropertyInfo property = null;
-            PropertyInfo[] properties = type.GetProperties(BindingFlags.DeclaredOnly);
+            PropertyInfo[] properties = type.GetProperties(_BINDINGFLAGS);
             for (int i = 0; i < properties.Length && property == null; i++)
             {
                 if (properties[i].Name.Equals(propertyName)
@@ -407,6 +419,10 @@ namespace NJetty.Util.Util
             if (property != null)
             {
                 return property;
+            }
+            else if (type.BaseType == null)
+            {
+                return null;
             }
             else
                 return FindInheritedProperty(type.Assembly, type.BaseType, propertyName);
@@ -420,11 +436,17 @@ namespace NJetty.Util.Util
                 throw new ArgumentNullException("No field name");
             try
             {
-                FieldInfo field = type.GetField(fieldName, BindingFlags.DeclaredOnly);
+                FieldInfo field = type.GetField(fieldName, _BINDINGFLAGS);
+                bool b = IsInheritable(assembly, field);
+                
                 if (IsInheritable(assembly, field) && IsTypeCompatible(fieldType, field.FieldType, strictType))
                     return field;
+                else if (type.BaseType == null)
+                {
+                    return null;
+                }
                 else
-                    return FindInheritedField(type.Assembly, type.BaseType,fieldName, fieldType, strictType);
+                    return FindInheritedField(type.Assembly, type.BaseType, fieldName, fieldType, strictType);
             }
             catch (ArgumentException e)
             {
