@@ -387,7 +387,7 @@ namespace NJetty.Util.Util
             }
             else if (type.BaseType == null)
             {
-                return null;
+                throw new ArgumentException("Method Not Found!!!");
             }
             else
                 return FindInheritedMethod(type.Assembly, type.BaseType, methodName, args, strictArgs);
@@ -437,7 +437,7 @@ namespace NJetty.Util.Util
                     return field;
                 else if (type.BaseType == null)
                 {
-                    return null;
+                    throw new ArgumentException("Field Not Found!!!");
                 }
                 else
                     return FindInheritedField(type.Assembly, type.BaseType, fieldName, fieldType, strictType);
