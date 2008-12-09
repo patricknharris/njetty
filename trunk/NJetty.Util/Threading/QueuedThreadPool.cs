@@ -44,10 +44,10 @@ namespace NJetty.Util.Threading
         static int __id;
         
         string _name;
-        internal HashSet<QueuedThreadPoolWorker> _threads;
+        internal HashSet<ThreadPoolWorker> _threads;
 
         //internal QueueList<QueuedThreadPoolWorker> _idleQue;
-        internal ArrayQueue<QueuedThreadPoolWorker> _idleQue;
+        internal ArrayQueue<ThreadPoolWorker> _idleQue;
 
         //internal QueueList<ThreadStart> _jobsQue;
         internal ArrayQueue<ThreadStart> _jobsQue;
@@ -94,7 +94,7 @@ namespace NJetty.Util.Threading
             if (!IsRunning || job==null)
                 return false;
 
-            QueuedThreadPoolWorker thread = null;
+            ThreadPoolWorker thread = null;
             bool spawn=false;
                 
             
@@ -323,9 +323,9 @@ namespace NJetty.Util.Threading
             if (_maxThreads<_minThreads || _minThreads<=0)
                 throw new ArgumentException("!0<minThreads<maxThreads");
 
-            _threads = new HashSet<QueuedThreadPoolWorker>();
+            _threads = new HashSet<ThreadPoolWorker>();
             //_idleQue = new QueueList<QueuedThreadPoolWorker>(_maxThreads);
-            _idleQue = new ArrayQueue<QueuedThreadPoolWorker>(_maxThreads);
+            _idleQue = new ArrayQueue<ThreadPoolWorker>(_maxThreads);
             //_jobsQue = new QueueList<ThreadStart>(_maxThreads);
             _jobsQue = new ArrayQueue<ThreadStart>(_maxThreads, _maxThreads);
             
@@ -354,7 +354,7 @@ namespace NJetty.Util.Threading
                 {
                     if (_threads != null)
                     {
-                        IEnumerator<QueuedThreadPoolWorker> inum = _threads.GetEnumerator();
+                        IEnumerator<ThreadPoolWorker> inum = _threads.GetEnumerator();
                         while (inum.MoveNext())
                         {
                             inum.Current.Interrupt();
@@ -403,7 +403,7 @@ namespace NJetty.Util.Threading
             {
                 if (_threads.Count<_maxThreads)
                 {
-                    QueuedThreadPoolWorker thread = new QueuedThreadPoolWorker(this);
+                    ThreadPoolWorker thread = new ThreadPoolWorker(this);
                     _threads.Add(thread);
                     thread.Name = thread.Id + "@" + _name + "-" + _id++;
                     thread.Start(); 
@@ -426,7 +426,207 @@ namespace NJetty.Util.Threading
         protected void StopJob(IThread thread, object job)
         {
             thread.Interrupt();
-            
+
         }
+
+
+        #region Thread Pool Worker Class
+        
+        internal class ThreadPoolWorker : IThread
+        {
+            ThreadStart _job = null;
+            QueuedThreadPool _queuedThreadPool = null;
+            object _thisLock = new object();
+            System.Threading.Thread _thread = null;
+
+            #region Constructors
+
+            internal ThreadPoolWorker(QueuedThreadPool queuedThreadPool)
+            {
+                _queuedThreadPool = queuedThreadPool;
+
+
+                ThreadStart ts = new ThreadStart(Run);
+                _thread = new System.Threading.Thread(ts);
+                _thread.Priority = _queuedThreadPool._priority;
+                _thread.IsBackground = _queuedThreadPool._background;
+
+
+
+
+
+
+            }
+
+            #endregion
+
+            public int Id
+            {
+                get { return _thread.ManagedThreadId; }
+            }
+
+
+            public string Name
+            {
+                get { return _thread.Name; }
+                set { _thread.Name = value; }
+            }
+
+            public void Start()
+            {
+                _thread.Start();
+            }
+
+            public void Abort()
+            {
+                Log.Debug("Aborting " + Name + " to Stop...");
+                try
+                {
+                    _thread.Abort();
+                }
+                catch { }
+            }
+
+
+
+            public void Interrupt()
+            {
+                try
+                {
+                    Monitor.Pulse(_thisLock);
+                }
+                catch { }
+
+
+                if (_queuedThreadPool.IsStopping)
+                {
+                    lock (_queuedThreadPool._lock)
+                    {
+                        //Log.Info("Stopping: Worker Thread: " + this.Name);
+                        _thread.Interrupt();
+                    }
+
+
+                }
+
+
+            }
+
+
+            /// <summary>
+            /// QueuedThreadPoolPoolThread run. Loop getting jobs and handling them until idle or stopped.
+            /// </summary>
+            public void Run()
+            {
+                bool idle = false;
+                ThreadStart job = null;
+                try
+                {
+                    while (_queuedThreadPool.IsRunning)
+                    {
+                        // Run any job that we have.
+                        if (job != null)
+                        {
+                            ThreadStart todo = job;
+                            job = null;
+                            idle = false;
+                            // Execute the Delegated job
+                            todo();
+                        }
+
+                        job = _queuedThreadPool._jobsQue.Dequeue();
+                        if (job != null)
+                        {
+                            continue;
+                        }
+
+                        lock (_queuedThreadPool._lock)
+                        {
+                            // Should we shrink?
+                            int threads = _queuedThreadPool._threads.Count;
+                            if (threads > _queuedThreadPool._minThreads &&
+                                (threads > _queuedThreadPool._maxThreads ||
+                                 _queuedThreadPool._idleQue.Count > _queuedThreadPool._spawnOrShrinkAt))
+                            {
+                                long now = (DateTime.UtcNow.Ticks / 1000);
+                                if ((now - _queuedThreadPool._lastShrink) > _queuedThreadPool.MaxIdleTimeMs)
+                                {
+
+                                    _queuedThreadPool._lastShrink = now;
+                                    _queuedThreadPool._idleQue.Remove(this);
+                                    return;
+                                }
+                            }
+
+                            if (!idle)
+                            {
+                                // Add ourselves to the idle set.
+                                _queuedThreadPool._idleQue.Enqueue(this);
+                                idle = true;
+                            }
+                        }
+
+                        // We are idle
+                        // wait for a dispatched job
+                        lock (_thisLock)
+                        {
+                            if (_job == null)
+                            {
+                                Monitor.Wait(_thisLock, _queuedThreadPool.MaxIdleTimeMs);
+                            }
+
+                            job = _job;
+                            _job = null;
+                        }
+                    }
+                }
+                catch (ThreadInterruptedException e)
+                {
+                    Log.Ignore(e);
+                }
+                catch (ThreadAbortException tae)
+                {
+                    Log.Ignore(tae);
+                }
+                finally
+                {
+
+                    lock (_queuedThreadPool._lock)
+                    {
+                        _queuedThreadPool._idleQue.Remove(this);
+                    }
+                    lock (_queuedThreadPool._threadsLock)
+                    {
+                        _queuedThreadPool._threads.Remove(this);
+                    }
+                    lock (_thisLock)
+                    {
+                        job = _job;
+                    }
+
+
+
+                    // we died with a job! reschedule it
+                    // only if we are still running
+                    if (job != null && _queuedThreadPool.IsRunning)
+                    {
+                        _queuedThreadPool.Dispatch(job);
+                    }
+                }
+            }
+
+            internal void Dispatch(ThreadStart job)
+            {
+                lock (_thisLock)
+                {
+                    _job = job;
+                    Interrupt();
+
+                }
+            }
+
+        }
+        
+        #endregion
     }
 }
