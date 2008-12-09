@@ -200,8 +200,15 @@ namespace NJetty.Util.Test.Util
             FieldInfo f = IntrospectionUtil.FindField(typeof(ClassFixtureA), "privateA", typeof(int), true, false);
             Assert.AreEqual(privateAField, f);
 
-            //inheritance
-            Assert.IsNull(IntrospectionUtil.FindField(typeof(ClassFixtureB), "privateB", typeof(int), true, false), "Private fields should not be inherited");
+            try
+            {
+                //inheritance
+                IntrospectionUtil.FindField(typeof(ClassFixtureB), "privateB", typeof(int), true, false);
+                Assert.Fail("Private fields should not be inherited");
+            }
+            catch(ArgumentException)
+            {
+            }
             
         }
 
@@ -248,7 +255,16 @@ namespace NJetty.Util.Test.Util
             MethodInfo m = IntrospectionUtil.FindMethod(typeof(ClassFixtureC), "setPrivateC", __INTEGER_ARG, true, false);
             Assert.AreEqual(m, privateCMethod);
 
-            Assert.IsNull(IntrospectionUtil.FindMethod(typeof(ClassFixtureD), "setPrivateC", __INTEGER_ARG, true, false), "Should Be Null");
+            try
+            {
+                IntrospectionUtil.FindMethod(typeof(ClassFixtureD), "setPrivateC", __INTEGER_ARG, true, false);
+                Assert.Fail("Private method should not be inherited");
+            }
+            catch(ArgumentException)
+            {
+                
+            }
+            
       
         }
 
