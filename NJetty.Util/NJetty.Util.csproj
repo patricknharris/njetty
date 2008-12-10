@@ -70,7 +70,6 @@
     <Compile Include="Threading\IThread.cs" />
     <Compile Include="Threading\IThreadPool.cs" />
     <Compile Include="Threading\QueuedThreadPool.cs" />
-    <Compile Include="Threading\QueuedThreadPoolLock.cs" />
     <Compile Include="Threading\Timeout.cs" />
     <Compile Include="Threading\TimeoutTask.cs" />
     <Compile Include="Util\Ajax\AjaxFilter.cs" />
