@@ -54,9 +54,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Threading\ThreadPoolTest.cs" />
     <Compile Include="Threading\TimeoutTest.cs" />
+    <Compile Include="Util\Ajax\JSONTest.cs" />
     <Compile Include="Util\ArrayQueueTest.cs" />
+    <Compile Include="Util\DateCacheTest.cs" />
     <Compile Include="Util\LazyListTest.cs" />
     <Compile Include="Util\QuotedStringTokenizerTest.cs" />
+    <Compile Include="Util\StringMapTest.cs" />
     <Compile Include="Util\StringUtilTest.cs" />
     <Compile Include="Util\TestIntrospectionUtil.cs" />
     <Compile Include="Util\URITest.cs" />
@@ -72,7 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resource\" />
-    <Folder Include="Util\Ajax\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
