@@ -160,7 +160,7 @@ namespace NJetty.Util.Test.Util
                 Assert.AreEqual(1, m2.Count, "stream length");
                 Assert.AreEqual("\u30c6\u30b9\u30c8", m2.GetString("name"), "stream name");
             }
-            catch (ArgumentException ae)
+            catch (ArgumentException)
             {
                 Assert.IsTrue(true, "Charset Shift_JIS not supported by CLR");
             }

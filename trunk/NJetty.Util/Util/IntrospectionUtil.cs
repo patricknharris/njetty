@@ -149,7 +149,7 @@ namespace NJetty.Util.Util
                 else
                     throw new ArgumentException("No field with name " + targetName + " in class " + type.Name + " of type " + targetType);
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
                 return FindInheritedField(type.Assembly,type.BaseType, targetName,targetType,strictType);
             }
@@ -442,7 +442,7 @@ namespace NJetty.Util.Util
                 else
                     return FindInheritedField(type.Assembly, type.BaseType, fieldName, fieldType, strictType);
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
                 return FindInheritedField(type.Assembly, type.BaseType,fieldName, fieldType, strictType); 
             }

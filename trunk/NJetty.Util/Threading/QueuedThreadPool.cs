@@ -431,7 +431,24 @@ namespace NJetty.Util.Threading
 
 
         #region Thread Pool Worker Class
-        
+
+        /// <summary>
+        /// A pool of threads.
+        ///
+        /// Avoids the expense of thread creation by pooling threads after
+        /// their run methods exit for reuse.
+        ///
+        /// If an idle thread is available a job is directly dispatched,
+        /// otherwise the job is queued.  After queuing a job, if the total
+        /// number of threads is less than the maximum pool size, a new thread 
+        /// is spawned.
+        /// </summary>
+        /// <author>  
+        ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
+        /// </author>
+        /// <date>
+        /// November 2008
+        /// </date>
         internal class ThreadPoolWorker : IThread
         {
             ThreadStart _job = null;
@@ -627,6 +644,24 @@ namespace NJetty.Util.Threading
 
         }
         
+        #endregion
+
+        #region Thread Pool Lock Class
+
+        /// <summary>
+        /// Thread Lock Class, no implementation at all, just used for lock block
+        /// </summary>
+        /// <author>  
+        ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
+        /// </author>
+        /// <date>
+        /// November 2008
+        /// </date>
+        internal class QueuedThreadPoolLock
+        {
+            // no implementation this will only act as a lock class for threading lock block
+        }
+
         #endregion
     }
 }

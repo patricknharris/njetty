@@ -79,7 +79,7 @@ namespace NJetty.Util.Util
 
         #region Dictionary Overrides
 
-        public void Add(TKey key, TValue value)
+        public new void Add(TKey key, TValue value)
         {
             lock (_lock)
             {
@@ -87,7 +87,7 @@ namespace NJetty.Util.Util
             }
         }
 
-        public bool ContainsKey(TKey key)
+        public new bool ContainsKey(TKey key)
         {
             lock (_lock)
             {
@@ -95,7 +95,7 @@ namespace NJetty.Util.Util
             }
         }
 
-        public Dictionary<TKey, TValue>.KeyCollection Keys
+        public new Dictionary<TKey, TValue>.KeyCollection Keys
         {
             get
             {
@@ -106,7 +106,7 @@ namespace NJetty.Util.Util
             }
         }
 
-        public bool Remove(TKey key)
+        public new bool Remove(TKey key)
         {
             lock (_lock)
             {
@@ -115,7 +115,7 @@ namespace NJetty.Util.Util
 
         }
 
-        public bool TryGetValue(TKey key, out TValue value)
+        public new bool TryGetValue(TKey key, out TValue value)
         {
             lock (_lock)
             {
@@ -123,7 +123,7 @@ namespace NJetty.Util.Util
             }
         }
 
-        public Dictionary<TKey, TValue>.ValueCollection Values
+        public new Dictionary<TKey, TValue>.ValueCollection Values
         {
             get
             {
@@ -134,7 +134,7 @@ namespace NJetty.Util.Util
             }
         }
 
-        public TValue this[TKey key]
+        public new TValue this[TKey key]
         {
             get
             {
@@ -158,7 +158,7 @@ namespace NJetty.Util.Util
 
 
 
-        public void Clear()
+        public new void Clear()
         {
             lock (_lock)
             {
@@ -166,7 +166,7 @@ namespace NJetty.Util.Util
             }
         }
 
-        public int Count
+        public new int Count
         {
             get
             {

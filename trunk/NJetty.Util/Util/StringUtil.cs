@@ -55,7 +55,7 @@ namespace NJetty.Util.Util
                     latinEuropeanEncoding.GetString(new byte[] { (byte)20 });
                     iso = "ISO-8859-1";
                 }
-                catch (Exception e)
+                catch
                 {
                     iso = "ISO8859_1";
                 }

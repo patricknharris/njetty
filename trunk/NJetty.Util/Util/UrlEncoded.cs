@@ -804,7 +804,7 @@ namespace NJetty.Util.Util
             {
                 bytes = Encoding.GetEncoding(charset).GetBytes(str);
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
                 // Log.warn(LogSupport.EXCEPTION,e);
                 bytes = Encoding.ASCII.GetBytes(str);
@@ -854,7 +854,7 @@ namespace NJetty.Util.Util
             {
                 return Encoding.GetEncoding(charset).GetString(encoded, 0, n);
             }
-            catch (ArgumentException e)
+            catch (ArgumentException)
             {
                 // Log.warn(LogSupport.EXCEPTION,e);
                 return Encoding.ASCII.GetString(encoded, 0, n);

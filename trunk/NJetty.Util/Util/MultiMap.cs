@@ -137,7 +137,7 @@ namespace NJetty.Util.Util
         }
 
         
-        public object this[K name]
+        public new object this[K name]
         {
             get
             {
@@ -165,7 +165,7 @@ namespace NJetty.Util.Util
         /// </summary>
         /// <param name="name">The entry key.</param>
         /// <param name="value">The entry value.</param>
-        public void Add(K name, object value)
+        public new void Add(K name, object value)
         {
             _map.Add(name, LazyList.Add(null, value));
         }
@@ -336,22 +336,22 @@ namespace NJetty.Util.Util
             return map;
         }
 
-        public void Clear()
+        public new void Clear()
         {
             _map.Clear();
         }
 
-        public bool ContainsKey(K key)
+        public new bool ContainsKey(K key)
         {
             return _map.ContainsKey(key);
         }
 
-        public bool ContainsValue(object value)
+        public new bool ContainsValue(object value)
         {
             return _map.ContainsValue(value);
         }
 
-        public bool Equals(object o)
+        public new bool Equals(object o)
         {
             return _map.Equals(o);
         }
@@ -369,23 +369,23 @@ namespace NJetty.Util.Util
             }
         }
 
-        public Dictionary<K, object>.KeyCollection Keys
+        public new Dictionary<K, object>.KeyCollection Keys
         {
             get { return _map.Keys; }
 
         }
 
-        public object Remove(K key)
+        public new object Remove(K key)
         {
             return _map.Remove(key);
         }
 
-        public int Count
+        public new int Count
         {
             get { return _map.Count; }
         }
 
-        public Dictionary<K, object>.ValueCollection Values
+        public new Dictionary<K, object>.ValueCollection Values
         {
 
             get { return _map.Values; }
@@ -423,7 +423,7 @@ namespace NJetty.Util.Util
 
        
 
-        public bool TryGetValue(K key, out object value)
+        public new bool TryGetValue(K key, out object value)
         {
             object l = _map.TryGetValue(key, out value);
             switch (LazyList.Size(l))

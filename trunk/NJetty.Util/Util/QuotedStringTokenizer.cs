@@ -212,7 +212,7 @@ namespace NJetty.Util.Util
             return _hasToken;
         }
 
-        public string NextToken()
+        public new string NextToken()
         {
             if (!hasMoreTokens() || _token == null)
                 throw new NoSuchElementException();
@@ -223,7 +223,7 @@ namespace NJetty.Util.Util
         }
 
         /* ------------------------------------------------------------ */
-        public string NextToken(string delim)
+        public new string NextToken(string delim)
         {
             _delim = delim;
             _i = _lastStart;
@@ -233,13 +233,13 @@ namespace NJetty.Util.Util
         }
 
         /* ------------------------------------------------------------ */
-        public bool HasMoreElements()
+        public new bool HasMoreElements()
         {
             return hasMoreTokens();
         }
 
         /* ------------------------------------------------------------ */
-        public object NextElement()
+        public new object NextElement()
         {
             return NextToken();
         }
@@ -247,7 +247,7 @@ namespace NJetty.Util.Util
         /* ------------------------------------------------------------ */
         /** Not implemented.
          */
-        public int CountTokens()
+        public new int CountTokens()
         {
             return -1;
         }
@@ -354,7 +354,6 @@ namespace NJetty.Util.Util
 
                         default:
                             continue;
-                            break;
                     }
                 }
             EndOfLoop:
@@ -444,7 +443,6 @@ namespace NJetty.Util.Util
 
                         default:
                             continue;
-                            break;
                     }
                 }
 
