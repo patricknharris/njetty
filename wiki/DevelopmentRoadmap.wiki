@@ -1,11 +1,15 @@
 #summary To have a full-featured Dotnet/ASP.net web server implemented entirely in C#, The Project will be based entirely in Jetty Web Server in Java.
 #labels RoadMap,Featured,Phase-Design
 
-= Roadmap for 1.0 Alpha-Release =
- * [ROADMAPxxx0x1 Port Jetty Utils to C# as NJetty.Util (0.1 Release)]
- * [ROADMAPxxx0x1 Port Jetty Utils Test to C# as NJetty.Util.Test (0.1 Release)]
- * [ROADMAPxxx0x2 Port Jetty Core to C# as NJetty (0.2 Release)]
- * [ROADMAPxxx0x2 Port Jetty Core Tests to as NJetty.Test (0.2 Release)]
+= Roadmap for 1.0 Release =
+  * [ROADMAPxxx0x1 Roadmap for 0.1 Release]
+    * Port Jetty Utils to C# as NJetty.Util
+    * Port Jetty Utils Test to C# as NJetty.Util.Test
+  * [ROADMAPxxx0x2 Roadmap for 0.2 Release]
+    * Port Jetty Core to C# as NJetty
+    * Port Jetty Core Tests to as NJetty.Test
+  * [ROADMAPxxx0x3 Roadmap for 0.3 Release]
+    * tobe decided
 
 Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotnet related web platforms.
 
