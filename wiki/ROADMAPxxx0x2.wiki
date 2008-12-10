@@ -1,0 +1,19 @@
+#summary 0.2 Development Roadmap
+#labels Roadmap,Featured,Phase-Implementation,0.2Roadmap
+
+= NJetty 0.2 Development Roadmap =
+
+Port jetty (core) from java to C# as NJetty including Unit Tests
+
+----
+==Port Jetty Core to C# as NJetty==
+ * *TODO.Package*
+    * Todo.Class
+ * *TODO.Package*
+    * Todo.Class
+----
+==Port Jetty Core Tests to as NJetty.Test== 
+ * *TODO.Package*
+    * Todo.Class
+ * *TODO.Package*
+    * Todo.Class
