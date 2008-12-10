@@ -48,7 +48,6 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * DateCache    
     * IAttributes (*done*)
     * Loader
-    * ~~QueueList(no longer needed)~~ (*done*)
     * QuotedStringTokenizer (*done*)
     * Scanner
     * IO
@@ -71,7 +70,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * UrlEncoded (*done*)
  * *Util.Ajax*
     * AjaxFilter
-    * IContinuation (*deprecated@etty, might not need to implement*)
+    * ~~IContinuation~~ (*deprecated@jetty, might not need to implement*)
     * ContinuationSupport
     * JSON
     * JSONDateConvertor
