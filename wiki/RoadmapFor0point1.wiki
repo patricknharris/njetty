@@ -1,14 +1,11 @@
-#summary Port jetty-utils from java to C# as NJetty.Util including Unit Tests
+#summary 0.1 Development Roadmap
 
-= Introduction =
+= NJetty 0.1 Development Roadmap =
 
-Add your content here.
+Port jetty-utils from java to C# as NJetty.Util including Unit Tests
 
-
-= NJetty 0.1 Release =
-
-
-==Port Jetty Utils to C# as NJetty.Util (0.1 Release)==
+----
+==Port Jetty Utils to C# as NJetty.Util==
  * *Components* (*done*)
     * AbstractLifeCycle (*done*)
     * Container (*done*)
@@ -75,8 +72,8 @@ Add your content here.
     * WaitingContinuation
  * *TODO.Package*
     * Todo.Class
-
-==Port Jetty Utils Test to C# as NJetty.Util.Test (0.1 Release)== 
+----
+==Port Jetty Utils Test to C# as NJetty.Util.Test== 
  * *Component* (*done*)
     * LifeCycleTest (*done*)
     * LifeCycleListenerTest (*done*)
