@@ -48,22 +48,10 @@ namespace NJetty.Util.Util
             base.WriteByte((byte) b);
         }
 
-        //public int getCount() { return count; }
-        //public void setCount(int count) { this.count = count; }
-
-        //public void Reset(int minSize)
-        //{
-        //    this.
-        //    reset()
-        //    if (buf.length < minSize)
-        //    {
-        //        buf = new byte[minSize];
-        //    }
-        //}
-
-        //public void writeUnchecked(int b)
-        //{
-        //    buf[count++] = (byte)b;
-        //}
+        public void Reset()
+        {
+            base.SetLength(0);
+            base.Position = 0;
+        }
     }
 }
