@@ -2,13 +2,17 @@
 #labels RoadMap,Featured,Phase-Design
 
 = Roadmap for 1.0 Alpha-Release =
+* Port Jetty Utils to C# as NJetty.Util (0.1 Release) 
+* Port Jetty Utils Test to C# as NJetty.Util.Test (0.1 Release)
+* Port Jetty Core to C# as NJetty (0.2 Release)
+* Port Jetty Core Tests to as NJetty.Test (0.2 Release)
 
 Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotnet related web platforms.
 
 
 =Porting Roadmap by Package/Namespace=
 
-==Port Jetty Utils to C# NJetty.Util==
+==Port Jetty Utils to C# as NJetty.Util (0.1 Release)==
  * *Components* (*done*)
     * AbstractLifeCycle (*done*)
     * Container (*done*)
@@ -41,7 +45,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * ArrayQueue (*done*)
     * AttributesMap (*done*)
     * ByteArrayISO8859Writer
-    * ByteArrayOutputStream2
+    * ByteArrayOutputStream2 (*done*)
     * ConcurrentDictionary (*done*)
     * DateCache    
     * IAttributes (*done*)
@@ -79,7 +83,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
  * *TODO.Package*
     * Todo.Class
 
-==Port Jetty Utils Test to C# as NJetty.Util.Test== 
+==Port Jetty Utils Test to C# as NJetty.Util.Test (0.1 Release)== 
  * *Component* (*done*)
     * LifeCycleTest (*done*)
     * LifeCycleListenerTest (*done*)
@@ -108,13 +112,13 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
  * *Util.Ajax*
     * JSONTest
 
-==Port Jetty Core to C# as NJetty==
+==Port Jetty Core to C# as NJetty (0.2 Release)==
  * *TODO.Package*
     * Todo.Class
  * *TODO.Package*
     * Todo.Class
 
-==Port Jetty Core Tests to as NJetty.Test==
+==Port Jetty Core Tests to as NJetty.Test (0.2 Release)==
  * *TODO.Package*
     * Todo.Class
  * *TODO.Package*
