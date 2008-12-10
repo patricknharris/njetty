@@ -63,7 +63,7 @@ Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotn
     * URIUtil (*done*)
     * Utf8StringBuilder (*done*)
     * Utf8StringBuffer (*done*)
-    * MultiException
+    * MultiException (*done*)
     * RolloverFileOutputStream
     * MultiMap (*done*)
     * MultiPartOutputStream
