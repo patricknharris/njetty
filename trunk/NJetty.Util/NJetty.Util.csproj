@@ -49,8 +49,6 @@
   <ItemGroup>
     <Compile Include="Component\AbstractLifeCycle.cs" />
     <Compile Include="Component\Container.cs" />
-    <Compile Include="Component\ContainerRelationship.cs" />
-    <Compile Include="Component\IContainerListener.cs" />
     <Compile Include="Component\ILifeCycle.cs" />
     <Compile Include="Component\IListener.cs" />
     <Compile Include="Logging\ILogger.cs" />
