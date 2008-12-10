@@ -2,10 +2,10 @@
 #labels RoadMap,Featured,Phase-Design
 
 = Roadmap for 1.0 Alpha-Release =
-* Port Jetty Utils to C# as NJetty.Util (0.1 Release) 
-* Port Jetty Utils Test to C# as NJetty.Util.Test (0.1 Release)
-* Port Jetty Core to C# as NJetty (0.2 Release)
-* Port Jetty Core Tests to as NJetty.Test (0.2 Release)
+ * Port Jetty Utils to C# as NJetty.Util (0.1 Release) 
+ * Port Jetty Utils Test to C# as NJetty.Util.Test (0.1 Release)
+ * Port Jetty Core to C# as NJetty (0.2 Release)
+ * Port Jetty Core Tests to as NJetty.Test (0.2 Release)
 
 Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotnet related web platforms.
 
