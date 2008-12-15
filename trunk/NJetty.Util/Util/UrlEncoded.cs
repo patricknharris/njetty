@@ -741,6 +741,11 @@ namespace NJetty.Util.Util
                                     ba[n++] = (byte)TypeUtil.ParseInt(encoded, offset + i + 1, 2, 16);
                                     i += 3;
                                 }
+                                else if (c == '+')
+                                {
+                                    ba[n++] = (byte)' ';
+                                    i++;
+                                }
                                 else
                                 {
                                     ba[n++] = (byte)c;

@@ -112,6 +112,17 @@ namespace NJetty.Util.Test.Util
             Assert.AreEqual("Name8=xx%2C++yy++%2Czz", url_encoded.Encode(), "encoded encode");
             Assert.AreEqual(url_encoded.GetString("Name8"), "xx,  yy  ,zz", "encoded get");
 
+             
+            url_encoded.Clear();
+            url_encoded.Decode("Name11=xxVerdi+%C6+og+2zz", "ISO-8859-1");
+            Assert.AreEqual(1, url_encoded.Count, "encoded param size");
+            Assert.AreEqual(url_encoded.GetString("Name11"),"xxVerdi \u00c6 og 2zz", "encoded get");
+            
+            url_encoded.Clear();
+            url_encoded.Decode("Name12=xxVerdi+%2F+og+2zz", "UTF-8");
+            Assert.AreEqual(1, url_encoded.Count, "encoded param size");
+            Assert.AreEqual(url_encoded.GetString("Name12"), "xxVerdi / og 2zz", "encoded get");
+
             try
             {
                 Encoding.GetEncoding("SJIS");
