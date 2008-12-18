@@ -27,7 +27,10 @@ namespace NJetty.Util.Util
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// This class combines the features of a OutputStreamWriter for
+    /// ISO8859 encoding with that of a ByteArrayOutputStream.  It avoids
+    /// many inefficiencies associated with these standard library classes.
+    /// It has been optimized for standard ASCII characters.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
@@ -188,7 +191,6 @@ namespace NJetty.Util.Util
             }
         }
 
-        /* ------------------------------------------------------------ */
         static Encoding __ISO_8859_1 = Encoding.GetEncoding(StringUtil.__ISO_8859_1);
         private void WriteEncoded(char[] ca,int offset, long length)
         {
