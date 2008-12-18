@@ -674,9 +674,19 @@ namespace NJetty.Util.Util
 
                         while (c == '%' && (i + 2) < length)
                         {
-                            byte b = (byte)TypeUtil.ParseInt(encoded, offset + i + 1, 2, 16);
-                            buffer.Append(b);
-                            i += 3;
+                            try
+                            {
+                                byte b = (byte)TypeUtil.ParseInt(encoded, offset + i + 1, 2, 16);
+                                buffer.Append(b);
+                                i += 3;
+                            }
+                            catch (FormatException)
+                            {
+                                buffer.Append('%');
+                                for (char next; ((next = encoded[++i + offset]) != '%'); )
+                                    buffer.Append((next == '+' ? ' ' : next));
+                            }
+
                             if (i < length)
                                 c = encoded[offset + i];
                         }
@@ -738,8 +748,26 @@ namespace NJetty.Util.Util
                             {
                                 if (c == '%')
                                 {
-                                    ba[n++] = (byte)TypeUtil.ParseInt(encoded, offset + i + 1, 2, 16);
-                                    i += 3;
+                                    if (i + 2 < length)
+                                    {
+
+                                        try
+                                        {
+                                            ba[n++] = (byte)TypeUtil.ParseInt(encoded, offset + i + 1, 2, 16);
+                                            i += 3;
+                                        }
+                                        catch (FormatException nfe)
+                                        {
+                                            ba[n - 1] = (byte)'%';
+                                            for (char next; ((next = encoded[++i + offset]) != '%'); )
+                                                ba[n++] = (byte)(next == '+' ? ' ' : next);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ba[n++] = (byte)'%';
+                                        i++;
+                                    }
                                 }
                                 else if (c == '+')
                                 {
@@ -758,7 +786,8 @@ namespace NJetty.Util.Util
                             }
 
                             i--;
-                            buffer.Append(Encoding.GetEncoding(charset).GetString(ba, 0,n));
+                            string str = Encoding.GetEncoding(charset).GetString(ba, 0, n);
+                            buffer.Append(str);
 
                         }
                         else if (buffer != null)
