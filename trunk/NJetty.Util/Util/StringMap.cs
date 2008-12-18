@@ -141,7 +141,7 @@ namespace NJetty.Util.Util
             }
         }
 
-        public void Add(string key, object value)
+        public new void Add(string key, object value)
         {
             if (key == null)
             {
@@ -288,7 +288,7 @@ namespace NJetty.Util.Util
             }
         }
 
-        public object this[string key]
+        public new object this[string key]
         {
             get
             {
@@ -503,7 +503,7 @@ namespace NJetty.Util.Util
 
 
 
-        public bool TryGetValue(string key, out object value)
+        public new bool TryGetValue(string key, out object value)
         {
             if (!ContainsKey(key))
             {
@@ -526,7 +526,7 @@ namespace NJetty.Util.Util
             return Remove(key.ToString());
         }
 
-        public bool Remove(string key)
+        public new bool Remove(string key)
         {
             if (key == null)
             {
@@ -598,7 +598,7 @@ namespace NJetty.Util.Util
             get { return _umEntrySet; }
         }
 
-        public int Count
+        public new int Count
         {
             get
             {
@@ -625,7 +625,7 @@ namespace NJetty.Util.Util
 
 
 
-        public bool ContainsKey(string key)
+        public new bool ContainsKey(string key)
         {
             if (key == null)
                 return _nullEntry != null;
@@ -633,7 +633,7 @@ namespace NJetty.Util.Util
                 GetEntry(key, 0, key == null ? 0 : key.Length) != null;
         }
 
-        public void Clear()
+        public new void Clear()
         {
             _root = new Node();
             _nullEntry = null;
