@@ -40,13 +40,11 @@ namespace NJetty.Util.Test.Util
     [TestFixture]
     public class StringMapTest
     {
-        StringMap m0;
-        StringMap m1;
-        StringMap m5;
-        StringMap m5i;
-
-        [TestFixtureSetUp]
-        protected void SetUp()
+        
+        protected void SetUp(out StringMap m0,
+                                out StringMap m1,
+                                out StringMap m5,
+                                out StringMap m5i)
         {
             m0=new StringMap();
             m1=new StringMap(false);
@@ -70,6 +68,12 @@ namespace NJetty.Util.Test.Util
         [Test]
         public void TestSize()
         {
+            StringMap m0;
+            StringMap m1;
+            StringMap m5;
+            StringMap m5i;
+            SetUp(out m0, out m1, out m5, out m5i);
+
             Assert.AreEqual(0, m0.Count);
             Assert.AreEqual(1, m1.Count);
             Assert.AreEqual(5, m5.Count);
@@ -88,6 +92,12 @@ namespace NJetty.Util.Test.Util
         [Test]
         public void TestIsEmpty()
         {
+            StringMap m0;
+            StringMap m1;
+            StringMap m5;
+            StringMap m5i;
+            SetUp(out m0, out m1, out m5, out m5i);
+
             Assert.IsTrue(m0.IsEmpty);
             Assert.IsFalse(m1.IsEmpty);
             Assert.IsFalse(m5.IsEmpty);
@@ -97,6 +107,13 @@ namespace NJetty.Util.Test.Util
         [Test]
         public void TestClear()
         {
+            StringMap m0;
+            StringMap m1;
+            StringMap m5;
+            StringMap m5i;
+            SetUp(out m0, out m1, out m5, out m5i);
+
+
             m0.Clear();
             m1.Clear();
             m5.Clear();
@@ -114,6 +131,13 @@ namespace NJetty.Util.Test.Util
         [Test]
         public void TestPutGet()
         {
+            StringMap m0;
+            StringMap m1;
+            StringMap m5;
+            StringMap m5i;
+            SetUp(out m0, out m1, out m5, out m5i);
+
+
             Assert.AreEqual("2",m5["abc"]);
             Assert.AreEqual(null,m5["aBc"]);
             Assert.AreEqual("2",m5i["abc"]);
@@ -143,6 +167,12 @@ namespace NJetty.Util.Test.Util
         [Test]
         public void TestGetEntryStringintint()
         {
+            StringMap m0;
+            StringMap m1;
+            StringMap m5;
+            StringMap m5i;
+            SetUp(out m0, out m1, out m5, out m5i);
+
             StringMap.Entry entry;
             
             entry=m5.GetEntry("xabcyz",1,3);
@@ -180,6 +210,13 @@ namespace NJetty.Util.Test.Util
         [Test]
         public void TestGetEntrycharArrayintint()
         {
+            StringMap m0;
+            StringMap m1;
+            StringMap m5;
+            StringMap m5i;
+            SetUp(out m0, out m1, out m5, out m5i);
+
+
             char[] xabcyz = {'x','a','b','c','y','z'};
             char[] xaBcyz = {'x','a','B','c','y','z'};
             StringMap.Entry entry;
@@ -204,6 +241,12 @@ namespace NJetty.Util.Test.Util
         [Test]
         public void TestRemove()
         {
+            StringMap m0;
+            StringMap m1;
+            StringMap m5;
+            StringMap m5i;
+            SetUp(out m0, out m1, out m5, out m5i);
+
             m0.Remove("abc");
             m1.Remove("abc");
             m5.Remove("aBc");
@@ -230,6 +273,12 @@ namespace NJetty.Util.Test.Util
         [Test]
         public void TestEntrySet()
         {
+            StringMap m0;
+            StringMap m1;
+            StringMap m5;
+            StringMap m5i;
+            SetUp(out m0, out m1, out m5, out m5i);
+
             ICollection es0 = m0.EntrySet;
             ICollection es1 = m1.EntrySet;
             ICollection es5 = m5.EntrySet;
@@ -244,6 +293,12 @@ namespace NJetty.Util.Test.Util
         [Test]
         public void TestContainsKey()
         {
+            StringMap m0;
+            StringMap m1;
+            StringMap m5;
+            StringMap m5i;
+            SetUp(out m0, out m1, out m5, out m5i);
+
             Assert.IsTrue(m5.ContainsKey("abc"));
             Assert.IsTrue(!m5.ContainsKey("aBc"));
             Assert.IsTrue(m5.ContainsKey("bbb"));
@@ -255,8 +310,15 @@ namespace NJetty.Util.Test.Util
             Assert.IsTrue(m5i.ContainsKey("ABC"));
         }
 
+        [Test]
         public void TestWriteExternal()
         {
+            StringMap m0;
+            StringMap m1;
+            StringMap m5;
+            StringMap m5i;
+            SetUp(out m0, out m1, out m5, out m5i);
+
             //ByteArrayOutputStream bout= new ByteArrayOutputStream();
             //ObjectOutputStream oo=new ObjectOutputStream(bout);
             //ObjectInputStream oi;
@@ -285,6 +347,12 @@ namespace NJetty.Util.Test.Util
         [Test]
         public void TestToString()
         {
+            StringMap m0;
+            StringMap m1;
+            StringMap m5;
+            StringMap m5i;
+            SetUp(out m0, out m1, out m5, out m5i);
+
             Assert.AreEqual("{}",m0.ToString());
             Assert.AreEqual("{abc=0}",m1.ToString());
             Assert.IsTrue(m5.ToString().IndexOf("abc=2")>0);
