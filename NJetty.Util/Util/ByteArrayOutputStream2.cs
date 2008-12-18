@@ -48,6 +48,13 @@ namespace NJetty.Util.Util
             base.WriteByte((byte) b);
         }
 
+        public void Write(char[] ca, int offset, int count)
+        {
+            byte[]  bytes = new byte[count];
+            Buffer.BlockCopy(ca, offset, bytes, 0, count); 
+            base.Write(bytes, 0, count);
+        }
+
         public void Reset()
         {
             base.SetLength(0);
