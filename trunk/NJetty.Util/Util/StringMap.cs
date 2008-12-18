@@ -23,6 +23,7 @@ using System.Linq;
 using System.Text;
 using System.Collections;
 using System.Runtime.Serialization;
+using System.Collections.ObjectModel;
 
 namespace NJetty.Util.Util
 {
@@ -45,7 +46,7 @@ namespace NJetty.Util.Util
     /// <date>
     /// December 2008
     /// </date>
-    public class StringMap : IDictionary<string, object>
+    public class StringMap : Dictionary<string, object>
     {
         #region Constants
         public const bool CASE_INSENSTIVE = true;
@@ -59,13 +60,16 @@ namespace NJetty.Util.Util
         protected NullEntry _nullEntry = null;
         protected object _nullValue = null;
         protected HashSet<object> _entrySet = new HashSet<object>();
-        //protected Set _umEntrySet=Collections.unmodifiableSet(_entrySet);
+        ReadOnlyHashSet _umEntrySet;
+        
         #endregion
 
         #region Constructors
 
         public StringMap()
-        { }
+        {
+            _umEntrySet = new ReadOnlyHashSet(_entrySet);
+        }
 
         /// <summary>
         /// 
@@ -75,6 +79,7 @@ namespace NJetty.Util.Util
             : base()
         {
             _ignoreCase = ignoreCase;
+            _umEntrySet = new ReadOnlyHashSet(_entrySet);
         }
 
         /// <summary>
@@ -87,6 +92,7 @@ namespace NJetty.Util.Util
         {
             _ignoreCase = ignoreCase;
             _width = width;
+            _umEntrySet = new ReadOnlyHashSet(_entrySet);
         }
 
         #endregion
@@ -470,7 +476,7 @@ namespace NJetty.Util.Util
                         if (ni == node._char.Length)
                             ni = -1;
                         
-                        charLoopContinue = false; break;
+                        charLoopContinue = true; break;
                     }
 
                     // No char match, so if mid node then no match at all.
@@ -510,7 +516,7 @@ namespace NJetty.Util.Util
         public bool Remove(object key)
         {
             if (key == null)
-                return Remove(null);
+                return Remove((string)null);
             return Remove(key.ToString());
         }
 
@@ -520,10 +526,10 @@ namespace NJetty.Util.Util
             {
                 if (_nullEntry != null)
                 {
-                    
+                    bool retval =  _entrySet.Remove(_nullEntry);
                     _nullEntry = null;
                     _nullValue = null;
-                    return _entrySet.Remove(_nullEntry);
+                    return retval;
                 }
                 return false;
             }
@@ -571,18 +577,20 @@ namespace NJetty.Util.Util
             if (ni > 0) return false;
             if (node != null && node._key == null)
                 return false;
-
+            
+            bool ret = _entrySet.Remove(node);
             node._value = null;
             node._key = null;
-            return _entrySet.Remove(node);
+            return ret;
+            
         }
 
         #endregion
 
-        //public Set entrySet()
-        //{
-        //    return _umEntrySet;
-        //}
+        public ICollection EntrySet
+        {
+            get { return _umEntrySet; }
+        }
 
         public int Count
         {
@@ -625,6 +633,29 @@ namespace NJetty.Util.Util
             _nullEntry = null;
             _nullValue = null;
             _entrySet.Clear();
+        }
+
+        public override string ToString()
+        {
+            IEnumerator i = EntrySet.GetEnumerator();
+            if (!i.MoveNext())
+                return "{}";
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append('{');
+            for (; ; )
+            {
+                Entry e = (Entry) i.Current;
+                object key = e.Key;
+                object value = e.Value;
+                sb.Append(key == this ? "(this Map)" : key);
+                sb.Append('=');
+                sb.Append(value == this ? "(this Map)" : value);
+                if (!i.MoveNext())
+                    return sb.Append('}').ToString();
+                sb.Append(", ");
+            }
+    
         }
 
         #region Node Entry Classes and Interface
@@ -807,28 +838,27 @@ namespace NJetty.Util.Util
             #endregion
         }
 
+
+        public class ReadOnlyHashSet : ReadOnlyCollectionBase
+        {
+            HashSet<object> _hash;
+            public ReadOnlyHashSet(HashSet<object> hash)
+            {
+                _hash = hash;
+            }
+
+
+            public override int Count { get { return _hash.Count; } }
+            public override IEnumerator GetEnumerator()
+            {
+                return _hash.GetEnumerator();
+            }
+        }
+
         #endregion
 
       
-
-        #region IDictionary<string,object> Members
-
-
-        public ICollection<string> Keys
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public ICollection<object> Values
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        #endregion
-
-
-
-
+       
         /* ------------------------------------------------------------ */
         //public void writeExternal(java.io.ObjectOutput output)
         //{
@@ -845,53 +875,5 @@ namespace NJetty.Util.Util
         //    setIgnoreCase(ic);
         //    this.putAll(map);
         //}
-
-
-        #region ICollection<KeyValuePair<string,object>> Members
-
-        public void Add(KeyValuePair<string, object> item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Contains(KeyValuePair<string, object> item)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CopyTo(KeyValuePair<string, object>[] array, int arrayIndex)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsReadOnly
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public bool Remove(KeyValuePair<string, object> item)
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-        #region IEnumerable<KeyValuePair<string,object>> Members
-
-        public IEnumerator<KeyValuePair<string, object>> GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
-
-        #region IEnumerable Members
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
-
-        #endregion
     }
 }
