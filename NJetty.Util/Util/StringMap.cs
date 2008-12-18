@@ -63,7 +63,7 @@ namespace NJetty.Util.Util
         protected object _nullValue = null;
         protected HashSet<object> _entrySet = new HashSet<object>();
         ReadOnlyHashSet _umEntrySet;
-        
+
         #endregion
 
         #region Constructors
@@ -267,7 +267,7 @@ namespace NJetty.Util.Util
                 {
                     return this[(string)key];
                 }
-                
+
                 return this[key.ToString()];
             }
             set
@@ -281,8 +281,8 @@ namespace NJetty.Util.Util
                 {
                     this[(string)key] = value;
                 }
-                
-                
+
+
                 this[key.ToString()] = value;
 
             }
@@ -307,7 +307,7 @@ namespace NJetty.Util.Util
 
             set
             {
-                if(ContainsKey(key))
+                if (ContainsKey(key))
                 {
                     Remove(key);
                 }
@@ -359,7 +359,7 @@ namespace NJetty.Util.Util
                         ni++;
                         if (ni == node._char.Length)
                             ni = -1;
-                        
+
                         charLoopContinue = true; break;
                     }
 
@@ -418,7 +418,7 @@ namespace NJetty.Util.Util
                         ni++;
                         if (ni == node._char.Length)
                             ni = -1;
-                        
+
                         charLoopContinue = true; break;
                     }
 
@@ -481,7 +481,7 @@ namespace NJetty.Util.Util
                         ni++;
                         if (ni == node._char.Length)
                             ni = -1;
-                        
+
                         charLoopContinue = true; break;
                     }
 
@@ -532,7 +532,7 @@ namespace NJetty.Util.Util
             {
                 if (_nullEntry != null)
                 {
-                    bool retval =  _entrySet.Remove(_nullEntry);
+                    bool retval = _entrySet.Remove(_nullEntry);
                     _nullEntry = null;
                     _nullValue = null;
                     return retval;
@@ -583,12 +583,12 @@ namespace NJetty.Util.Util
             if (ni > 0) return false;
             if (node != null && node._key == null)
                 return false;
-            
+
             bool ret = _entrySet.Remove(node);
             node._value = null;
             node._key = null;
             return ret;
-            
+
         }
 
         #endregion
@@ -620,7 +620,7 @@ namespace NJetty.Util.Util
                 return _nullEntry != null;
 
             return ContainsKey(key.ToString());
-                
+
         }
 
 
@@ -651,7 +651,7 @@ namespace NJetty.Util.Util
             sb.Append('{');
             for (; ; )
             {
-                Entry e = (Entry) i.Current;
+                Entry e = (Entry)i.Current;
                 object key = e.Key;
                 object value = e.Value;
                 sb.Append(key == this ? "(this Map)" : key);
@@ -661,7 +661,7 @@ namespace NJetty.Util.Util
                     return sb.Append('}').ToString();
                 sb.Append(", ");
             }
-    
+
         }
 
         #region Node Entry Classes and Interface
@@ -863,8 +863,8 @@ namespace NJetty.Util.Util
 
         #endregion
 
-      
-       
+
+
         public void WriteExternal(Stream output)
         {
             List<object[]> list = new List<object[]>();
@@ -881,10 +881,10 @@ namespace NJetty.Util.Util
         public void ReadExternal(Stream input)
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            object[] objArr = (object[]) formatter.Deserialize(input);
+            object[] objArr = (object[])formatter.Deserialize(input);
             bool ic = (bool)objArr[0];
             List<object[]> list = (List<object[]>)objArr[1];
-            
+
             IgnoreCase = ic;
 
             foreach (object[] entry in list)
@@ -894,7 +894,7 @@ namespace NJetty.Util.Util
                     this.Add(entry[0], entry[1]);
                 }
             }
-            
+
         }
     }
 }
