@@ -84,7 +84,8 @@ namespace NJetty.Util.Util
 
         public void Append(char c)
         {
-            Append(BitConverter.GetBytes(c));
+            //Append(BitConverter.GetBytes(c));
+            Append((byte)c);
         }
 
 

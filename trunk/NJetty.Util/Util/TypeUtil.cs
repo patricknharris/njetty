@@ -291,7 +291,7 @@ namespace NJetty.Util.Util
                 }
                 if (digit < 0 || digit >= radix)
                 {
-                    throw new FormatException(s.Substring(offset, offset + length));
+                    throw new FormatException(s.Substring(offset, length));
                 }
 
                 value = value * radix + digit;
