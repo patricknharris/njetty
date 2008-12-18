@@ -24,6 +24,7 @@ using System.Text;
 using NUnit.Framework;
 using NJetty.Util.Util;
 using System.Collections;
+using System.IO;
 
 namespace NJetty.Util.Test.Util
 {
@@ -311,37 +312,88 @@ namespace NJetty.Util.Test.Util
         }
 
         [Test]
-        public void TestWriteExternal()
+        public void TestWriteExternalAndTestSize()
         {
-            StringMap m0;
-            StringMap m1;
-            StringMap m5;
-            StringMap m5i;
-            SetUp(out m0, out m1, out m5, out m5i);
+            StringMap[] m = new StringMap[4];
+            SetUp(out m[0], out m[1], out m[2], out m[3]);
 
-            //ByteArrayOutputStream bout= new ByteArrayOutputStream();
-            //ObjectOutputStream oo=new ObjectOutputStream(bout);
-            //ObjectInputStream oi;
+
+            for (int i = 0; i < m.Length; i++)
+			{
+			    MemoryStream bout = new MemoryStream();
+                m[i].WriteExternal(bout);
+                bout.Position = 0;
+                m[i] = new StringMap();
+                m[i].ReadExternal(bout);
+			}
+
+
+            StringMap m0 = m[0];
+            StringMap m1 = m[1];
+            StringMap m5 = m[2];
+            StringMap m5i = m[3];
+
+
+
+            Assert.AreEqual(0, m0.Count);
+            Assert.AreEqual(1, m1.Count);
+            Assert.AreEqual(5, m5.Count);
+            Assert.AreEqual(5, m5i.Count);
+
+            m1.Remove("abc");
+            m5.Remove("abc");
+            m5.Add("bbb", "x");
+            m5i.Add("ABC", "x");
+            Assert.AreEqual(0, m0.Count);
+            Assert.AreEqual(0, m1.Count);
+            Assert.AreEqual(4, m5.Count);
+            Assert.AreEqual(5, m5i.Count);
+
             
-            //oo.writeObject(m0);
-            //oo.writeObject(m1);
-            //oo.writeObject(m5);
-            //oo.writeObject(m5i);
+
+           
             
-            //oi=new ObjectInputStream(new ByteArrayInputStream(bout.toByteArray()));
-            //m0=(StringMap)oi.readObject();
-            //m1=(StringMap)oi.readObject();
-            //m5=(StringMap)oi.readObject();
-            //m5i=(StringMap)oi.readObject();
-            //testSize();
-            
-            //oi=new ObjectInputStream(new ByteArrayInputStream(bout.toByteArray()));
-            //m0=(StringMap)oi.readObject();
-            //m1=(StringMap)oi.readObject();
-            //m5=(StringMap)oi.readObject();
-            //m5i=(StringMap)oi.readObject();
-            //testPutGet();
-            
+        }
+
+        public void TestWriteExternalAndPutGet()
+        {
+            StringMap[] m = new StringMap[4];
+            SetUp(out m[0], out m[1], out m[2], out m[3]);
+
+
+            for (int i = 0; i < m.Length; i++)
+            {
+                MemoryStream memoryBytes = new MemoryStream();
+                m[i].WriteExternal(memoryBytes);
+                memoryBytes.Position = 0;
+                m[i] = new StringMap();
+                m[i].ReadExternal(memoryBytes);
+            }
+
+
+            StringMap m0 = m[0];
+            StringMap m1 = m[1];
+            StringMap m5 = m[2];
+            StringMap m5i = m[3];
+
+            Assert.AreEqual("2", m5["abc"]);
+            Assert.AreEqual(null, m5["aBc"]);
+            Assert.AreEqual("2", m5i["abc"]);
+            Assert.AreEqual("2", m5i["aBc"]);
+
+            m5.Add(null, "x");
+            m5.Add("aBc", "x");
+            m5i.Add("AbC", "x");
+
+            StringBuilder buffer = new StringBuilder();
+            buffer.Append("aBc");
+            Assert.AreEqual("2", m5["abc"]);
+            Assert.AreEqual("x", m5[buffer]);
+            Assert.AreEqual("x", m5i[(object)"abc"]);
+            Assert.AreEqual("x", m5i["aBc"]);
+
+            Assert.AreEqual("x", m5[null]);
+            Assert.AreEqual("0", m5i[null]);
         }
         
         [Test]
