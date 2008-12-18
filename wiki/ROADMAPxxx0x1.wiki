@@ -48,7 +48,7 @@ Port jetty-utils from java to C# as NJetty.Util including Unit Tests
     * IO
     * SingletonList
     * StringExtensions (*done*)
-    * StringMap
+    * StringMap (*done*)
     * StringTokenizer (*done*)
     * StringUtil (*done*)
     * TypeUtil (*done*)
@@ -94,7 +94,7 @@ Port jetty-utils from java to C# as NJetty.Util including Unit Tests
     * ArrayQueueTest (*done*)
     * URITest (*done*)
     * QuotedStringTokenizerTest (*done*)
-    * StringMapTest
+    * StringMapTest (*done*)
     * Utf8StringBufferTest (*done*)
     * Utf8StringBuilderTest (*done*)
     * TestIntrospectionUtil (*done*)
