@@ -24,6 +24,8 @@ using System.Text;
 using System.Collections;
 using System.Runtime.Serialization;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace NJetty.Util.Util
 {
@@ -130,9 +132,13 @@ namespace NJetty.Util.Util
         public void Add(object key, object value)
         {
             if (key == null)
+            {
                 Add(null, value);
-
-            Add(key.ToString(), value);
+            }
+            else
+            {
+                Add(key.ToString(), value);
+            }
         }
 
         public void Add(string key, object value)
@@ -859,21 +865,36 @@ namespace NJetty.Util.Util
 
       
        
-        /* ------------------------------------------------------------ */
-        //public void writeExternal(java.io.ObjectOutput output)
-        //{
-        //    HashMap map = new HashMap(this);
-        //    output.writeBoolean(_ignoreCase);
-        //    output.writeObject(map);
-        //}
+        public void WriteExternal(Stream output)
+        {
+            List<object[]> list = new List<object[]>();
+            foreach (object obj in EntrySet)
+            {
+                Entry entry = (Entry)obj;
+                list.Add(new object[] { entry.Key, entry.Value });
+            }
 
-        ///* ------------------------------------------------------------ */
-        //public void readExternal(java.io.ObjectInput input)
-        //{
-        //    bool ic=input.readBoolean();
-        //    HashMap map = (HashMap)input.readObject();
-        //    setIgnoreCase(ic);
-        //    this.putAll(map);
-        //}
+            BinaryFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(output, new object[] { _ignoreCase, list });
+        }
+
+        public void ReadExternal(Stream input)
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            object[] objArr = (object[]) formatter.Deserialize(input);
+            bool ic = (bool)objArr[0];
+            List<object[]> list = (List<object[]>)objArr[1];
+            
+            IgnoreCase = ic;
+
+            foreach (object[] entry in list)
+            {
+                if (entry != null)
+                {
+                    this.Add(entry[0], entry[1]);
+                }
+            }
+            
+        }
     }
 }
