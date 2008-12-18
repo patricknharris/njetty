@@ -756,7 +756,7 @@ namespace NJetty.Util.Util
                                             ba[n++] = (byte)TypeUtil.ParseInt(encoded, offset + i + 1, 2, 16);
                                             i += 3;
                                         }
-                                        catch (FormatException nfe)
+                                        catch (FormatException)
                                         {
                                             ba[n - 1] = (byte)'%';
                                             for (char next; ((next = encoded[++i + offset]) != '%'); )
