@@ -46,7 +46,7 @@ Port jetty-utils from java to C# as NJetty.Util including Unit Tests
     * IFilenameFilter (*done*)
     * Scanner (*done*)
     * IO
-    * SingletonList
+    * SingletonList (*done*)
     * StringExtensions (*done*)
     * StringMap (*done*)
     * StringTokenizer (*done*)
