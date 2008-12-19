@@ -26,15 +26,182 @@ namespace NJetty.Util.Util
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// This simple efficient implementation of a List with a single
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// November 2008
+    /// December 2008
     /// </date>
-    public class SingletonList
+    public class SingletonList : IList<object>
     {
+
+        
+        private object o;
+        
+        private SingletonList(object o)
+        {
+            this.o=o;
+        }
+
+        public static SingletonList newSingletonList(object o)
+        {
+            return new SingletonList(o);
+        }
+
+
+        
+
+        
+
+        #region IList<object> Members
+
+        public int IndexOf(object item)
+        {
+            if (o == item)
+            {
+                return 0;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
+        public void Insert(int index, object item)
+        {
+            throw new NotSupportedException();
+        }
+
+        public void RemoveAt(int index)
+        {
+            throw new NotSupportedException();
+        }
+
+        public object this[int index]
+        {
+            get
+            {
+                if (index != 0)
+                    throw new IndexOutOfRangeException("index " + index);
+                return o;
+            }
+            set
+            {
+                if (index != 0)
+                    throw new IndexOutOfRangeException("index " + index);
+                o = value;
+            }
+        }
+
+        #endregion
+
+        #region ICollection<object> Members
+
+        public void Add(object item)
+        {
+            throw new NotSupportedException();
+        }
+
+        public void Clear()
+        {
+            throw new NotSupportedException();
+        }
+
+        public bool Contains(object item)
+        {
+            return item == o;
+        }
+
+        public void CopyTo(object[] array, int arrayIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Count
+        {
+            get { return 1; }
+        }
+
+        public bool IsReadOnly
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public bool Remove(object item)
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
+
+        #region IEnumerable<object> Members
+
+        public IEnumerator<object> GetEnumerator()
+        {
+            return new SingleTonEnumerator(o);
+        }
+
+        class SingleTonEnumerator : IEnumerator<object>
+        {
+            #region IEnumerator<object> Members
+            
+            object o;
+            object current = null;
+
+            public SingleTonEnumerator(object value)
+            {
+                o = value;
+            }
+
+            public object Current
+            {
+                get { return current; }
+            }
+
+            #endregion
+
+            #region IDisposable Members
+
+            public void Dispose()
+            {
+                throw new NotSupportedException();
+            }
+
+            #endregion
+
+            #region IEnumerator Members
+
+
+            public bool MoveNext()
+            {
+                if (current == null)
+                {
+                    current = o;
+                    return true;
+                }
+                return false;
+            }
+
+            public void Reset()
+            {
+                throw new NotSupportedException();
+            }
+
+            #endregion
+        }
+
+        #endregion
+
+
+        #region IEnumerable Members
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        #endregion
     }
 }
