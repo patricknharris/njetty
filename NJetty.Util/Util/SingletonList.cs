@@ -116,7 +116,7 @@ namespace NJetty.Util.Util
 
         public void CopyTo(object[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            array[arrayIndex] = o;
         }
 
         public int Count
