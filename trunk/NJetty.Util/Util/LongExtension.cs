@@ -106,7 +106,7 @@ namespace NJetty.Util.Util
                 buf[--charPos] = '-';
             }
 
-            return new String(buf, charPos, (65 - charPos));
+            return new string(buf, charPos, (65 - charPos));
         }
 
 
