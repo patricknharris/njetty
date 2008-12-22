@@ -37,97 +37,107 @@ namespace NJetty.Util.Util
     /// </date>
     public class MultiPartWriter : FilterWriter
     {
-        private const string __CRLF="\015\012";
-        private const string __DASHDASH="--";
-        
-        public static string MULTIPART_MIXED=MultiPartOutputStream.MULTIPART_MIXED;
-        public static string MULTIPART_X_MIXED_REPLACE=MultiPartOutputStream.MULTIPART_X_MIXED_REPLACE;
-        
+        private const string __CRLF = "\015\012";
+        private const string __DASHDASH = "--";
+
+        public static string MULTIPART_MIXED = MultiPartOutputStream.MULTIPART_MIXED;
+        public static string MULTIPART_X_MIXED_REPLACE = MultiPartOutputStream.MULTIPART_X_MIXED_REPLACE;
+
         private string boundary;
 
-        private bool inPart=false;    
-        
-        /* ------------------------------------------------------------ */
-        public MultiPartWriter(Stream output) : base(output)
+        private bool inPart = false;
+
+        public MultiPartWriter(Stream output)
+            : base(output)
         {
-            boundary = "NJetty"+this.GetHashCode()+
-            ((DateTime.UtcNow.Ticks/1000) % 10000).ToString(36);
-            
-            
-            
-            
-            inPart=false;
+            boundary = "NJetty" + this.GetHashCode() +
+            ((DateTime.UtcNow.Ticks / 1000) % 10000).ToString(36);
+
+
+
+
+            inPart = false;
         }
 
-        /* ------------------------------------------------------------ */
-        /** End the current part.
-         * @exception IOException IOException
-         */
-        public void close()
+        /// <summary>
+        /// End the current part.
+        /// </summary>
+        /// <exception cref="IOException"></exception>
+        public override void Close()
         {
             if (inPart)
-                output.Write(__CRLF);
-            output.Write(__DASHDASH);
-            output.write(boundary);
-            output.write(__DASHDASH);
-            output.write(__CRLF);
-            inPart=false;
+            {
+                Write(__CRLF);
+            }
+            Write(__DASHDASH);
+            Write(boundary);
+            Write(__DASHDASH);
+            Write(__CRLF);
+            inPart = false;
             base.Close();
         }
-        
-        /* ------------------------------------------------------------ */
-        public string getBoundary()
+
+        public string Boundary
         {
-            return boundary;
+            get { return boundary; }
         }
-        
-        /* ------------------------------------------------------------ */
-        /** Start creation of the next Content.
-         */
-        public void startPart(string contentType)
+
+        /// <summary>
+        /// Start creation of the next Content.
+        /// </summary>
+        /// <param name="contentType"></param>
+        public void StartPart(string contentType)
         {
             if (inPart)
-                output.write(__CRLF);
-            output.write(__DASHDASH);
-            output.write(boundary);
-            output.write(__CRLF);
-            output.write("Content-Type: ");
-            output.write(contentType);
-            output.write(__CRLF);
-            output.write(__CRLF);
-            inPart=true;
-        }
-        
-        /* ------------------------------------------------------------ */
-        /** end creation of the next Content.
-         */
-        public void endPart()
-        {
-            if (inPart)
-                output.write(__CRLF);
-            inPart=false;
-        }
-            
-        /* ------------------------------------------------------------ */
-        /** Start creation of the next Content.
-         */
-        public void startPart(string contentType, string[] headers)
-        {
-            if (inPart)
-                output.write(__CRLF);
-            output.write(__DASHDASH);
-            output.write(boundary);
-            output.write(__CRLF);
-            output.write("Content-Type: ");
-            output.write(contentType);
-            output.write(__CRLF);
-            for (int i=0;headers!=null && i<headers.length;i++)
             {
-                output.write(headers[i]);
-                output.write(__CRLF);
+                Write(__CRLF);
             }
-            output.write(__CRLF);
-            inPart=true;
+            Write(__DASHDASH);
+            Write(boundary);
+            Write(__CRLF);
+            Write("Content-Type: ");
+            Write(contentType);
+            Write(__CRLF);
+            Write(__CRLF);
+            inPart = true;
+        }
+
+        /// <summary>
+        /// end creation of the next Content.
+        /// </summary>
+        public void EndPart()
+        {
+            if (inPart)
+            {
+                Write(__CRLF);
+            }
+            inPart = false;
+        }
+
+        /// <summary>
+        /// Start creation of the next Content.
+        /// </summary>
+        /// <param name="contentType"></param>
+        /// <param name="headers"></param>
+        public void StartPart(string contentType, string[] headers)
+        {
+            if (inPart)
+            {
+                Write(__CRLF);
+            }
+            Write(__DASHDASH);
+            Write(boundary);
+            Write(__CRLF);
+            Write("Content-Type: ");
+            Write(contentType);
+            Write(__CRLF);
+            for (int i = 0; headers != null && i < headers.Length; i++)
+            {
+                Write(headers[i]);
+                Write(__CRLF);
+            }
+            Write(__CRLF);
+            inPart = true;
         }
     }
 }

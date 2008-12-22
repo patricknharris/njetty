@@ -107,5 +107,15 @@ namespace NJetty.Util.Util
         {
             output.Write(buffer, offset, count);
         }
+
+        public void Write(string s)
+        {
+            if (s == null)
+            {
+                return;
+            }
+            byte[] bytes = s.GetBytes();
+            Write(bytes, 0, bytes.Length);
+        }
     }
 }
