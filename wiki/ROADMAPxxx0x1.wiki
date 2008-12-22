@@ -40,12 +40,16 @@ Port jetty-utils from java to C# as NJetty.Util including Unit Tests
     * ByteArrayOutputStream2 (*done*)
     * ConcurrentDictionary (*done*)
     * DateCache    
+    * FilterWriter (*done*)    
     * IAttributes (*done*)
-    * Loader
-    * QuotedStringTokenizer (*done*)
     * IFilenameFilter (*done*)
-    * Scanner (*done*)
+    * IntrospectionUtil (*done*)
     * IO
+    * LazyList (*done*)
+    * Loader
+    * LongExtension (*done*)
+    * QuotedStringTokenizer (*done*)
+    * Scanner (*done*)
     * SingletonList (*done*)
     * StringExtensions (*done*)
     * StringMap (*done*)
@@ -58,10 +62,8 @@ Port jetty-utils from java to C# as NJetty.Util including Unit Tests
     * MultiException (*done*)
     * RolloverFileOutputStream
     * MultiMap (*done*)
-    * MultiPartOutputStream
+    * MultiPartOutputStream (*done*)
     * MultiPartWriter
-    * IntrospectionUtil (*done*)
-    * LazyList (*done*)
     * UrlEncoded (*done*)
  * *Util.Ajax*
     * AjaxFilter
