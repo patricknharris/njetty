@@ -52,10 +52,6 @@ namespace NJetty.Util.Util
         {
             boundary = "NJetty" + this.GetHashCode() +
             ((DateTime.UtcNow.Ticks / 1000) % 10000).ToString(36);
-
-
-
-
             inPart = false;
         }
 
