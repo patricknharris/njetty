@@ -32,7 +32,7 @@ namespace NJetty.Util.Util
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// November 2008
+    /// December 2008
     /// </date>
     public class MultiPartOutputStream
     {
