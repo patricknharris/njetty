@@ -84,6 +84,7 @@
     <Compile Include="Util\CharExtensions.cs" />
     <Compile Include="Util\ConcurrentDictionary.cs" />
     <Compile Include="Util\DateCache.cs" />
+    <Compile Include="Util\FilterWriter.cs" />
     <Compile Include="Util\IAttributes.cs" />
     <Compile Include="Util\AttributesMap.cs" />
     <Compile Include="Util\IFilenameFilter.cs" />
