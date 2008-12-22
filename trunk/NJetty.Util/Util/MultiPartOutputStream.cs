@@ -36,5 +36,10 @@ namespace NJetty.Util.Util
     /// </date>
     public class MultiPartOutputStream
     {
+        private static byte[] __CRLF;
+        private static byte[] __DASHDASH;
+
+        public static String MULTIPART_MIXED = "multipart/mixed";
+        public static String MULTIPART_X_MIXED_REPLACE = "multipart/x-mixed-replace";
     }
 }

@@ -92,6 +92,7 @@
     <Compile Include="Util\IO.cs" />
     <Compile Include="Util\LazyList.cs" />
     <Compile Include="Util\Loader.cs" />
+    <Compile Include="Util\LongExtension.cs" />
     <Compile Include="Util\MultiException.cs" />
     <Compile Include="Util\MultiMap.cs" />
     <Compile Include="Util\MultiPartOutputStream.cs" />
