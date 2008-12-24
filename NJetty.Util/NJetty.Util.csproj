@@ -83,6 +83,7 @@
     <Compile Include="Util\ByteArrayOutputStream2.cs" />
     <Compile Include="Util\CharExtensions.cs" />
     <Compile Include="Util\ConcurrentDictionary.cs" />
+    <Compile Include="Util\FilterOutputStream.cs" />
     <Compile Include="Util\DateCache.cs" />
     <Compile Include="Util\FilterWriter.cs" />
     <Compile Include="Util\IAttributes.cs" />
