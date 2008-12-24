@@ -41,8 +41,8 @@ namespace NJetty.Util.Util
         private static byte[] __CRLF;
         private static byte[] __DASHDASH;
 
-        public static String MULTIPART_MIXED = "multipart/mixed";
-        public static String MULTIPART_X_MIXED_REPLACE = "multipart/x-mixed-replace";
+        public static string MULTIPART_MIXED = "multipart/mixed";
+        public static string MULTIPART_X_MIXED_REPLACE = "multipart/x-mixed-replace";
 
         static MultiPartOutputStream()
         {
@@ -59,7 +59,7 @@ namespace NJetty.Util.Util
         }
 
 
-        private String boundary;
+        private string boundary;
         private byte[] boundaryBytes;
 
         private bool inPart=false;    
@@ -91,7 +91,7 @@ namespace NJetty.Util.Util
             base.Close();
         }
         
-        public String Boundary
+        public string Boundary
         {
             get{return boundary;}
         }
@@ -106,7 +106,7 @@ namespace NJetty.Util.Util
         /// Start creation of the next Content.
         /// </summary>
         /// <param name="contentType"></param>
-        public void StartPart(String contentType)
+        public void StartPart(string contentType)
         {
             if (inPart)
                 Write(__CRLF);
@@ -124,7 +124,7 @@ namespace NJetty.Util.Util
         /// </summary>
         /// <param name="contentType"></param>
         /// <param name="headers"></param>
-        public void startPart(String contentType, String[] headers)
+        public void StartPart(string contentType, string[] headers)
         {
             if (inPart)
                 Write(__CRLF);
