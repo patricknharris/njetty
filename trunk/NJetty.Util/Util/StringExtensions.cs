@@ -42,6 +42,11 @@ namespace NJetty.Util.Util
             return Encoding.ASCII.GetBytes(str);
         }
 
+        public static byte[] GetBytes(this string str, string encoding)
+        {
+            return Encoding.GetEncoding(encoding).GetBytes(str);
+        }
+
         public static int CodePointAt(this string str, int index)
         {
             if ((index < 0) || (index >= str.Length))

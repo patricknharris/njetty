@@ -21,12 +21,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
+using NJetty.Util.Logging;
 
 namespace NJetty.Util.Util
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// Handle a multipart MIME response.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
@@ -34,12 +36,111 @@ namespace NJetty.Util.Util
     /// <date>
     /// December 2008
     /// </date>
-    public class MultiPartOutputStream
+    public class MultiPartOutputStream : FilterOutputStream
     {
         private static byte[] __CRLF;
         private static byte[] __DASHDASH;
 
         public static String MULTIPART_MIXED = "multipart/mixed";
         public static String MULTIPART_X_MIXED_REPLACE = "multipart/x-mixed-replace";
+
+        static MultiPartOutputStream()
+        {
+            try
+            {
+                __CRLF="\015\012".GetBytes(StringUtil.__ISO_8859_1);
+                __DASHDASH="--".GetBytes(StringUtil.__ISO_8859_1);
+            }
+            catch (Exception e) 
+            {
+                Log.Warn(e);
+                Environment.Exit(1);
+            }
+        }
+
+
+        private String boundary;
+        private byte[] boundaryBytes;
+
+        private bool inPart=false;    
+    
+        public MultiPartOutputStream(Stream output) : base(output)
+        {
+            
+            boundary = "NJetty" + this.GetHashCode() +
+            ((DateTime.UtcNow.Ticks / 1000) % 10000).ToString(36);
+            boundaryBytes=boundary.GetBytes(StringUtil.__ISO_8859_1);
+            inPart=false;
+        }
+
+        
+
+        /// <summary>
+        /// End the current part.
+        /// </summary>
+        /// <exception cref="IOException"></exception>
+        public override void Close()
+        {
+            if (inPart)
+                Write(__CRLF);
+            Write(__DASHDASH);
+            Write(boundaryBytes);
+            Write(__DASHDASH);
+            Write(__CRLF);
+            inPart=false;
+            base.Close();
+        }
+        
+        public String Boundary
+        {
+            get{return boundary;}
+        }
+
+        public Stream Output 
+        {
+            get { return output; }
+        }
+        
+       
+        /// <summary>
+        /// Start creation of the next Content.
+        /// </summary>
+        /// <param name="contentType"></param>
+        public void StartPart(String contentType)
+        {
+            if (inPart)
+                Write(__CRLF);
+            inPart=true;
+            Write(__DASHDASH);
+            Write(boundaryBytes);
+            Write(__CRLF);
+            Write(("Content-Type: "+contentType).GetBytes(StringUtil.__ISO_8859_1));
+            Write(__CRLF);
+            Write(__CRLF);
+        }
+            
+        /// <summary>
+        /// Start creation of the next Content.
+        /// </summary>
+        /// <param name="contentType"></param>
+        /// <param name="headers"></param>
+        public void startPart(String contentType, String[] headers)
+        {
+            if (inPart)
+                Write(__CRLF);
+            inPart=true;
+            Write(__DASHDASH);
+            Write(boundaryBytes);
+            Write(__CRLF);
+            Write(("Content-Type: "+contentType).GetBytes(StringUtil.__ISO_8859_1));
+            Write(__CRLF);
+            for (int i=0;headers!=null && i<headers.Length;i++)
+            {
+                Write(headers[i].GetBytes(StringUtil.__ISO_8859_1));
+                Write(__CRLF);
+            }
+            Write(__CRLF);
+        }
+
     }
 }
