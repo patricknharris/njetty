@@ -27,12 +27,7 @@ namespace NJetty.Util.Util
 {
 
     /// <summary>
-    /// Abstract class for writing filtered character streams.
-    /// The abstract class FilterWriter itself
-    /// provides default methods that pass all requests to the  
-    /// contained stream. Subclasses of FilterWriter
-    /// should override some of these methods and may also 
-    /// provide additional methods and fields.
+    /// Implementation of the java.io.FilterWriter
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>

@@ -26,15 +26,27 @@ namespace NJetty.Util.Util
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// Date Format Cache.
+    /// Computes String representations of Dates and caches
+    /// the results so that subsequent requests within the same minute
+    /// will be fast.
+    /// 
+    /// Only format strings that contain either "ss" or "ss.SSS" are handled.
+    /// 
+    /// The timezone of the date may be included as an ID with the "zzz"
+    /// format string or as an offset with the "ZZZ" format string.
+    /// 
+    /// If consecutive calls are frequently very different, then this
+    /// may be a little slower than a normal DateFormat.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// November 2008
+    /// December 2008
     /// </date>
     public class DateCache
     {
+
     }
 }

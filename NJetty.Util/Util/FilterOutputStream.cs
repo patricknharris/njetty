@@ -27,7 +27,7 @@ namespace NJetty.Util.Util
 {
 
     /// <summary>
-    /// Implementation of the java FilterOutputStream
+    /// Implementation of the java.io.FilterOutputStream
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
