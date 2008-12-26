@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 
 namespace NJetty.Util.Util
 {
@@ -53,10 +54,10 @@ namespace NJetty.Util.Util
         
         private string _formatString;
         private string _tzFormatString;
-        private SimpleDateFormat _tzFormat;
+        private DateTimeFormatInfo _tzFormat;
         
         private string _minFormatString;
-        private SimpleDateFormat _minFormat;
+        private DateTimeFormatInfo _minFormat;
 
         private string _secFormatString;
         private string _secFormatString0;
@@ -67,8 +68,8 @@ namespace NJetty.Util.Util
         private int _lastMs = -1;
         private string _lastResult = null;
 
-        private Locale _locale	= null;
-        private DateFormatSymbols	_dfs	= null;
+        private CultureInfo _locale = null;
+        private DateTimeFormatInfo _dfs = null;
 
         private object _thisLock = new object();
         private static object _classLock = new object();
@@ -79,9 +80,8 @@ namespace NJetty.Util.Util
         /// Make a DateCache that will use a default format. The default format 
         /// generates the same results as Date.ToString().
         /// </summary>
-        public DateCache()
+        public DateCache() : this(DEFAULT_FORMAT)
         {
-            this(DEFAULT_FORMAT);
             this.TimeZone = TimeZone.CurrentTimeZone;
         }
         
@@ -96,14 +96,14 @@ namespace NJetty.Util.Util
             
         }
         
-        public DateCache(string format,Locale l)
+        public DateCache(string format,CultureInfo l)
         {
             _formatString=format;
             _locale = l;
             this.TimeZone = TimeZone.CurrentTimeZone;
         }
-        
-        public DateCache(string format,DateFormatSymbols s)
+
+        public DateCache(string format, DateTimeFormatInfo s)
         {
             _formatString=format;
             _dfs = s;
@@ -122,6 +122,7 @@ namespace NJetty.Util.Util
                 setTzFormatString(value);
                 if (_locale != null)
                 {
+                    
                     _tzFormat = new SimpleDateFormat(_tzFormatString, _locale);
                     _minFormat = new SimpleDateFormat(_minFormatString, _locale);
                 }
@@ -302,9 +303,9 @@ namespace NJetty.Util.Util
         /* ------------------------------------------------------------ */
         /** Get the format.
          */
-        public SimpleDateFormat getFormat()
+        public DateTimeFormatInfo DateTimeFormat
         {
-            return _minFormat;
+            get { return _minFormat; }
         }
 
         /* ------------------------------------------------------------ */
