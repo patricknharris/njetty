@@ -40,6 +40,7 @@ Port jetty-utils from java to C# as NJetty.Util including Unit Tests
     * ByteArrayOutputStream2 (*done*)
     * ConcurrentDictionary (*done*)
     * DateCache
+    * FileInfoExtensions (*done*)    
     * FilterOutputStream (*done*)    
     * FilterWriter (*done*)    
     * IAttributes (*done*)
