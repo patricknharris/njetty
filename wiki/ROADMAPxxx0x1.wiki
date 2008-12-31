@@ -61,7 +61,7 @@ Port jetty-utils from java to C# as NJetty.Util including Unit Tests
     * Utf8StringBuilder (*done*)
     * Utf8StringBuffer (*done*)
     * MultiException (*done*)
-    * RolloverFileOutputStream
+    * RolloverFileOutputStream (*done*)
     * MultiMap (*done*)
     * MultiPartOutputStream (*done*)
     * MultiPartWriter (*done*)
