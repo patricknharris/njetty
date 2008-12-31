@@ -379,7 +379,7 @@ namespace NJetty.Util.Util
                 if (!f.Exists)
                     return;
 
-                if (!IsDirectory(f))
+                if (!f.IsDirectory())
                 {
                     if ((_filter == null) || ((_filter != null) && _filter.Accept(f.Directory, f.Name)))
                     {
@@ -388,7 +388,7 @@ namespace NJetty.Util.Util
                         scanInfoMap.Add(name, lastModified);
                     }
                 }
-                else if (IsDirectory(f) && (_recursive || _scanDirs.Contains(f)))
+                else if (f.IsDirectory() && (_recursive || _scanDirs.Contains(f)))
                 {
                     FileInfo[] files = (new DirectoryInfo(f.FullName)).GetFiles();
                     for (int i = 0; i < files.Length; i++)
@@ -406,11 +406,6 @@ namespace NJetty.Util.Util
             {
                 Log.Warn("Error scanning watched files", e);
             }
-        }
-
-        bool IsDirectory(FileInfo f)
-        {
-            return ((f.Attributes & FileAttributes.Directory) == FileAttributes.Directory);
         }
 
         void Warn(object listener,string filename,Exception th)
