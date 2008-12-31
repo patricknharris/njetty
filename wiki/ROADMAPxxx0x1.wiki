@@ -45,7 +45,7 @@ Port jetty-utils from java to C# as NJetty.Util including Unit Tests
     * IAttributes (*done*)
     * IFilenameFilter (*done*)
     * IntrospectionUtil (*done*)
-    * IO
+    * IO (*done*)
     * LazyList (*done*)
     * Loader
     * LongExtension (*done*)
