@@ -326,7 +326,7 @@ namespace NJetty.Util.Util
             }
             catch (IOException ioe)
             {
-                Log.Warn(ioe);
+                Console.WriteLine(ioe.StackTrace);
             }
         }
     }
