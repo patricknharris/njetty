@@ -31,7 +31,10 @@ namespace NJetty.Util.Logging
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// StdErr Logging.
+    /// This implementation of the Logging facade sends all logs to StdErr with minimal formatting.
+    /// 
+    /// If the system property DEBUG is set, then debug logs are printed if stderr is being used.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
