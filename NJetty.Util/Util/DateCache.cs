@@ -49,7 +49,7 @@ namespace NJetty.Util.Util
     public class DateCache
     {
 
-        public static string DEFAULT_FORMAT = "EEE MMM dd HH:mm:ss zzz yyyy";
+        public static string DEFAULT_FORMAT = "ddd MMM dd HH:mm:ss zzz yyyy";
         static long __hitWindow = 60 * 60;
 
         string _formatString;
