@@ -81,7 +81,13 @@ namespace NJetty.Util.Test.Util
             protected int protectedA;
             internal int internalA;
             public int publicA;
-            private static int bong;
+
+            void NoWarn()
+            {
+                privateA +=0;
+                internalA += 0;
+            }
+
         }
 
         public class ClassFixtureB : ClassFixtureA
@@ -90,6 +96,12 @@ namespace NJetty.Util.Test.Util
             protected string protectedB;
             public string publicB;
             internal string internalB;
+
+            void NoWarn()
+            {
+                privateB += 0;
+                internalB += 0;
+            }
         }
 
         public class ClassFixtureC
