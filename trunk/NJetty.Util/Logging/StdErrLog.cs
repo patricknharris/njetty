@@ -23,6 +23,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Configuration;
+using NJetty.Util.Util;
 
 
 
@@ -44,7 +45,7 @@ namespace NJetty.Util.Logging
         #region Static members
 
 
-        //private static DateCache _dateCache; TODO date cache implementation
+        static DateCache _dateCache; 
         static bool _debug = 
             !string.IsNullOrEmpty(ConfigurationManager.AppSettings["DEBUG"]) 
             ? "true".Equals(ConfigurationManager.AppSettings["DEBUG"], StringComparison.OrdinalIgnoreCase) 
@@ -58,8 +59,7 @@ namespace NJetty.Util.Logging
         {
             try
             {
-                // TODO: use datecache
-                //_dateCache=new DateCache("yyyy-MM-dd HH:mm:ss");
+                _dateCache=new DateCache("yyyy-MM-dd HH:mm:ss");
             }
             catch(Exception e)
             {
@@ -98,9 +98,7 @@ namespace NJetty.Util.Logging
 
         private string getLogPrefix(string logType)
         {
-            // TODO: use date time cache
-            return string.Format("{0:ddd MMM dd HH:mm:ss zzz yyyy}:{1}:{2}", DateTime.Now, _name, logType);
-
+            return string.Format("{0}:{1}:{2}", _dateCache.Now, _name, logType);
         }
 
         #endregion
