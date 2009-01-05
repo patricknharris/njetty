@@ -39,7 +39,7 @@ Port jetty-utils from java to C# as NJetty.Util including Unit Tests
     * ByteArrayISO8859Writer (*done*)
     * ByteArrayOutputStream2 (*done*)
     * ConcurrentDictionary (*done*)
-    * DateCache
+    * DateCache (*done*)
     * FileInfoExtensions (*done*)    
     * FilterOutputStream (*done*)    
     * FilterWriter (*done*)    
@@ -103,7 +103,7 @@ Port jetty-utils from java to C# as NJetty.Util including Unit Tests
     * Utf8StringBuilderTest (*done*)
     * TestIntrospectionUtil (*done*)
     * URLEncodedTest (*done*)
-    * DateCacheTest
+    * DateCacheTest (*done*)
     * StringUtilTest (*done*)
  * *Util.Ajax*
     * JSONTest
