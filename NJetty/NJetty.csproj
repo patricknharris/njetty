@@ -47,6 +47,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IO\AbstractBuffer.cs" />
+    <Compile Include="IO\BIO\SocketEndPoint.cs" />
+    <Compile Include="IO\BIO\StreamEndPoint.cs" />
+    <Compile Include="IO\BIO\StringEndPoint.cs" />
     <Compile Include="IO\BufferCache.cs" />
     <Compile Include="IO\BufferDateCache.cs" />
     <Compile Include="IO\BufferUtil.cs" />
@@ -99,7 +102,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
-    <Folder Include="IO\BIO\" />
     <Folder Include="IO\NIO\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
