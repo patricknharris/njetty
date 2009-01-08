@@ -7,10 +7,58 @@ Port jetty (core) from java to C# as NJetty including Unit Tests
 
 ----
 ==Port Jetty Core to C# as NJetty==
- * *TODO.Package*
+ * *IO*
+    * AbstractBuffer
+    * IAsyncEndPoint
+    * IBuffer
+    * BufferCache
+    * BufferDateCache
+    * IBuffers
+    * BufferUtil
+    * ByteArrayBuffer
+    * ByteArrayEndPoint
+    * IConnection
+    * IEndPoint
+    * SimpleBuffers
+    * View
+    * WriterOutputStream
+ * *IO.BIO*
+    * SocketEndPoint
+    * StreamEndPoint
+    * StringEndPoint
+ * *IO.NIO*
+    * ChannelEndPoint
+    * DirectNIOBuffer
+    * INIOBuffer
+    * RandomAccessFileBuffer
+    * SelectChannelEndPoint
+    * SelectorManager
+ * *Core (jetty in jetty)*
     * Todo.Class
- * *TODO.Package*
     * Todo.Class
+    * Todo.Class
+    * Todo.Class
+ * *Core.BIO (jetty.bio in jetty)*
+    * Todo.Class
+    * Todo.Class
+    * Todo.Class
+    * Todo.Class
+ * *Core.Handler (jetty.handler in jetty)*
+    * Todo.Class
+    * Todo.Class
+    * Todo.Class
+    * Todo.Class
+ * *Core.NIO (jetty.nio in jetty)*
+    * Todo.Class
+    * Todo.Class
+    * Todo.Class
+    * Todo.Class
+ * *Core.Servlet (jetty.servlet in jetty, just add this for now)*
+    * Todo.Class
+    * Todo.Class
+    * Todo.Class
+    * Todo.Class
+	
 ----
 ==Port Jetty Core Tests to as NJetty.Test== 
  * *TODO.Package*
