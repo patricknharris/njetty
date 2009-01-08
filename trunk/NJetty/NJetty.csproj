@@ -46,6 +46,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IO\AbstractBuffer.cs" />
+    <Compile Include="IO\BufferCache.cs" />
+    <Compile Include="IO\BufferDateCache.cs" />
+    <Compile Include="IO\BufferUtil.cs" />
+    <Compile Include="IO\ByteArrayBuffer.cs" />
+    <Compile Include="IO\ByteArrayEndPoint.cs" />
+    <Compile Include="IO\IAsyncEndPoint.cs" />
+    <Compile Include="IO\IBuffer.cs" />
+    <Compile Include="IO\IBuffers.cs" />
+    <Compile Include="IO\IConnection.cs" />
+    <Compile Include="IO\IEndPoint.cs" />
+    <Compile Include="IO\SimpleBuffers.cs" />
+    <Compile Include="IO\View.cs" />
+    <Compile Include="IO\WriterOutputStream.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Encoding.Designer.cs">
       <AutoGen>True</AutoGen>
