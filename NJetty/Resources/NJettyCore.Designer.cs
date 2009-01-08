@@ -22,24 +22,24 @@ namespace NJetty.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "2.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Encoding {
+    internal class NJettyCore {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Encoding() {
+        internal NJettyCore() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NJetty.Resources.Encoding", typeof(Encoding).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("NJetty.Resources.NJettyCore", typeof(NJettyCore).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace NJetty.Resources {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,29 +61,19 @@ namespace NJetty.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ISO-8859-1.
+        ///   Looks up a localized string similar to Jakarta Commons-HttpClient/2.0.2
+        ///Java/1.6.0
+        ///Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; FDM)
+        ///Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; .NET CLR 1.1.4322; MSIECrawler)
+        ///Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0; .NET CLR 2.0.50727)
+        ///Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1)
+        ///Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1)
+        ///Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1.4322)
+        ///Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 1.1 [rest of string was truncated]&quot;;.
         /// </summary>
-        public static string text_html {
+        internal static string useragents {
             get {
-                return ResourceManager.GetString("text/html", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ISO-8859-1.
-        /// </summary>
-        public static string text_plain {
-            get {
-                return ResourceManager.GetString("text/plain", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to UTF-8.
-        /// </summary>
-        public static string text_xml {
-            get {
-                return ResourceManager.GetString("text/xml", resourceCulture);
+                return ResourceManager.GetString("useragents", resourceCulture);
             }
         }
     }

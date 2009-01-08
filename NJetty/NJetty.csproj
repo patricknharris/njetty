@@ -57,6 +57,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Mime.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\NJettyCore.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NJettyCore.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NJetty.Util\NJetty.Util.csproj">
@@ -72,6 +77,10 @@
     <EmbeddedResource Include="Resources\Mime.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Mime.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\NJettyCore.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>NJettyCore.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
