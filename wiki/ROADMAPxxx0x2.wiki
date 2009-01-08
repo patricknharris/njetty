@@ -34,10 +34,49 @@ Port jetty (core) from java to C# as NJetty including Unit Tests
     * SelectChannelEndPoint
     * SelectorManager
  * *Core (jetty in jetty)*
-    * Todo.Class
-    * Todo.Class
-    * Todo.Class
-    * Todo.Class
+    * AbstractBuffers
+    * AbstractConnector
+    * AbstractGenerator
+    * IAuthenticator
+    * IConnector
+    * CookieCutter
+    * Dispatcher
+    * EncodedHttpURI
+    * EofException
+    * IGenerator
+    * IHandler
+    * IHandlerContainer
+    * HttpConnection
+    * IHttpContent
+    * HttpException
+    * HttpFields
+    * HttpGenerator
+    * HttpHeaders
+    * HttpHeadersValues
+    * HttpMethods
+    * ~~HttpOnlyCookie~~ (*deprecated@jetty, N/A *)
+    * HttpParser
+    * HttpSchemes
+    * HttpStatus
+    * IHttpTokens
+    * HttpURI
+    * HttpVersions
+    * InclusiveByteRange
+    * LocalConnector
+    * MimeTypes
+    * NCSARequestLog
+    * IParser
+    * Request
+    * IRequestLog
+    * ResourceCache
+    * Response
+    * RetryRequest
+    * Server
+    * Servlet3Continuation
+    * ISessionIdManager
+    * ISessionManager
+    * Suspendable
+    * IUserRealm
  * *Core.BIO (jetty.bio in jetty)*
     * Todo.Class
     * Todo.Class
