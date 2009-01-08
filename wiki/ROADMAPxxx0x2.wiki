@@ -78,25 +78,51 @@ Port jetty (core) from java to C# as NJetty including Unit Tests
     * Suspendable
     * IUserRealm
  * *Core.BIO (jetty.bio in jetty)*
-    * Todo.Class
-    * Todo.Class
-    * Todo.Class
-    * Todo.Class
+    * SocketConnector
  * *Core.Handler (jetty.handler in jetty)*
-    * Todo.Class
-    * Todo.Class
-    * Todo.Class
-    * Todo.Class
+    * AbstractHandler
+    * AbstractHandlerContainer
+    * ICompleteHander
+    * ContextHandler
+    * ContextHandlerCollection
+    * DefaultHander
+    * ErrorHandler
+    * HandlerCollection
+    * HandlerList
+    * HandlerWrapper
+    * MovedContextHander
+    * RequestLogHandler
+    * ISecurityHandler
+    * StatisticsHandler
  * *Core.NIO (jetty.nio in jetty)*
-    * Todo.Class
-    * Todo.Class
-    * Todo.Class
-    * Todo.Class
+    * AbstractNIOConnector
+    * BlockingChannelConnector
+    * INIOConnector
+    * SelectChannelConnector
  * *Core.Servlet (jetty.servlet in jetty, just add this for now)*
-    * Todo.Class
-    * Todo.Class
-    * Todo.Class
-    * Todo.Class
+    * AbstractSessionIdManager
+    * AbstractSessionManager
+    * Context
+    * DefaultServlet
+    * ErrorPageHandler
+    * FilterHolder
+    * FilterMapping
+    * HashSessionIdManager
+    * HashSessionManager
+    * Holder
+    * Invoker
+    * JDBCSessionIdManager
+    * JDBCSessionManager
+    * NIOResourceCache
+    * NoJSPServlet
+    * PathMap
+    * ServletHandler
+    * ServletHolder
+    * ServletMapping
+    * SessionHandler
+    * StatisticsServlet
+ * *XBean*
+    * No Classes
 	
 ----
 ==Port Jetty Core Tests to as NJetty.Test== 
