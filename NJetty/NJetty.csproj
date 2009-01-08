@@ -60,6 +60,12 @@
     <Compile Include="IO\IBuffers.cs" />
     <Compile Include="IO\IConnection.cs" />
     <Compile Include="IO\IEndPoint.cs" />
+    <Compile Include="IO\NIO\ChannelEndPoint.cs" />
+    <Compile Include="IO\NIO\DirectNIOBuffer.cs" />
+    <Compile Include="IO\NIO\INIOBuffer.cs" />
+    <Compile Include="IO\NIO\RandomAccessFileBuffer.cs" />
+    <Compile Include="IO\NIO\SelectChannelEndPoint.cs" />
+    <Compile Include="IO\NIO\SelectorManager.cs" />
     <Compile Include="IO\SimpleBuffers.cs" />
     <Compile Include="IO\View.cs" />
     <Compile Include="IO\WriterOutputStream.cs" />
@@ -102,7 +108,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Core\" />
-    <Folder Include="IO\NIO\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
