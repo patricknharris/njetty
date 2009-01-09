@@ -107,7 +107,11 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Core\" />
+    <Folder Include="Core\BIO\" />
+    <Folder Include="Core\Handler\" />
+    <Folder Include="Core\NIO\" />
+    <Folder Include="Core\Servlet\" />
+    <Folder Include="Core\XBean\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
