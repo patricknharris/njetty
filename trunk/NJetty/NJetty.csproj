@@ -46,6 +46,46 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\BIO\SocketConnector.cs" />
+    <Compile Include="Core\Handler\AbstractHandler.cs" />
+    <Compile Include="Core\Handler\AbstractHandlerContainer.cs" />
+    <Compile Include="Core\Handler\ContextHandler.cs" />
+    <Compile Include="Core\Handler\ContextHandlerCollection.cs" />
+    <Compile Include="Core\Handler\DefaultHander.cs" />
+    <Compile Include="Core\Handler\ErrorHandler.cs" />
+    <Compile Include="Core\Handler\HandlerCollection.cs" />
+    <Compile Include="Core\Handler\HandlerList.cs" />
+    <Compile Include="Core\Handler\HandlerWrapper.cs" />
+    <Compile Include="Core\Handler\ICompleteHander.cs" />
+    <Compile Include="Core\Handler\ISecurityHandler.cs" />
+    <Compile Include="Core\Handler\MovedContextHander.cs" />
+    <Compile Include="Core\Handler\RequestLogHandler.cs" />
+    <Compile Include="Core\Handler\StatisticsHandler.cs" />
+    <Compile Include="Core\NIO\AbstractNIOConnector.cs" />
+    <Compile Include="Core\NIO\BlockingChannelConnector.cs" />
+    <Compile Include="Core\NIO\INIOConnector.cs" />
+    <Compile Include="Core\NIO\SelectChannelConnector.cs" />
+    <Compile Include="Core\Servlet\AbstractSessionIdManager.cs" />
+    <Compile Include="Core\Servlet\AbstractSessionManager.cs" />
+    <Compile Include="Core\Servlet\Context.cs" />
+    <Compile Include="Core\Servlet\DefaultServlet.cs" />
+    <Compile Include="Core\Servlet\ErrorPageHandler.cs" />
+    <Compile Include="Core\Servlet\FilterHolder.cs" />
+    <Compile Include="Core\Servlet\FilterMapping.cs" />
+    <Compile Include="Core\Servlet\HashSessionIdManager.cs" />
+    <Compile Include="Core\Servlet\HashSessionManager.cs" />
+    <Compile Include="Core\Servlet\Holder.cs" />
+    <Compile Include="Core\Servlet\Invoker.cs" />
+    <Compile Include="Core\Servlet\JDBCSessionIdManager.cs" />
+    <Compile Include="Core\Servlet\JDBCSessionManager.cs" />
+    <Compile Include="Core\Servlet\NIOResourceCache.cs" />
+    <Compile Include="Core\Servlet\NoJSPServlet.cs" />
+    <Compile Include="Core\Servlet\PathMap.cs" />
+    <Compile Include="Core\Servlet\ServletHandler.cs" />
+    <Compile Include="Core\Servlet\ServletHolder.cs" />
+    <Compile Include="Core\Servlet\ServletMapping.cs" />
+    <Compile Include="Core\Servlet\SessionHandler.cs" />
+    <Compile Include="Core\Servlet\StatisticsServlet.cs" />
     <Compile Include="IO\AbstractBuffer.cs" />
     <Compile Include="IO\BIO\SocketEndPoint.cs" />
     <Compile Include="IO\BIO\StreamEndPoint.cs" />
@@ -107,10 +147,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Core\BIO\" />
-    <Folder Include="Core\Handler\" />
-    <Folder Include="Core\NIO\" />
-    <Folder Include="Core\Servlet\" />
     <Folder Include="Core\XBean\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
