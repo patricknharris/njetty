@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Javax.NServlet
 {
-    public class Class1
+    interface IFilter
     {
     }
 }
