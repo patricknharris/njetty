@@ -152,7 +152,7 @@ namespace NJetty.Util.Test.Util
         [Test]
         public void TestUrlEncodedStream()
         {
-            String [][] charsets = new String[][]
+            string [][] charsets = new string[][]
             {
                new string[] {StringUtil.__ISO_8859_1,null},
                new string[] {StringUtil.__ISO_8859_1,StringUtil.__ISO_8859_1},

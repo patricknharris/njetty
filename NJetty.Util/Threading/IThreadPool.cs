@@ -40,7 +40,7 @@ namespace NJetty.Util.Threading
     /// </date>
     public interface IThreadPool
     {
-        // TODO: remove this note, equivalent to public abstract boolean dispatch(Runnable job);
+        // TODO: remove this note, equivalent to public abstract bool dispatch(Runnable job);
         bool Dispatch(ThreadStart job);
 
         /// <summary>

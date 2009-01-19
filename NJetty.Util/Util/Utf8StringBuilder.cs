@@ -26,7 +26,7 @@ namespace NJetty.Util.Util
 {
 
     /// <summary>
-    /// Non-Thread safe Utf8 String Generator
+    /// Non-Thread safe Utf8 string Generator
     /// using per byte input, 
     /// this makes use of an array of bytes that can grow
     /// </summary>

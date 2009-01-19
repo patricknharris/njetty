@@ -123,7 +123,7 @@ namespace NJetty.Util.Logging
         /// Set Log to parent Logger.
         /// <p>
         /// If there is a different Log class available,
-        /// call GetLogger(String) on it and construct a LoggerLog instance
+        /// call GetLogger(string) on it and construct a LoggerLog instance
         /// as this Log's Logger, so that logging is delegated to the parent Log.
         /// <p>
         /// This should be used if a webapp is using Log, but wishes the logging to be 
@@ -156,8 +156,8 @@ namespace NJetty.Util.Logging
 
 
                     //Class<?> uberlog = loader.getParent().loadClass("org.mortbay.log.Log");
-                    //Method getLogger=uberlog.getMethod("getLogger",new Class[]{String.class});
-                    //Object logger = getLogger.invoke(null,name);
+                    //Method getLogger=uberlog.getMethod("getLogger",new Class[]{string.class});
+                    //object logger = getLogger.invoke(null,name);
                     //setLog(new LoggerLog(logger));
                     //return;
 

@@ -26,7 +26,7 @@ namespace NJetty.Util.Util
 {
 
     /// <summary>
-    /// String class extensions, used to add some missing methods found in java
+    /// string class extensions, used to add some missing methods found in java
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>

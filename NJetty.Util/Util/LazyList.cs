@@ -185,7 +185,7 @@ namespace NJetty.Util.Util
                     return ol;
                 }
 
-                IList nl = (IList)Activator.CreateInstance(list.GetType(), initialSize); //new ArrayList<Object>(initialSize);
+                IList nl = (IList)Activator.CreateInstance(list.GetType(), initialSize); //new ArrayList<object>(initialSize);
                 foreach (object o in ol)
                 {
                     nl.Add(o);
@@ -300,7 +300,7 @@ namespace NJetty.Util.Util
 
         #endregion
 
-        #region To String Array Helper
+        #region To string Array Helper
 
         /// <summary>
         /// Converts a List to an Array of Strings
@@ -543,7 +543,7 @@ namespace NJetty.Util.Util
 
         // TODO: may be this one is no longer applicable
 
-        //public static<E> ListIterator<E> listIterator(Object list)
+        //public static<E> ListIterator<E> listIterator(object list)
         //{
         //    if (list==null)
         //    {

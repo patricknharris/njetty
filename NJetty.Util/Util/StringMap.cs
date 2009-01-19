@@ -670,7 +670,7 @@ namespace NJetty.Util.Util
         {
             string Key { get; }
             object Value { get; set; }
-            bool Equals(Object o);
+            bool Equals(object o);
             int GetHashCode();
         }
 

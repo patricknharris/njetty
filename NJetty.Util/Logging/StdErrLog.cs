@@ -82,7 +82,7 @@ namespace NJetty.Util.Logging
             
         }
 
-        public StdErrLog(String name)
+        public StdErrLog(string name)
         {
             this._name = name ?? string.Empty;
         }

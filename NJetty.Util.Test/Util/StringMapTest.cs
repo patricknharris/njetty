@@ -289,7 +289,7 @@ namespace NJetty.Util.Test.Util
         }
 
         /// <summary>
-        /// Test for boolean ContainsKey(object)
+        /// Test for bool ContainsKey(object)
         /// </summary>
         [Test]
         public void TestContainsKey()

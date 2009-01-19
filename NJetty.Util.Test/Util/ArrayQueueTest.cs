@@ -44,7 +44,7 @@ namespace NJetty.Util.Test.Util
         [Test]
         public void TestWrap()
         {
-            ArrayQueue<String> queue = new ArrayQueue<String>(3);
+            ArrayQueue<string> queue = new ArrayQueue<string>(3);
             
             
             Assert.AreEqual(0,queue.Count);
@@ -88,7 +88,7 @@ namespace NJetty.Util.Test.Util
         [Test]
         public void TestRemove()
         {
-            ArrayQueue<String> queue = new ArrayQueue<String>(3,3);
+            ArrayQueue<string> queue = new ArrayQueue<string>(3,3);
            
             queue.Enqueue("0");
             queue.Enqueue("x");
@@ -109,7 +109,7 @@ namespace NJetty.Util.Test.Util
 
         public void TestGrow()
         {
-            ArrayQueue<String> queue = new ArrayQueue<String>(3, 5);
+            ArrayQueue<string> queue = new ArrayQueue<string>(3, 5);
             Assert.AreEqual(3, queue.Capacity);
 
             queue.Enqueue("a");

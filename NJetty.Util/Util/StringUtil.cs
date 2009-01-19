@@ -299,7 +299,7 @@ namespace NJetty.Util.Util
         public static string NonNull(string s)
         {
             if (s == null)
-                return String.Empty;
+                return string.Empty;
             return s;
         }
 
