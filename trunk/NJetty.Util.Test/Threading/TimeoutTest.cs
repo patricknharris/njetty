@@ -45,7 +45,7 @@ namespace NJetty.Util.Test.Threading
         public void TestExpiry()
         {
             #region Initialization
-            object lockObject = new Object();
+            object lockObject = new object();
             Timeout timeout = new Timeout(null);
             TimeoutTask[] tasks;
 
@@ -78,7 +78,7 @@ namespace NJetty.Util.Test.Threading
         public void TestCancel()
         {
             #region Initialization
-            object lockObject = new Object();
+            object lockObject = new object();
             Timeout timeout = new Timeout(null);
             TimeoutTask[] tasks;
 
@@ -114,7 +114,7 @@ namespace NJetty.Util.Test.Threading
         public void TestTouch()
         {
             #region Initialization
-            object lockObject = new Object();
+            object lockObject = new object();
             Timeout timeout = new Timeout(null);
             TimeoutTask[] tasks;
 
@@ -154,7 +154,7 @@ namespace NJetty.Util.Test.Threading
         public void TestDelay()
         {
             #region Initialization
-            object lockObject = new Object();
+            object lockObject = new object();
             Timeout timeout = new Timeout(null);
             TimeoutTask[] tasks;
 
@@ -194,7 +194,7 @@ namespace NJetty.Util.Test.Threading
         public void TestStress()
         {
             #region Initialization
-            object lockObject = new Object();
+            object lockObject = new object();
             Timeout timeout = new Timeout(null);
             TimeoutTask[] tasks;
 

@@ -125,7 +125,7 @@ namespace NJetty.Util.Util
         /// <param name="equalsForNullValue">if True, then an '=' is always used, even
         /// for parameters without a value. e.g. "blah?a=&b=&c=".
         /// </param>
-        /// <returns>Encoded String Value</returns>
+        /// <returns>Encoded string Value</returns>
         public static string Encode(MultiMap<string> map, string charset, bool equalsForNullValue)
         {
             if (charset == null)

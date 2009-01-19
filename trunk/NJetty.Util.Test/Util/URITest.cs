@@ -186,7 +186,7 @@ namespace NJetty.Util.Test.Util
         [Test]
         public void TestCanonicalPath()
         {
-            String[][] canonical = 
+            string[][] canonical = 
             {
                 new string[]{"/aaa/bbb/","/aaa/bbb/"},
                 new string[]{"/aaa//bbb/","/aaa//bbb/"},

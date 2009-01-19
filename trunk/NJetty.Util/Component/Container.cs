@@ -202,7 +202,7 @@ namespace NJetty.Util.Component
 
         #region Add/Remove Bean
 
-        public void AddBean(Object obj)
+        public void AddBean(object obj)
         {
             if (_listeners != null)
             {

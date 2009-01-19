@@ -76,7 +76,7 @@ namespace Javax.NServlet
         ///     of the initialization parameter
         /// </param>
         /// <returns>a string containing the value of the initialization parameter</returns>
-        string GetInitParameter(tring name);
+        string GetInitParameter(string name);
 
         /// <summary>
         /// Gets the names of the servlet's initialization parameters

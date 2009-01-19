@@ -45,7 +45,7 @@ namespace NJetty.Util.Util
         static readonly Dictionary<string, Type> name2Class = new Dictionary<string, Type>();
         static TypeUtil()
         {
-            name2Class.Add("boolean", typeof(bool));
+            name2Class.Add("bool", typeof(bool));
             name2Class.Add("bool", typeof(bool));
             name2Class.Add("byte", typeof(byte));
             name2Class.Add("char", typeof(char));
@@ -107,7 +107,7 @@ namespace NJetty.Util.Util
         //private static final HashMap class2Name=new HashMap();
         //static
         //{
-        //    class2Name.put(java.lang.Boolean.TYPE,"boolean");
+        //    class2Name.put(java.lang.Boolean.TYPE,"bool");
         //    class2Name.put(java.lang.Byte.TYPE,"byte");
         //    class2Name.put(java.lang.Character.TYPE,"char");
         //    class2Name.put(java.lang.Double.TYPE,"double");
