@@ -47,6 +47,23 @@
   <ItemGroup>
     <Compile Include="DispatcherType.cs" />
     <Compile Include="GenericServlet.cs" />
+    <Compile Include="Http\Cookie.cs" />
+    <Compile Include="Http\HttpServlet.cs" />
+    <Compile Include="Http\HttpServletRequestWrapper.cs" />
+    <Compile Include="Http\HttpServletResponseWrapper.cs" />
+    <Compile Include="Http\HttpSessionBindingEvent.cs" />
+    <Compile Include="Http\HttpSessionEvent.cs" />
+    <Compile Include="Http\HttpUtils.cs" />
+    <Compile Include="Http\IHttpServletRequest.cs" />
+    <Compile Include="Http\IHttpServletResponse.cs" />
+    <Compile Include="Http\IHttpSession.cs" />
+    <Compile Include="Http\IHttpSessionActivationListener.cs" />
+    <Compile Include="Http\IHttpSessionAttributeListener.cs" />
+    <Compile Include="Http\IHttpSessionBindingListener.cs" />
+    <Compile Include="Http\IHttpSessionContext.cs" />
+    <Compile Include="Http\IHttpSessionListener.cs" />
+    <Compile Include="Http\NoBodyOutputStream.cs" />
+    <Compile Include="Http\NoBodyResponse.cs" />
     <Compile Include="IFilter.cs" />
     <Compile Include="IFilterChain.cs" />
     <Compile Include="IFilterConfig.cs" />
@@ -72,6 +89,9 @@
     <Compile Include="ServletResponseWrapper.cs" />
     <Compile Include="SessionCookieConfig.cs" />
     <Compile Include="UnavailableException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Http\Annotation\Jaxrs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
