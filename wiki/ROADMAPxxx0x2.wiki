@@ -11,8 +11,8 @@ Port jetty (core) from java to C# as NJetty including Unit Tests
 ==Port Geronimo-Servlet-3.0-Spec to C# as NJetty.Servlet_3_0.Spec==
  * *Javax.NServlet*
     * DispatcherType (*done*)
-    * IFilter
-    * IFilterChain
+    * IFilter (*done*)
+    * IFilterChain (*done*)
     * IFilterConfig
     * GenericServlet
     * IRequestDispatcher
