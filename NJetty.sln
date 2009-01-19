@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NJetty.Test", "NJetty.Test\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NJetty.Servlet_3_0.Spec", "NJetty.Servlet_3_0.Spec\NJetty.Servlet_3_0.Spec.csproj", "{AADD95BE-94EE-4D85-ACE8-946B93E3AE3C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NJetty.Project.Templates", "NJetty.Project.Templates\NJetty.Project.Templates.csproj", "{0DF9FDF2-BE05-420A-89F0-4503B9666444}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{AADD95BE-94EE-4D85-ACE8-946B93E3AE3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AADD95BE-94EE-4D85-ACE8-946B93E3AE3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AADD95BE-94EE-4D85-ACE8-946B93E3AE3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DF9FDF2-BE05-420A-89F0-4503B9666444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DF9FDF2-BE05-420A-89F0-4503B9666444}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DF9FDF2-BE05-420A-89F0-4503B9666444}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DF9FDF2-BE05-420A-89F0-4503B9666444}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
