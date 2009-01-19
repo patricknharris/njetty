@@ -13,11 +13,11 @@ Port jetty (core) from java to C# as NJetty including Unit Tests
     * DispatcherType (*done*)
     * IFilter (*done*)
     * IFilterChain (*done*)
-    * IFilterConfig
+    * IFilterConfig (*done*)
     * GenericServlet
-    * IRequestDispatcher
-    * IServlet
-    * IServletConfig
+    * IRequestDispatcher (*done*)
+    * IServlet (*done*)
+    * IServletConfig (*done*)
     * IServletContext
     * ServletContextAttributeEvent
     * IServletContextAttributeListener
