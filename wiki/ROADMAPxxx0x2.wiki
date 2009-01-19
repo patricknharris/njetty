@@ -5,6 +5,69 @@
 
 Port jetty (core) from java to C# as NJetty including Unit Tests
 
+
+
+----
+==Port Geronimo-Servlet-3.0-Spec to C# as NJetty.Servlet_3_0.Spec==
+ * *Javax.Servlet*
+    * DispatcherType
+    * IFilter
+    * IFilterChain
+    * IFilterConfig
+    * GenericServlet
+    * IRequestDispatcher
+    * IServlet
+    * IServletConfig
+    * IServletContext
+    * ServletContextAttributeEvent
+    * IServletContextAttributeListener
+    * ServletContextEvent
+    * IServletContextListener
+    * ServletException
+    * ServletInputStream
+    * IServletRequest
+    * ServletRequestAttributeEvent
+    * IServletRequestAttributeListener
+    * ServletRequestEvent
+    * IServletRequestListener
+    * ServletRequestWrapper
+    * IServletResponse
+    * ServletResponseWrapper
+    * SessionCookieConfig
+    * ISingleThreadModel
+    * UnavailableException
+ * *Javax.Servlet.Http*
+    * Cookie
+    * HttpServlet
+    * IHttpServletRequest
+    * HttpServletRequestWrapper
+    * IHttpServletResponse
+    * HttpServletResponseWrapper
+    * IHttpSession
+    * IHttpSessionActivationListener
+    * IHttpSessionAttributeListener
+    * HttpSessionBindingEvent
+    * IHttpSessionBindingListener
+    * IHttpSessionContext
+    * HttpSessionEvent
+    * IHttpSessionListener
+    * HttpUtils
+    * NoBodyOutputStream
+    * NoBodyResponse
+ * *Javax.Servlet.Http.Annotation*
+    * FilterMapping
+    * InitParam
+    * Servlet
+    * ServletContextListener
+    * ServletFilter
+ * *Javax.Servlet.Http.Annotation.Jaxrs*
+    * DELETE
+    * GET
+    * HEAD
+    * HttpMethod
+    * POST
+    * PUT
+	
 ----
 ==Port Jetty Core to C# as NJetty==
  * *IO*
