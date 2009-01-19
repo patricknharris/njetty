@@ -21,20 +21,76 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 
 namespace Javax.NServlet
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// A servlet configuration object used by a servlet container
+    /// to pass information to a servlet during initialization. 
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// TODO: date here
+    /// January 2009
     /// </date>
     public interface IServletConfig
     {
+
+        /// <summary>
+        /// Gets the name of this servlet instance.
+        /// The name may be provided via server administration, assigned in the 
+        /// web application deployment descriptor, or for an unregistered (and thus
+        /// unnamed) servlet instance it will be the servlet's class name.
+        /// 
+        /// Return's the name of the servlet instance
+        /// </summary>
+        string ServletName
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets a reference to the IServletContext in which the caller
+        /// is executing.
+        /// 
+        /// Returns a IServletContext object, used
+        /// by the caller to interact with its servlet 
+        /// container
+        /// </summary>
+        /// <see cref="IServletContext"/>
+        IServletContext ServletContext
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Returns a string containing the value of the  
+        /// named initialization parameter, or null if 
+        /// the parameter does not exist.
+        /// </summary>
+        /// <param name="name">
+        ///     a string specifying the name
+        ///     of the initialization parameter
+        /// </param>
+        /// <returns>a string containing the value of the initialization parameter</returns>
+        string GetInitParameter(tring name);
+
+        /// <summary>
+        /// Gets the names of the servlet's initialization parameters
+        /// as an List of string objects, 
+        /// or an empty List if the servlet has
+        /// no initialization parameters.
+        /// 
+        /// return's a List of string
+        /// objects containing the names of the servlet's 
+        /// initialization parameters
+        /// </summary>
+        IList InitParameterNames
+        {
+            get;
+        }
     }
 }
