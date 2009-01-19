@@ -123,6 +123,11 @@ Port jetty (core) from java to C# as NJetty including Unit Tests
     * StatisticsServlet
  * *XBean*
     * No Classes
+ * *Resources* Resx Files
+    * Encoding (*done*)
+    * favico.ico
+    * mime (*done*)
+    * useragents
 	
 ----
 ==Port Jetty Core Tests to as NJetty.Test== 
