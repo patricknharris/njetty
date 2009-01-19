@@ -44,7 +44,7 @@ namespace Javax.NServlet
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// TODO: date here
+    /// January 2009
     /// </date>
     public interface IRequestDispatcher
     {
