@@ -31,7 +31,7 @@ using System.Runtime.InteropServices;
 ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
 /// </author>
 /// <date>
-/// November 2008
+/// January 2008
 /// </date>
 
 // General Information about an assembly is controlled through the following 
