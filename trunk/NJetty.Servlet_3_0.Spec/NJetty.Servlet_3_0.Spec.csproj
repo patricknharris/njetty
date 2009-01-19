@@ -47,6 +47,10 @@
   <ItemGroup>
     <Compile Include="DispatcherType.cs" />
     <Compile Include="GenericServlet.cs" />
+    <Compile Include="Http\Annotation\FilterMapping.cs" />
+    <Compile Include="Http\Annotation\InitParam.cs" />
+    <Compile Include="Http\Annotation\Servlet.cs" />
+    <Compile Include="Http\Annotation\ServletFilter.cs" />
     <Compile Include="Http\Cookie.cs" />
     <Compile Include="Http\HttpServlet.cs" />
     <Compile Include="Http\HttpServletRequestWrapper.cs" />
@@ -64,6 +68,7 @@
     <Compile Include="Http\IHttpSessionListener.cs" />
     <Compile Include="Http\NoBodyOutputStream.cs" />
     <Compile Include="Http\NoBodyResponse.cs" />
+    <Compile Include="Http\ServletContextListener.cs" />
     <Compile Include="IFilter.cs" />
     <Compile Include="IFilterChain.cs" />
     <Compile Include="IFilterConfig.cs" />
