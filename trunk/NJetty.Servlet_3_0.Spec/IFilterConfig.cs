@@ -21,13 +21,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Collections;
 
 namespace Javax.NServlet
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// A filter configuration object used by a servlet container
+    /// to pass information to a filter during initialization.
     /// </summary>
+    /// <see cref="IFilter"/>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
@@ -36,5 +39,47 @@ namespace Javax.NServlet
     /// </date>
     public interface IFilterConfig
     {
+        /// <summary>
+        /// Gets the filter-name of this filter as defined in the deployment descriptor. 
+        /// </summary>
+        string FilterName
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Gets a reference to the <see cref="IServletContext"/> in which the caller
+        /// a <see cref="IServletContext"/> object, used
+        /// by the caller to interact with its servlet container
+        /// </summary>
+        /// <see cref="IServletContext"/>
+        IServletContext ServletContext
+        {
+            get;
+        }
+
+        /// <summary>
+        /// Returns a string containing the value of the 
+        /// named initialization parameter, or null if 
+        /// the parameter does not exist.
+        /// </summary>
+        /// <param name="name">a string specifying the name of the initialization parameter</param>
+        /// <returns>a string containing the value of the initialization parameter</returns>
+        string GetInitParameter(string name);
+
+        /// <summary>
+        /// Gets the names of the filter's initialization parameters
+        /// Returns the names of the filter's initialization parameters
+        /// as an List of string objects, 
+        /// or an empty <code>Enumeration</code> if the filter has
+        /// no initialization parameters.
+        /// 
+        /// Returns an List of string objects containing the names of the filter's 
+        /// initialization parameters
+        /// </summary>
+        IList InitParameterNames
+        {
+            get;
+        }
     }
 }
