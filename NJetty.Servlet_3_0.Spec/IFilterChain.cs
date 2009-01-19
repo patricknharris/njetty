@@ -26,8 +26,14 @@ namespace Javax.NServlet
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// A FilterChain is an object provided by the servlet container to the developer
+    /// giving a view into the invocation chain of a filtered request for a resource. Filters
+    /// use the FilterChain to invoke the next filter in the chain, or if the calling filter
+    /// is the last filter in the chain, to invoke the resource at the end of the chain.
+    /// 
+    /// Since: Servlet 2.3
     /// </summary>
+    /// <see cref="IFilter"/>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
@@ -36,5 +42,14 @@ namespace Javax.NServlet
     /// </date>
     public interface IFilterChain
     {
+        /// <summary>
+        /// Causes the next filter in the chain to be invoked, or if the calling filter is the last filter
+        /// in the chain, causes the resource at the end of the chain to be invoked.
+        /// </summary>
+        /// <param name="request">the request to pass along the chain.</param>
+        /// <param name="response">the response to pass along the chain.</param>
+        /// <exception cref="System.IO.IOException"></exception>
+        /// <exception cref="ServletException"></exception>
+        void DoFilter(IServletRequest request, IServletResponse response);
     }
 }
