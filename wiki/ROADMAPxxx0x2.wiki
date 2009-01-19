@@ -9,7 +9,7 @@ Port jetty (core) from java to C# as NJetty including Unit Tests
 
 ----
 ==Port Geronimo-Servlet-3.0-Spec to C# as NJetty.Servlet_3_0.Spec==
- * *Javax.Servlet*
+ * *Javax.NServlet*
     * DispatcherType (*done*)
     * IFilter
     * IFilterChain
@@ -36,7 +36,7 @@ Port jetty (core) from java to C# as NJetty including Unit Tests
     * SessionCookieConfig
     * ISingleThreadModel
     * UnavailableException
- * *Javax.Servlet.Http*
+ * *Javax.NServlet.Http*
     * Cookie
     * HttpServlet
     * IHttpServletRequest
@@ -54,13 +54,13 @@ Port jetty (core) from java to C# as NJetty including Unit Tests
     * HttpUtils
     * NoBodyOutputStream
     * NoBodyResponse
- * *Javax.Servlet.Http.Annotation*
+ * *Javax.NServlet.Http.Annotation*
     * FilterMapping
     * InitParam
     * Servlet
     * ServletContextListener
     * ServletFilter
- * *Javax.Servlet.Http.Annotation.Jaxrs*
+ * *Javax.NServlet.Http.Annotation.Jaxrs*
     * DELETE
     * GET
     * HEAD
