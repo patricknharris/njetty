@@ -46,9 +46,32 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DispatcherType.cs" />
+    <Compile Include="GenericServlet.cs" />
     <Compile Include="IFilter.cs" />
     <Compile Include="IFilterChain.cs" />
+    <Compile Include="IFilterConfig.cs" />
+    <Compile Include="IRequestDispatcher.cs" />
+    <Compile Include="IServlet.cs" />
+    <Compile Include="IServletConfig.cs" />
+    <Compile Include="IServletContext.cs" />
+    <Compile Include="IServletContextAttributeListener.cs" />
+    <Compile Include="IServletContextListener.cs" />
+    <Compile Include="IServletRequest.cs" />
+    <Compile Include="IServletRequestAttributeListener.cs" />
+    <Compile Include="IServletRequestListener.cs" />
+    <Compile Include="IServletResponse.cs" />
+    <Compile Include="ISingleThreadModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServletContextAttributeEvent.cs" />
+    <Compile Include="ServletContextEvent.cs" />
+    <Compile Include="ServletException.cs" />
+    <Compile Include="ServletInputStream.cs" />
+    <Compile Include="ServletRequestAttributeEvent.cs" />
+    <Compile Include="ServletRequestEvent.cs" />
+    <Compile Include="ServletRequestWrapper.cs" />
+    <Compile Include="ServletResponseWrapper.cs" />
+    <Compile Include="SessionCookieConfig.cs" />
+    <Compile Include="UnavailableException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
