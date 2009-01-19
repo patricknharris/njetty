@@ -49,6 +49,12 @@
     <Compile Include="GenericServlet.cs" />
     <Compile Include="Http\Annotation\FilterMapping.cs" />
     <Compile Include="Http\Annotation\InitParam.cs" />
+    <Compile Include="Http\Annotation\Jaxrs\DELETE.cs" />
+    <Compile Include="Http\Annotation\Jaxrs\GET.cs" />
+    <Compile Include="Http\Annotation\Jaxrs\HEAD.cs" />
+    <Compile Include="Http\Annotation\Jaxrs\HttpMethod.cs" />
+    <Compile Include="Http\Annotation\Jaxrs\POST.cs" />
+    <Compile Include="Http\Annotation\Jaxrs\PUT.cs" />
     <Compile Include="Http\Annotation\Servlet.cs" />
     <Compile Include="Http\Annotation\ServletFilter.cs" />
     <Compile Include="Http\Cookie.cs" />
@@ -94,9 +100,6 @@
     <Compile Include="ServletResponseWrapper.cs" />
     <Compile Include="SessionCookieConfig.cs" />
     <Compile Include="UnavailableException.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Http\Annotation\Jaxrs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
