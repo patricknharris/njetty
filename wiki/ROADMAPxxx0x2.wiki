@@ -25,7 +25,7 @@ Port Geronimo Servlet 3.0 Specification Implementation from java to C# as NJetty
     * IServletContextListener (*done*)
     * ServletException
     * ServletInputStream
-    * IServletRequest
+    * IServletRequest (*done*)
     * ServletRequestAttributeEvent
     * IServletRequestAttributeListener
     * ServletRequestEvent
