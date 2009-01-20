@@ -48,7 +48,7 @@ namespace Javax.NServlet
     /// </date>
     public interface IServletRequest
     {
-    
+
         /// <summary>
         /// Returns the value of the named attribute as an object,
         /// or null if no attribute of the given name exists. 
@@ -69,7 +69,7 @@ namespace Javax.NServlet
         /// <param name="name">a string specifying the name of the attribute</param>
         /// <returns>an object containing the value of the attribute, or null if the attribute does not exist</returns>
         object GetAttribute(string name);
-        
+
         /// <summary>
         /// Gets an List containing the
         /// names of the attributes available to this request. 
@@ -82,7 +82,7 @@ namespace Javax.NServlet
         {
             get;
         }
-    
+
 
         /// <summary>
         /// get:
@@ -139,8 +139,8 @@ namespace Javax.NServlet
         {
             get;
         }
-     
-    
+
+
 
         /// <summary>
         /// Returns the value of a request parameter as a string,
@@ -165,8 +165,8 @@ namespace Javax.NServlet
         /// <returns>a string representing the single value of the parameter</returns>
         /// <see cref="#GetParameterValues"/>
         string GetParameter(string name);
-    
-     
+
+
         /// <summary>
         /// Returns an List of string
         /// objects containing the names of the parameters contained
@@ -197,8 +197,8 @@ namespace Javax.NServlet
         /// <returns>an array of string objects containing the parameter's values</returns>
         /// <see cref="#GetParameter"/>
         string[] GetParameterValues(string name);
- 
-    
+
+
 
         /// <summary>
         /// Returns a Dictionary<string, string> of the parameters of this request.
@@ -230,9 +230,9 @@ namespace Javax.NServlet
         {
             get;
         }
-    
-    
-    
+
+
+
         /// <summary>
         /// Returns the name of the scheme used to make this request, 
         /// for example,
@@ -261,9 +261,9 @@ namespace Javax.NServlet
         {
             get;
         }
-    
-    
-    
+
+
+
 
         /// <summary>
         /// Returns the port number to which the request was sent.
@@ -277,9 +277,9 @@ namespace Javax.NServlet
         {
             get;
         }
-    
-    
-    
+
+
+
 
         /// <summary>
         /// Retrieves the body of the request as character data using
@@ -353,7 +353,7 @@ namespace Javax.NServlet
         /// <param name="name">a string specifying the name of the attribute</param>
         /// <param name="o">the object to be stored</param>
         void SetAttribute(string name, object o);
-    
+
 
         /// <summary>
         /// Attribute names should follow the same conventions as
@@ -367,9 +367,9 @@ namespace Javax.NServlet
         /// </summary>
         /// <param name="name">a string specifying the name of the attribute to remove</param>
         void RemoveAttribute(string name);
-    
-    
-    
+
+
+
         /// <summary>
         /// Returns the preferred CultureInfo (Locale in java) that the client will 
         /// accept content in, based on the Accept-Language header.
@@ -383,7 +383,7 @@ namespace Javax.NServlet
             get;
         }
 
-        
+
         /// <summary>
         /// Returns an List of CultureInfo (Locale in java) objects
         /// indicating, in decreasing order starting with the preferred locale, the
@@ -399,7 +399,7 @@ namespace Javax.NServlet
         {
             get;
         }
-    
+
         /// <summary>
         /// Returns a bool indicating whether this request was made using a
         /// secure channel, such as HTTPS.
@@ -411,8 +411,8 @@ namespace Javax.NServlet
         {
             get;
         }
-    
-    
+
+
 
         /// <summary>
         /// Returns a IRequestDispatcher object that acts as a wrapper for
@@ -446,15 +446,15 @@ namespace Javax.NServlet
         /// <see cref="IRequestDispatcher"/>
         /// <see cref="IServletContext#GetRequestDispatcher"/>
         IRequestDispatcher GetRequestDispatcher(string path);
-    
-    
-    
 
-    
+
+
+
+
         [Obsolete("As of Version 2.1 of the Java Servlet API, use IServletContext#GetRealPath instead")]
         string GetRealPath(string path);
-    
-    
+
+
         /// <summary>
         /// Returns the Internet Protocol (IP) source port of the client
         /// or last proxy that sent the request.
@@ -521,7 +521,7 @@ namespace Javax.NServlet
             get;
         }
 
-   
+
         /// <summary>
         /// complete a suspended request.
         /// </summary>
@@ -537,21 +537,21 @@ namespace Javax.NServlet
         /// <see cref="#Resume"/>
         void Suspend(long timeoutMilliseconds);
 
-    
+
         /// <summary>
         /// Similar to suspend(timeoutMilliseconds) but with a container supplied timeout period.    
         /// </summary>
         /// <exception cref="ArgumentException"></exception>
         void Suspend();
 
-    
+
         /// <summary>
         /// Resume a suspended request  
         /// </summary>
         /// <exception cref="ArgumentException">if the request is not suspended</exception>
         void Resume();
 
-    
+
         /// <summary>
         /// returns true if the request is suspended
         /// </summary>
@@ -560,7 +560,7 @@ namespace Javax.NServlet
             get;
         }
 
-    
+
         /// <summary>
         /// returns true if the request is resumed
         /// </summary>
@@ -568,7 +568,7 @@ namespace Javax.NServlet
         {
             get;
         }
-    
+
         /// <summary>
         /// returns true if the request is timed out
         /// </summary>
