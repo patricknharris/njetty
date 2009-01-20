@@ -129,39 +129,34 @@ namespace Javax.NServlet
         /// <returns>a string specifying the file's MIME type</returns>
         string GetMimeType(string file);
 
-        ///////
+        
+        /// <summary>
         /// Returns a directory-like listing of all the paths to resources within the web application whose longest sub-path
         /// matches the supplied path argument. Paths indicating subdirectory paths end with a '/'. The returned paths are all 
         /// relative to the root of the web application and have a leading '/'. For example, for a web application 
-        /// containing<br><br>
-
-        /// /welcome.html<br>
-        /// /catalog/index.html<br>
-        /// /catalog/products.html<br>
-        /// /catalog/offers/books.html<br>
-        /// /catalog/offers/music.html<br>
-        /// /customer/login.jsp<br>
-        /// /WEB-INF/web.xml<br>
-        /// /WEB-INF/classes/com.acme.OrderServlet.class,<br><br>
+        /// containing
         ///
-        /// getResourcePaths("/") returns {"/welcome.html", "/catalog/", "/customer/", "/WEB-INF/"}<br>
-        /// getResourcePaths("/catalog/") returns {"/catalog/index.html", "/catalog/products.html", "/catalog/offers/"}.<br>
-
-
-
-        ///@param path		the partial path used to match the resources,
-        ///				which must start with a /
-        ///@return a Set containing the directory listing, or null if there are no resources in the web application whose path
-        /// begins with the supplied path.
-
-        /// @since Servlet 2.3
-        ////
-
+        /// /welcome.html
+        /// /catalog/index.html
+        /// /catalog/products.html
+        /// /catalog/offers/books.html
+        /// /catalog/offers/music.html
+        /// /customer/login.jsp
+        /// /WEB-INF/web.xml
+        /// /WEB-INF/classes/com.acme.OrderServlet.class,
+        ///
+        /// GetResourcePaths("/") returns {"/welcome.html", "/catalog/", "/customer/", "/WEB-INF/"}
+        /// GetResourcePaths("/catalog/") returns {"/catalog/index.html", "/catalog/products.html", "/catalog/offers/"}.
+        /// 
+        /// </summary>
+        /// <param name="path">the partial path used to match the resources, which must start with a /</param>
+        /// <returns>a HashSet containing the directory listing, or null if there are no resources in the web application whose path begins with the supplied path.</returns>
         HashSet<string> GetResourcePaths(string path);
 
 
 
-        ///////
+
+        /// <summary>
         /// Returns a URL to the resource that is mapped to a specified
         /// path. The path must begin with a "/" and is interpreted
         /// as relative to the current context root.
@@ -190,25 +185,15 @@ namespace Javax.NServlet
         /// java.lang.Class.getResource,
         /// which looks up resources based on a class loader. This
         /// method does not use class loaders.
-        /// 
-        /// @param path 				a string specifying
-        ///						the path to the resource
-        ///
-        /// @return 					the resource located at the named path,
-        /// 						or null if there is no resource
-        ///						at that path
-        ///
-        /// @exception MalformedURLException 	if the pathname is not given in 
-        /// 						the correct form
-        ///
-        ////
-
-        Uri GetResource(string path); //throws MalformedURLException;
+        /// </summary>
+        /// <param name="path">a string specifying the path to the resource</param>
+        /// <returns>the resource located at the named path, null if there is no resource at that path</returns>
+        /// <exception cref="System.UriFormatException">if the pathname is not given in the correct form</exception>
+        Uri GetResource(string path);
         // by bong see http://j-integra.intrinsyc.com/support/espresso/doc/JavaConn/mapping.html
 
 
-
-        ///////
+        /// <summary>
         /// Returns the resource located at the named path as
         /// an InputStream object.
         ///
@@ -231,26 +216,14 @@ namespace Javax.NServlet
         /// which uses a class loader. This method allows servlet containers 
         /// to make a resource available
         /// to a servlet from any location, without using a class loader.
-        /// 
-        ///
-        /// @param path 	a string specifying the path
-        ///			to the resource
-        ///
-        /// @return 		the InputStream returned to the 
-        ///			servlet, or null if no resource
-        ///			exists at the specified path 
-        ///
-        ///
-        ////
-
+        /// </summary>
+        /// <param name="path">a string specifying the path to the resource</param>
+        /// <returns>the Stream (InputStream) returned to the servlet, or null if no resource exists at the specified path</returns>
         Stream GetResourceAsStream(string path);
 
 
-
-
-        ///////
-        /// 
-        /// Returns a {@link RequestDispatcher} object that acts
+        /// <summary>
+        /// Returns a IRequestDispatcher object that acts
         /// as a wrapper for the resource located at the given path.
         /// A RequestDispatcher object can be used to forward 
         /// a request to the resource or to include the resource in a response.
@@ -261,52 +234,32 @@ namespace Javax.NServlet
         /// a RequestDispatcher for resources in foreign contexts.
         /// This method returns null if the ServletContext
         /// cannot return a RequestDispatcher.
-        ///
-        /// @param path 	a string specifying the pathname
-        ///			to the resource
-        ///
-        /// @return 		a RequestDispatcher object
-        ///			that acts as a wrapper for the resource
-        ///			at the specified path, or null if 
-        ///			the ServletContext cannot return
-        ///			a RequestDispatcher
-        ///
-        /// @see 		RequestDispatcher
-        /// @see 		ServletContext#getContext
-        ///
-        ////
-
+        /// </summary>
+        /// <param name="path">a string specifying the pathname to the resource</param>
+        /// <returns>a IRequestDispatcher object that acts as a wrapper for the resource at the specified path, or null if the IServletContext cannot return a IRequestDispatcher</returns>
+        /// <see cref="IRequestDispatcher"/>
+        /// <see cref="IServletContext#Context"/>
         IRequestDispatcher GetRequestDispatcher(string path);
 
 
-
-        ///////
-        /// Returns a {@link RequestDispatcher} object that acts
+        /// <summary>
+        /// Returns a IRequestDispatcher object that acts
         /// as a wrapper for the named servlet.
         ///
         /// Servlets (and JSP pages also) may be given names via server 
         /// administration or via a web application deployment descriptor.
         /// A servlet instance can determine its name using 
-        /// {@link ServletConfig#getServletName}.
+        /// IServletConfig#ServletName.
         ///
         /// This method returns null if the 
         /// ServletContext
         /// cannot return a RequestDispatcher for any reason.
-        ///
-        /// @param name 	a string specifying the name
-        ///			of a servlet to wrap
-        ///
-        /// @return 		a RequestDispatcher object
-        ///			that acts as a wrapper for the named servlet,
-        ///			or null if the ServletContext
-        ///			cannot return a RequestDispatcher
-        ///
-        /// @see 		RequestDispatcher
-        /// @see 		ServletContext#getContext
-        /// @see 		ServletConfig#getServletName
-        ///
-        ////
-
+        /// </summary>
+        /// <param name="name">a string specifying the name of a servlet to wrap</param>
+        /// <returns>a RequestDispatcher object that acts as a wrapper for the named servlet, or null if the ServletContext cannot return a RequestDispatcher</returns>
+        /// <see cref="IRequestDispatcher"/>
+        /// <see cref="IServletContext#Context"/>
+        /// <see cref="IServletConfig#ServletName"/>
         IRequestDispatcher GetNamedDispatcher(string name);
 
 
