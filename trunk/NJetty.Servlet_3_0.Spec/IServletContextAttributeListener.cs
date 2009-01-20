@@ -26,15 +26,38 @@ namespace Javax.NServlet
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// Implementations of this interface receive notifications of
+    /// changes to the attribute list on the servlet context of a web application. 
+    /// To receive notification events, the implementation class
+    /// must be configured in the deployment descriptor for the web application.
+    /// <see cref="ServletContextAttributeEvent"/> 
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// TODO: date here
+    /// January 2009
     /// </date>
+
+    // TODO: in java extends EventListener, make dotnet equivalent
     public interface IServletContextAttributeListener
     {
+        /// <summary>
+        /// Notification that a new attribute was added to the servlet context. Called after the attribute is added.
+        /// </summary>
+        /// <param name="scab"></param>
+        void AttributeAdded(ServletContextAttributeEvent scab);
+        
+        /// <summary>
+        /// Notification that an existing attribute has been removed from the servlet context. Called after the attribute is removed.
+        /// </summary>
+        /// <param name="scab"></param>
+        void AttributeRemoved(ServletContextAttributeEvent scab);
+        
+        /// <summary>
+        /// Notification that an attribute on the servlet context has been replaced. Called after the attribute is replaced.
+        /// </summary>
+        /// <param name="scab"></param>
+        void AttributeReplaced(ServletContextAttributeEvent scab);
     }
 }
