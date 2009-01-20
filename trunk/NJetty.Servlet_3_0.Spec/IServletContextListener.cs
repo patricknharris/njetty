@@ -60,6 +60,6 @@ namespace Javax.NServlet
         /// destruction.
         /// </summary>
         /// <param name="sce"></param>
-        void contextDestroyed(ServletContextEvent sce);
+        void ContextDestroyed(ServletContextEvent sce);
     }
 }
