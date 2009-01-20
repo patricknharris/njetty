@@ -26,15 +26,51 @@ namespace Javax.NServlet
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// A ServletRequestListener can be implemented by the developer
+    /// interested in being notified of requests coming in and out of
+    /// scope in a web component. A request is defined as coming into
+    /// scope when it is about to enter the first servlet or filter
+    /// in each web application, as going out of scope when it exits
+    /// the last servlet or the first filter in the chain.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// TODO: date here
+    /// January 2009
     /// </date>
+    /// TODO: in java extends EventListener, make dotnet equivalent
     public interface IServletRequestListener
     {
+
+        /// <summary>
+        /// The request is about to go out of scope of the web application. 
+        /// </summary>
+        /// <param name="sre">event containing request</param>
+        void RequestDestroyed(ServletRequestEvent sre);
+
+        /// <summary>
+        /// The request is about to come into scope of the web application.
+        /// </summary>
+        /// <param name="sre">event containing request</param>
+        void RequestInitialized(ServletRequestEvent sre);
+
+        /// <summary>
+        /// Called after suspend
+        /// </summary>
+        /// <param name="sre">event containing request</param>
+        void RequestSuspended(ServletRequestEvent sre);
+
+        /// <summary>
+        /// called before resume
+        /// </summary>
+        /// <param name="sre">event containing request</param>
+        void RequestResumed(ServletRequestEvent sre);
+
+        /// <summary>
+        /// called after completion 
+        /// </summary>
+        /// <param name="sre">event containing request</param>
+        void RequestCompleted(ServletRequestEvent sre);
     }
 }
