@@ -26,15 +26,40 @@ namespace Javax.NServlet
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// Implementations of this interface receive notifications about
+    /// changes to the servlet context of the web application they are
+    /// part of.
+    /// To receive notification events, the implementation class
+    /// must be configured in the deployment descriptor for the web
+    /// application.
+    /// <see cref="ServletContextEvent"/> 
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// TODO: date here
+    /// January 2009
     /// </date>
     public interface IServletContextListener
     {
+
+        /// <summary>
+        /// Notification that the web application initialization
+        /// process is starting.
+        /// All ServletContextListeners are notified of context
+        /// initialization before any filter or servlet in the web
+        /// application is initialized.
+        /// </summary>
+        /// <param name="sce"></param>
+        void ContextInitialized(ServletContextEvent sce);
+
+        /// <summary>
+        /// Notification that the servlet context is about to be shut down.
+        /// All servlets and filters have been destroy()ed before any
+        /// ServletContextListeners are notified of context
+        /// destruction.
+        /// </summary>
+        /// <param name="sce"></param>
+        void contextDestroyed(ServletContextEvent sce);
     }
 }
