@@ -26,15 +26,43 @@ namespace Javax.NServlet
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// A ServletRequestAttributeListener can be implemented by the
+    /// developer interested in being notified of request attribute
+    /// changes. Notifications will be generated while the request
+    /// is within the scope of the web application in which the listener
+    /// is registered. A request is defined as coming into scope when
+    /// it is about to enter the first servlet or filter in each web
+    /// application, as going out of scope when it exits the last servlet
+    /// or the first filter in the chain.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// TODO: date here
+    /// January 2009
     /// </date>
+    /// TODO: in java extends EventListener, make dotnet equivalent
     public interface IServletRequestAttributeListener
     {
+        /// <summary>
+        /// Notification that a new attribute was added to the
+        /// servlet request. Called after the attribute is added.
+        /// </summary>
+        /// <param name="srae"></param>
+        void AttributeAdded(ServletRequestAttributeEvent srae);
+
+        /// <summary>
+        /// Notification that an existing attribute has been removed from the
+        /// servlet request. Called after the attribute is removed.
+        /// </summary>
+        /// <param name="srae"></param>
+        void AttributeRemoved(ServletRequestAttributeEvent srae);
+
+        /// <summary>
+        /// Notification that an attribute was replaced on the
+        /// servlet request. Called after the attribute is replaced.
+        /// </summary>
+        /// <param name="srae"></param>
+        void AttributeReplaced(ServletRequestAttributeEvent srae);
     }
 }
