@@ -6,10 +6,10 @@
     * Port Jetty Utils to C# as NJetty.Util
     * Port Jetty Utils Test to C# as NJetty.Util.Test
   * [ROADMAPxxx0x2 Roadmap for 0.2 Release]
+    * Geronimo Servlet 3.0 Specification Implementation to C# as NJetty.Servlet_3_0.Spec
+  * [ROADMAPxxx0x3 Roadmap for 0.3 Release]
     * Port Jetty Core to C# as NJetty
     * Port Jetty Core Tests to as NJetty.Test
-  * [ROADMAPxxx0x3 Roadmap for 0.3 Release]
-    * tobe decided
 
 Port Jetty from java to C# dotnet, with a goal of running ASP.net and other dotnet related web platforms.
 
