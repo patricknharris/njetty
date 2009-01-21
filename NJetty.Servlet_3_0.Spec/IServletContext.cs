@@ -516,7 +516,7 @@ namespace Javax.NServlet
         /// <param name="initParameters">init parameters for servlet</param>
         /// <param name="loadOnStartup">load startup order</param>
         /// <exception cref="ArgumentException">duplicate servletName</exception>
-        /// <exception cref="IllegalStateException">this method called after #Initialize</exception>
+        /// <exception cref="InvalidOperationException">this method called after #Initialize</exception>
         void AddServlet(string servletName,
                         string description,
                         string className,
@@ -529,7 +529,7 @@ namespace Javax.NServlet
         /// <param name="servletName">name of servlet mapping applies to</param>
         /// <param name="urlPatterns">url patterns for the mapping</param>
         /// <exception cref="ArgumentException">if urlPatterns are null or empty</exception>
-        /// <exception cref="IllegalStateException">if called after #Initialize</exception>
+        /// <exception cref="InvalidOperationException">if called after #Initialize</exception>
         void AddServletMapping(string servletName,
                                string[] urlPatterns);
 
@@ -542,7 +542,7 @@ namespace Javax.NServlet
         /// <param name="className">class name of filter</param>
         /// <param name="initParams">init params for filter</param>
         /// <exception cref="ArgumentException">duplicate filter name</exception>
-        /// <exception cref="IllegalStateException">if called after #Initialize</exception>
+        /// <exception cref="InvalidOperationException">if called after #Initialize</exception>
         void AddFilter(string filterName,
                        string description,
                        string className,
@@ -557,11 +557,11 @@ namespace Javax.NServlet
         /// <param name="dispatcherTypes">dispatcher types for mapping</param>
         /// <param name="isMatchAfter">before or after xml or annotation specified filter mappings</param>
         /// <exception cref="ArgumentException">bad url patterns</exception>
-        /// <exception cref="IllegalStateException">if called after #Initialize</exception>
+        /// <exception cref="InvalidOperationException">if called after #Initialize</exception>
         void AddFilterMapping(string filterName,
                               string[] urlPatterns,
                               string[] servletNames,
                               HashSet<DispatcherType> dispatcherTypes,
-                              bool isMatchAfter); //throws ArgumentException, IllegalStateException;
+                              bool isMatchAfter); //throws ArgumentException, InvalidOperationException;
     }
 }

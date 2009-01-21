@@ -65,7 +65,7 @@ namespace Javax.NServlet
         /// Forward should be called before the response has been 
         /// committed to the client (before response body output has been flushed).  
         /// If the response already has been committed, this method throws
-        /// an IllegalStateException.
+        /// an InvalidOperationException.
         /// Uncommitted output in the response buffer is automatically cleared 
         /// before the forward.
         /// 
