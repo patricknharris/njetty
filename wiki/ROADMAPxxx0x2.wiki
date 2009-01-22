@@ -42,7 +42,8 @@ Port Geronimo Servlet 3.0 Specification Implementation from java to C# as NJetty
     * HttpServlet
     * IHttpServletRequest (*done*)
     * HttpServletRequestWrapper
-    * IHttpServletResponse
+    * HttpServletResponseStatusCode (*done*)
+    * IHttpServletResponse (*done*)
     * HttpServletResponseWrapper
     * IHttpSession
     * IHttpSessionActivationListener
