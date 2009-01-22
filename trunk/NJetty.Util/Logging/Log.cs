@@ -51,16 +51,16 @@ namespace NJetty.Util.Logging
         public static string IGNORED = "IGNORED ";
         public static string IGNORED_FMT = "IGNORED: {0} ";
         public static string NOT_IMPLEMENTED = "NOT IMPLEMENTED ";
-        
+
         static string __logType = ConfigurationManager.AppSettings["NJetty.Log"] ?? "NJetty.Util.Logging.NLogLog";
-        static bool __verbose =  
-            !string.IsNullOrEmpty(ConfigurationManager.AppSettings["VERBOSE"]) 
-            ? "true".Equals(ConfigurationManager.AppSettings["VERBOSE"], StringComparison.OrdinalIgnoreCase) 
+        static bool __verbose =
+            !string.IsNullOrEmpty(ConfigurationManager.AppSettings["VERBOSE"])
+            ? "true".Equals(ConfigurationManager.AppSettings["VERBOSE"], StringComparison.OrdinalIgnoreCase)
             : false;
 
-        static bool __ignored =   
-            !string.IsNullOrEmpty(ConfigurationManager.AppSettings["IGNORED"]) 
-            ? "true".Equals(ConfigurationManager.AppSettings["IGNORED"], StringComparison.OrdinalIgnoreCase) 
+        static bool __ignored =
+            !string.IsNullOrEmpty(ConfigurationManager.AppSettings["IGNORED"])
+            ? "true".Equals(ConfigurationManager.AppSettings["IGNORED"], StringComparison.OrdinalIgnoreCase)
             : false;
 
         static ILogger __log;
@@ -92,20 +92,26 @@ namespace NJetty.Util.Logging
             }
             catch (Exception e)
             {
-                if (__log == null)
-                {
-                    log_type = typeof(StdErrLog);
-
-                    __log = new StdErrLog();
-                    __log.Info("Logging to {0} via {1}", __log, log_type.ToString());
-                    if (__verbose)
-                    {
-                        Console.Error.WriteLine(e.StackTrace);
-                    }
-                }
+                InitStandardLogging(e);
             }
 
             return __log != null;
+        }
+
+        static void InitStandardLogging(Exception e)
+        {
+            Type log_class;
+            if (__log == null)
+            {
+                log_class = typeof(StdErrLog);
+                __log = new StdErrLog();
+                __log.Info("Logging to {0} via {1}", __log, log_class.GetType().Name);
+                if (e != null && __verbose)
+                {
+                    Console.WriteLine(e.StackTrace);
+                }
+                    
+            }
         }
 
 
@@ -116,7 +122,7 @@ namespace NJetty.Util.Logging
         }
 
 
-       
+
 
         // TODO: change comment to fit for NJetty
         /// <summary>
@@ -137,47 +143,47 @@ namespace NJetty.Util.Logging
         /// </summary>
         /// <param name="name">Logger Name</param>
 
-         
+
 
 
         public static void SetLogToParent(string name)
         {
 
-            
+
 
             //ClassLoader loader = Log.class.getClassLoader();
             //if (loader.getParent()!=null)
             //{
-                try
-                {
-                    //TODO: this is not complete
+            try
+            {
+                //TODO: this is not complete
 
 
 
 
-                    //Class<?> uberlog = loader.getParent().loadClass("org.mortbay.log.Log");
-                    //Method getLogger=uberlog.getMethod("getLogger",new Class[]{string.class});
-                    //object logger = getLogger.invoke(null,name);
-                    //setLog(new LoggerLog(logger));
-                    //return;
+                //Class<?> uberlog = loader.getParent().loadClass("org.mortbay.log.Log");
+                //Method getLogger=uberlog.getMethod("getLogger",new Class[]{string.class});
+                //object logger = getLogger.invoke(null,name);
+                //setLog(new LoggerLog(logger));
+                //return;
 
-                    //object logger = null;
-                    // get the logger objecthere by calling TheLog.GetLogger(name)
+                //object logger = null;
+                // get the logger objecthere by calling TheLog.GetLogger(name)
 
-                    Log.Logger = new LoggerLog(Logger);
-                    return;
-                    
+                Log.Logger = new LoggerLog(Logger);
+                return;
 
-                }
-                catch (Exception e)
-                {
-                    Console.Error.WriteLine(e.StackTrace);
-                }     
+
+            }
+            catch (Exception e)
+            {
+                Console.Error.WriteLine(e.StackTrace);
+            }
             //}
 
             Logger = GetLogger(name);
 
-            
+
         }
 
         public static void Debug(Exception exception)
@@ -199,8 +205,8 @@ namespace NJetty.Util.Logging
         }
 
 
-        
-         
+
+
         /// <summary>
         /// Ignore an exception unless trace is enabled.
         /// This works around the problem that log4j does not support the trace level.
@@ -268,7 +274,7 @@ namespace NJetty.Util.Logging
             Unwind(exception);
         }
 
-        
+
         /// <summary>
         /// Obtain a named Logger.
         /// Obtain a named Logger or the default Logger if null is passed.
@@ -307,11 +313,11 @@ namespace NJetty.Util.Logging
                     {
                         Warn("Nested in " + exception + ":", ex);
                     }
-                    
+
                 }
-                catch{ }
+                catch { }
             }
-            
+
         }
     }
 }
