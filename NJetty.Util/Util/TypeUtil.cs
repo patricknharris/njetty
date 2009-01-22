@@ -46,7 +46,7 @@ namespace NJetty.Util.Util
         static TypeUtil()
         {
             name2Class.Add("bool", typeof(bool));
-            name2Class.Add("bool", typeof(bool));
+            name2Class.Add("boolean", typeof(bool));
             name2Class.Add("byte", typeof(byte));
             name2Class.Add("char", typeof(char));
             name2Class.Add("double", typeof(double));
