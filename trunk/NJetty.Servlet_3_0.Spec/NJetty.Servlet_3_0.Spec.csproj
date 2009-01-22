@@ -61,6 +61,7 @@
     <Compile Include="Http\HttpServlet.cs" />
     <Compile Include="Http\HttpServletRequestConstants.cs" />
     <Compile Include="Http\HttpServletRequestWrapper.cs" />
+    <Compile Include="Http\HttpServletResponseStatusCode.cs" />
     <Compile Include="Http\HttpServletResponseWrapper.cs" />
     <Compile Include="Http\HttpSessionBindingEvent.cs" />
     <Compile Include="Http\HttpSessionEvent.cs" />
