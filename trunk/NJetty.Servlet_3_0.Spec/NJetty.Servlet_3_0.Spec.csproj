@@ -59,6 +59,7 @@
     <Compile Include="Http\Annotation\ServletFilter.cs" />
     <Compile Include="Http\Cookie.cs" />
     <Compile Include="Http\HttpServlet.cs" />
+    <Compile Include="Http\HttpServletRequestConstants.cs" />
     <Compile Include="Http\HttpServletRequestWrapper.cs" />
     <Compile Include="Http\HttpServletResponseWrapper.cs" />
     <Compile Include="Http\HttpSessionBindingEvent.cs" />
