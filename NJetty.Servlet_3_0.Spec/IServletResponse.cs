@@ -79,7 +79,7 @@ namespace Javax.NServlet
         /// called or after the response has been committed have no
         /// effect on the character encoding. If no character encoding
         /// has been specified, ISO-8859-1 is returned.
-        /// <p>See RFC 2047 (http://www.ietf.org/rfc/rfc2047.txt)
+        /// See RFC 2047 (http://www.ietf.org/rfc/rfc2047.txt)
         /// for more information about character encoding and MIME.
         /// 
         /// returns	a string specifying the
@@ -104,7 +104,7 @@ namespace Javax.NServlet
         /// This method has no effect if it is called after
         /// <code>get Writer property</code> has been
         /// called or after the response has been committed.
-        /// <p>Containers must communicate the character encoding used for
+        /// Containers must communicate the character encoding used for
         /// the servlet response's writer to the client if the protocol
         /// provides a way for doing so. In the case of HTTP, the character
         /// encoding is communicated as part of the <code>Content-Type</code>
