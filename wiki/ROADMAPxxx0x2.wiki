@@ -10,11 +10,15 @@ Port Geronimo Servlet 3.0 Specification Implementation from java to C# as NJetty
 ----
 ==Port Geronimo-Servlet-3.0-Spec to C# as NJetty.Servlet_3_0.Spec==
  * *Javax.NServlet*
+    * AsyncEvent (*done*)
     * DispatcherType (*done*)
+    * FilterRegistration (*done*)
     * IFilter (*done*)
     * IFilterChain (*done*)
     * IFilterConfig (*done*)
     * GenericServlet
+    * IAsyncContext (*done*)
+    * IAsyncListener (*done*)
     * IRequestDispatcher (*done*)
     * IServlet (*done*)
     * IServletConfig (*done*)
@@ -26,6 +30,7 @@ Port Geronimo Servlet 3.0 Specification Implementation from java to C# as NJetty
     * ServletException
     * ServletInputStream
     * ServletOutputStream
+    * ServletRegistration (*done*)
     * IServletRequest (*done*)
     * ServletRequestAttributeEvent
     * IServletRequestAttributeListener (*done*)
@@ -35,6 +40,7 @@ Port Geronimo Servlet 3.0 Specification Implementation from java to C# as NJetty
     * IServletResponse (*done*)
     * ServletResponseWrapper
     * SessionCookieConfig
+    * SessionTrackingMode (*done*)
     * ISingleThreadModel (*done*)
     * UnavailableException
  * *Javax.NServlet.Http*

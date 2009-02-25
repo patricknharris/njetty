@@ -21,26 +21,49 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 
 namespace Javax.NServlet
 {
+
     /// <summary>
-    /// DispatcherType
+    /// TODO: Class/Interface Information here
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// January 2009
+    /// February 2009
     /// </date>
-
-    
-    public enum DispatcherType
+    public interface IAsyncContext
     {
-        ERROR,
-        FORWARD,
-        INCLUDE,
-        REQUEST,
-        ASYNC
+        //string ASYNC_CONTEXT_PATH = "javax.servlet.async.context_path";
+        //string ASYNC_PATH_INFO = "javax.servlet.async.path_info";
+        //string ASYNC_QUERY_STRING = "javax.servlet.async.query_string";
+        //string ASYNC_REQUEST_URI = "javax.servlet.async.request_uri";
+        //string ASYNC_SERVLET_PATH = "javax.servlet.async.servlet_path";
+
+        void Complete();
+
+        void Dispatch();
+
+        void Dispatch(IServletContext servletContext, string path);
+
+        IServletRequest Request
+        {
+            get;
+        }
+
+        IServletResponse Response
+        {
+            get;
+        }
+
+        bool HasOriginalRequestAndResonse
+        {
+            get;
+        }
+
+        void Start(ThreadStart run);
     }
 }

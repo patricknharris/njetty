@@ -45,7 +45,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AsyncEvent.cs" />
     <Compile Include="DispatcherType.cs" />
+    <Compile Include="FilterRegistration.cs" />
     <Compile Include="GenericServlet.cs" />
     <Compile Include="Http\Annotation\FilterMapping.cs" />
     <Compile Include="Http\Annotation\InitParam.cs" />
@@ -77,6 +79,8 @@
     <Compile Include="Http\NoBodyOutputStream.cs" />
     <Compile Include="Http\NoBodyResponse.cs" />
     <Compile Include="Http\ServletContextListener.cs" />
+    <Compile Include="IAsyncContext.cs" />
+    <Compile Include="IAsyncListener.cs" />
     <Compile Include="IFilter.cs" />
     <Compile Include="IFilterChain.cs" />
     <Compile Include="IFilterConfig.cs" />
@@ -97,11 +101,13 @@
     <Compile Include="ServletException.cs" />
     <Compile Include="ServletInputStream.cs" />
     <Compile Include="ServletOutputStream.cs" />
+    <Compile Include="ServletRegistration.cs" />
     <Compile Include="ServletRequestAttributeEvent.cs" />
     <Compile Include="ServletRequestEvent.cs" />
     <Compile Include="ServletRequestWrapper.cs" />
     <Compile Include="ServletResponseWrapper.cs" />
     <Compile Include="SessionCookieConfig.cs" />
+    <Compile Include="SessionTrackingMode.cs" />
     <Compile Include="UnavailableException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

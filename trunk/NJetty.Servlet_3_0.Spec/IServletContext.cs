@@ -129,7 +129,7 @@ namespace Javax.NServlet
         /// <returns>a string specifying the file's MIME type</returns>
         string GetMimeType(string file);
 
-        
+
         /// <summary>
         /// Returns a directory-like listing of all the paths to resources within the web application whose longest sub-path
         /// matches the supplied path argument. Paths indicating subdirectory paths end with a '/'. The returned paths are all 
@@ -523,45 +523,73 @@ namespace Javax.NServlet
                         Dictionary<string, string> initParameters,
                         int loadOnStartup);
 
+
         /// <summary>
-        /// Add the specified servlet mappings
+        /// Fish out the servlet registration for a named servlet
         /// </summary>
-        /// <param name="servletName">name of servlet mapping applies to</param>
-        /// <param name="urlPatterns">url patterns for the mapping</param>
-        /// <exception cref="ArgumentException">if urlPatterns are null or empty</exception>
-        /// <exception cref="InvalidOperationException">if called after #Initialize</exception>
-        void AddServletMapping(string servletName,
-                               string[] urlPatterns);
+        /// <param name="servletName">name of the servlet you want to configure</param>
+        /// <returns>ServletRegistration for servlet you want</returns>
+        ServletRegistration FindServletRegistration(string servletName);
 
 
         /// <summary>
         /// Add a filter to this context
+        /// 
         /// </summary>
         /// <param name="filterName">name of filter</param>
-        /// <param name="description">description of filter</param>
         /// <param name="className">class name of filter</param>
-        /// <param name="initParams">init params for filter</param>
+        /// <returns>FilterRegistration allowing configuration of filter</returns>
         /// <exception cref="ArgumentException">duplicate filter name</exception>
-        /// <exception cref="InvalidOperationException">if called after #Initialize</exception>
-        void AddFilter(string filterName,
-                       string description,
-                       string className,
-                       Dictionary<string, string> initParams);
+        /// <exception cref="InvalidOperationException">if called after #initialise</exception>
+        FilterRegistration AddFilter(string filterName,
+                       string className);
+
 
         /// <summary>
-        /// Add a filter mapping to this context
+        /// 
         /// </summary>
-        /// <param name="filterName">name of filter mapping applies to</param>
-        /// <param name="urlPatterns">url patterns for mapping</param>
-        /// <param name="servletNames">servlet names for mapping</param>
-        /// <param name="dispatcherTypes">dispatcher types for mapping</param>
-        /// <param name="isMatchAfter">before or after xml or annotation specified filter mappings</param>
-        /// <exception cref="ArgumentException">bad url patterns</exception>
-        /// <exception cref="InvalidOperationException">if called after #Initialize</exception>
-        void AddFilterMapping(string filterName,
-                              string[] urlPatterns,
-                              string[] servletNames,
-                              HashSet<DispatcherType> dispatcherTypes,
-                              bool isMatchAfter); //throws ArgumentException, InvalidOperationException;
+        /// <param name="filterName">Name of filter you want to configure</param>
+        /// <returns>FilterRegistration allowing configuration of filter</returns>
+        FilterRegistration FindFilterRegistration(string filterName);
+
+
+        /// <summary>
+        /// gets configuration of session cookie
+        /// sets the sessionCookieConfig configuration of session cookie
+        /// </summary>
+        SessionCookieConfig SessionCookieConfig
+        {
+            get;
+            set;
+        }
+
+
+
+
+        /// <summary>
+        /// sests, sessionTrackingModes set of SessionTrackingModes for this web app
+        /// </summary>
+        HashSet<SessionTrackingMode> SessionTrackingModes
+        {
+            set;
+        }
+
+
+        /// <summary>
+        /// gets the default session tracking modes
+        /// </summary>
+        HashSet<SessionTrackingMode> DefaultSessionTrackingModes
+        {
+            get;
+        }
+
+
+        /// <summary>
+        /// gets the actual session tracking modes.  These will be the default ones unless they've been explicitly set.
+        /// </summary>
+        HashSet<SessionTrackingMode> EffectiveSessionTrackingModes
+        {
+            get;
+        }
     }
 }

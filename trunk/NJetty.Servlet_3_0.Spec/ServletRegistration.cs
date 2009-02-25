@@ -24,23 +24,50 @@ using System.Text;
 
 namespace Javax.NServlet
 {
+
     /// <summary>
-    /// DispatcherType
+    /// TODO: Class/Interface Information here
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// January 2009
+    /// Febraury 2009
     /// </date>
-
-    
-    public enum DispatcherType
+    public abstract class ServletRegistration
     {
-        ERROR,
-        FORWARD,
-        INCLUDE,
-        REQUEST,
-        ASYNC
+        protected string description;
+        protected bool isAsyncSupported;
+        protected int loadOnStartup;
+
+        public string Description
+        {
+            set
+            {
+                this.description = value;
+            }
+        }
+
+        public bool AsyncSupported
+        {
+            set
+            {
+                isAsyncSupported = value;
+            }
+        }
+
+        public int LoadOnStartup
+        {
+            set
+            {
+                this.loadOnStartup = value;
+            }
+        }
+
+        public abstract void AddMapping(params string[] urlPatterns);
+
+        public abstract void SetInitParameter(string name, string value);
+
+        public abstract void SetInitParameters(Dictionary<string, string> initParameters);
     }
 }

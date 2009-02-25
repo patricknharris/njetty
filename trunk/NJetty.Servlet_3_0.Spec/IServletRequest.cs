@@ -99,6 +99,7 @@ namespace Javax.NServlet
         string CharacterEncoding
         {
             get;
+            set;
         }
 
         /// <summary>
@@ -521,68 +522,102 @@ namespace Javax.NServlet
             get;
         }
 
+        void AddAsyncListener(IAsyncListener listener);
 
-        /// <summary>
-        /// complete a suspended request.
-        /// </summary>
-        /// <exception cref="ArgumentException"></exception>
-        void Complete();
+        void AddAsyncListener(IAsyncListener listener, IServletRequest request, IServletResponse response);
 
-        /// <summary>
-        /// Suspend request processing.  Must be called by a thread that is processing this request. 
-        /// </summary>
-        /// <param name="timeoutMilliseconds">new timeout period, in milliseconds</param>
-        /// <exception cref="ArgumentException">if called by a thread not processing this request or after error dispatch</exception>
-        /// <see cref="#Complete"/>
-        /// <see cref="#Resume"/>
-        void Suspend(long timeoutMilliseconds);
+        IAsyncContext AsyncContext
+        {
+            get;
+        }
 
+        bool IsAsyncStarted
+        {
+            get;
+        }
 
-        /// <summary>
-        /// Similar to suspend(timeoutMilliseconds) but with a container supplied timeout period.    
-        /// </summary>
-        /// <exception cref="ArgumentException"></exception>
-        void Suspend();
+        bool IsAsyncSupported
+        {
+            get;
+        }
 
+        long AsyncTimeout
+        {
+            set;
+        }
 
-        /// <summary>
-        /// Resume a suspended request  
-        /// </summary>
-        /// <exception cref="ArgumentException">if the request is not suspended</exception>
-        void Resume();
+        IAsyncContext StartAsync();
 
+        IAsyncContext StartAsync(IServletRequest request, IServletResponse response);
 
-        /// <summary>
-        /// returns true if the request is suspended
-        /// </summary>
-        bool isSuspended
+        DispatcherType DispatcherType
         {
             get;
         }
 
 
-        /// <summary>
-        /// returns true if the request is resumed
-        /// </summary>
-        bool IsResumed
-        {
-            get;
-        }
 
-        /// <summary>
-        /// returns true if the request is timed out
-        /// </summary>
-        bool IsTimeout
-        {
-            get;
-        }
+        ///// <summary>
+        ///// complete a suspended request.
+        ///// </summary>
+        ///// <exception cref="ArgumentException"></exception>
+        //void Complete();
 
-        /// <summary>
-        /// returns true if the request has never been suspended (or resumed)
-        /// </summary>
-        bool IsInitial
-        {
-            get;
-        }
+        ///// <summary>
+        ///// Suspend request processing.  Must be called by a thread that is processing this request. 
+        ///// </summary>
+        ///// <param name="timeoutMilliseconds">new timeout period, in milliseconds</param>
+        ///// <exception cref="ArgumentException">if called by a thread not processing this request or after error dispatch</exception>
+        ///// <see cref="#Complete"/>
+        ///// <see cref="#Resume"/>
+        //void Suspend(long timeoutMilliseconds);
+
+
+        ///// <summary>
+        ///// Similar to suspend(timeoutMilliseconds) but with a container supplied timeout period.    
+        ///// </summary>
+        ///// <exception cref="ArgumentException"></exception>
+        //void Suspend();
+
+
+        ///// <summary>
+        ///// Resume a suspended request  
+        ///// </summary>
+        ///// <exception cref="ArgumentException">if the request is not suspended</exception>
+        //void Resume();
+
+
+        ///// <summary>
+        ///// returns true if the request is suspended
+        ///// </summary>
+        //bool isSuspended
+        //{
+        //    get;
+        //}
+
+
+        ///// <summary>
+        ///// returns true if the request is resumed
+        ///// </summary>
+        //bool IsResumed
+        //{
+        //    get;
+        //}
+
+        ///// <summary>
+        ///// returns true if the request is timed out
+        ///// </summary>
+        //bool IsTimeout
+        //{
+        //    get;
+        //}
+
+        ///// <summary>
+        ///// returns true if the request has never been suspended (or resumed)
+        ///// </summary>
+        //bool IsInitial
+        //{
+        //    get;
+        //}
     }
 }
