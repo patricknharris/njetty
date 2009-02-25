@@ -24,23 +24,20 @@ using System.Text;
 
 namespace Javax.NServlet
 {
+
     /// <summary>
-    /// DispatcherType
+    /// TODO: Class/Interface Information here
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// January 2009
+    /// February 2009
     /// </date>
-
-    
-    public enum DispatcherType
+    public interface IAsyncListener // extends EventListener
     {
-        ERROR,
-        FORWARD,
-        INCLUDE,
-        REQUEST,
-        ASYNC
+         void OnComplete(AsyncEvent evnt);
+
+         void OnTimeout(AsyncEvent evnt);
     }
 }

@@ -24,23 +24,40 @@ using System.Text;
 
 namespace Javax.NServlet
 {
+
     /// <summary>
-    /// DispatcherType
+    /// TODO: Class/Interface Information here
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// January 2009
+    /// February 2009
     /// </date>
-
-    
-    public enum DispatcherType
+    public class AsyncEvent
     {
-        ERROR,
-        FORWARD,
-        INCLUDE,
-        REQUEST,
-        ASYNC
+        readonly IServletRequest request;
+        readonly IServletResponse response;
+
+        public AsyncEvent(IServletRequest request, IServletResponse response) {
+            this.request = request;
+            this.response = response;
+        }
+
+        public IServletRequest Request
+        {
+            get
+            {
+                return request;
+            }
+        }
+
+        public IServletResponse Response 
+        {
+            get
+            {
+                return response;
+            }
+        }
     }
 }
