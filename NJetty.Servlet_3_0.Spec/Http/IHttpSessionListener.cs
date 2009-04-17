@@ -26,15 +26,30 @@ namespace Javax.NServlet.Http
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// Implementations of this interface are notified of changes to the 
+    /// list of active sessions in a web application.
+    /// To receive notification events, the implementation class
+    /// must be configured in the deployment descriptor for the web application.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// TODO: date here
+    /// April 17, 2009
     /// </date>
-    public interface IHttpSessionListener
+    public interface IHttpSessionListener // TODO: in java extends java.util.EventListener
     {
+        /// <summary>
+        /// Notification that a session was created. 
+        /// </summary>
+        /// <param name="se">the notification event</param>
+        void SessionCreated(HttpSessionEvent se);
+
+        /// <summary>
+        /// Notification that a session is about to be invalidated.
+        /// </summary>
+        /// <param name="se">the notification event</param>
+        void SessionDestroyed(HttpSessionEvent se);
+
     }
 }
