@@ -16,18 +16,18 @@ Port Geronimo Servlet 3.0 Specification Implementation from java to C# as NJetty
     * IFilter (*done*)
     * IFilterChain (*done*)
     * IFilterConfig (*done*)
-    * GenericServlet
+    * GenericServlet (*done*)
     * IAsyncContext (*done*)
     * IAsyncListener (*done*)
     * IRequestDispatcher (*done*)
     * IServlet (*done*)
     * IServletConfig (*done*)
     * IServletContext (*done*)
-    * ServletContextAttributeEvent
+    * ServletContextAttributeEvent (*done*)
     * IServletContextAttributeListener (*done*)
-    * ServletContextEvent
+    * ServletContextEvent (*done*)
     * IServletContextListener (*done*)
-    * ServletException
+    * ServletException (*done*)
     * ServletInputStream
     * ServletOutputStream
     * ServletRegistration (*done*)
