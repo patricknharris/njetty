@@ -541,7 +541,7 @@ namespace Javax.NServlet
         /// <returns>FilterRegistration allowing configuration of filter</returns>
         /// <exception cref="ArgumentException">duplicate filter name</exception>
         /// <exception cref="InvalidOperationException">if called after #initialise</exception>
-        FilterRegistration AddFilter(string filterName,
+        IFilterRegistration AddFilter(string filterName,
                        string className);
 
 
@@ -550,7 +550,7 @@ namespace Javax.NServlet
         /// </summary>
         /// <param name="filterName">Name of filter you want to configure</param>
         /// <returns>FilterRegistration allowing configuration of filter</returns>
-        FilterRegistration FindFilterRegistration(string filterName);
+        IFilterRegistration FindFilterRegistration(string filterName);
 
 
         /// <summary>

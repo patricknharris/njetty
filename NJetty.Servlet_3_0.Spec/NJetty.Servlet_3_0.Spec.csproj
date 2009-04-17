@@ -47,7 +47,7 @@
   <ItemGroup>
     <Compile Include="AsyncEvent.cs" />
     <Compile Include="DispatcherType.cs" />
-    <Compile Include="FilterRegistration.cs" />
+    <Compile Include="IFilterRegistration.cs" />
     <Compile Include="GenericServlet.cs" />
     <Compile Include="Http\Annotation\FilterMapping.cs" />
     <Compile Include="Http\Annotation\InitParam.cs" />
