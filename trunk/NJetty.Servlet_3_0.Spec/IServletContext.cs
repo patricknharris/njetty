@@ -529,7 +529,7 @@ namespace Javax.NServlet
         /// </summary>
         /// <param name="servletName">name of the servlet you want to configure</param>
         /// <returns>ServletRegistration for servlet you want</returns>
-        ServletRegistration FindServletRegistration(string servletName);
+        IServletRegistration FindServletRegistration(string servletName);
 
 
         /// <summary>
