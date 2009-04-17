@@ -99,9 +99,7 @@ namespace Javax.NServlet
         }
 
         /// <summary>
-        /// Returns the exception that caused this servlet exception.
-        /// 
-        /// Returns the Exception that caused this servlet exception
+        /// Gets the exception that caused this servlet exception.
         /// </summary>
         public Exception RootCause
         {
