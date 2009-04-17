@@ -101,7 +101,7 @@
     <Compile Include="ServletException.cs" />
     <Compile Include="ServletInputStream.cs" />
     <Compile Include="ServletOutputStream.cs" />
-    <Compile Include="ServletRegistration.cs" />
+    <Compile Include="IServletRegistration.cs" />
     <Compile Include="ServletRequestAttributeEvent.cs" />
     <Compile Include="ServletRequestEvent.cs" />
     <Compile Include="ServletRequestWrapper.cs" />
