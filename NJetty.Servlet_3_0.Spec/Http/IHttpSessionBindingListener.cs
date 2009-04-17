@@ -26,15 +26,35 @@ namespace Javax.NServlet.Http
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// Causes an object to be notified when it is bound to
+    /// or unbound from a session. The object is notified
+    /// by an {@link HttpSessionBindingEvent} object. This may be as a result
+    /// of a servlet programmer explicitly unbinding an attribute from a session,
+    /// due to a session being invalidated, or due to a session timing out.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// TODO: date here
+    /// April 17, 2009
     /// </date>
-    public interface IHttpSessionBindingListener
+    public interface IHttpSessionBindingListener // TODO: in java extends java.util.EventListener
     {
+        /// <summary>
+        /// Notifies the object that it is being bound to
+        /// a session and identifies the session. 
+        /// </summary>
+        /// <param name="evnt">the event that identifies the session </param>
+        /// <see cref="#ValueUnbound"/>
+        void ValueBound(HttpSessionBindingEvent evnt);
+
+
+        /// <summary>
+        /// Notifies the object that it is being unbound
+        /// from a session and identifies the session.
+        /// </summary>
+        /// <param name="evnt">the event that identifies the session</param>
+        /// <see cref="#ValueBound"/>
+        void ValueUnbound(HttpSessionBindingEvent evnt);
     }
 }
