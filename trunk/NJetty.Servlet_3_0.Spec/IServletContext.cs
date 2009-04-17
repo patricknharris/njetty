@@ -591,5 +591,13 @@ namespace Javax.NServlet
         {
             get;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name">name of the init parameter to set</param>
+        /// <param name="value">value new value</param>
+        /// <returns></returns>
+        bool SetInitParameter(string name, string value);
     }
 }
