@@ -26,15 +26,86 @@ namespace Javax.NServlet
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// Defines a general exception a servlet can throw when it
+    /// encounters difficulty.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// TODO: date here
+    /// April 17, 2009
     /// </date>
-    public class ServletException
+    public class ServletException : Exception
     {
+        
+        /// <summary>
+        /// Constructs a new servlet exception.
+        /// </summary>
+        public ServletException() : base()
+        {
+        }
+
+        /// <summary>
+        /// Constructs a new servlet exception with the
+        /// specified message. The message can be written 
+        /// to the server log and/or displayed for the user. 
+        /// </summary>
+        /// <param name="message">a string specifying the text of the exception message</param>
+        public ServletException(string message) : base(message)
+        {
+            
+        }
+
+        /// <summary>
+        /// Constructs a new servlet exception when the servlet 
+        /// needs to throw an exception and include a message 
+        /// about the "root cause" exception that interfered with its 
+        /// normal operation, including a description message.
+        /// </summary>
+        /// <param name="message">a string containing the text of the exception message</param>
+        /// <param name="rootCause">
+        ///     the Exception
+        ///     that interfered with the servlet's
+        ///     normal operation, making this servlet
+        ///     exception necessary
+        /// </param>
+        public ServletException(string message, Exception rootCause) : base(message, rootCause)
+        {   
+        }
+
+        /// <summary>
+        /// Constructs a new servlet exception when the servlet 
+        /// needs to throw an exception and include a message
+        /// about the "root cause" exception that interfered with its
+        /// normal operation.  The exception's message is based on the localized
+        /// message of the underlying exception.
+        /// 
+        /// This method calls the <code>getLocalizedMessage</code> method
+        /// on the <code>Throwable</code> exception to get a localized exception
+        /// message. When subclassing <code>ServletException</code>, 
+        /// this method can be overridden to create an exception message 
+        /// designed for a specific locale.
+        /// </summary>
+        /// <param name="rootCause">
+        ///     the <code>Throwable</code> exception
+        ///     that interfered with the servlet's
+        ///     normal operation, making the servlet exception
+        ///     necessary
+        /// </param>
+        public ServletException(Exception rootCause)
+            : base(rootCause.Message,rootCause)
+        {
+            
+        }
+
+        /// <summary>
+        /// Returns the exception that caused this servlet exception.
+        /// 
+        /// Returns the Exception that caused this servlet exception
+        /// </summary>
+        public Exception RootCause
+        {
+            get { return InnerException; }
+        }
     }
 }
