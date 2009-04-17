@@ -26,15 +26,30 @@ namespace Javax.NServlet.Http
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// Objects that are bound to a session may listen to container
+    /// events notifying them that sessions will be passivated and that
+    /// session will be activated. A container that migrates session between VMs
+    /// or persists sessions is required to notify all attributes bound to sessions
+    /// implementing IHttpSessionActivationListener.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// TODO: date here
+    /// April 17, 2009
     /// </date>
-    public interface IHttpSessionActivationListener
+    public interface IHttpSessionActivationListener // TODO: in java extends java.util.EventListener
     {
+        /// <summary>
+        /// Notification that the session is about to be passivated.
+        /// </summary>
+        /// <param name="se"></param>
+        void SessionWillPassivate(HttpSessionEvent se);
+
+        /// <summary>
+        /// Notification that the session has just been activated.
+        /// </summary>
+        /// <param name="se"></param>
+        void SessionDidActivate(HttpSessionEvent se);
     }
 }
