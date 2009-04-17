@@ -26,15 +26,41 @@ namespace Javax.NServlet
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// This is the event class for notifications about changes to
+    /// the servlet context of a web application.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// TODO: date here
+    /// April 17, 2009
     /// </date>
-    public class ServletContextEvent
+    public class ServletContextEvent // TODO: in java extends java.util.EventObject
     {
+        /// <summary>
+        /// Construct a ServletContextEvent from the given context.
+        /// </summary>
+        /// <param name="source">the ServletContext that is sending the event.</param>
+        IServletContext source;
+        public ServletContextEvent(IServletContext source)
+        {
+            //TODO in java: super(source); modified below
+            this.source = source;
+        }
+
+        /// <summary>
+        /// Gets the ServletContext that changed.
+        /// 
+        /// returns the ServletContext that sent the event
+        /// </summary>
+        public IServletContext ServletContext
+        {
+            get
+            {
+                // TODO: in java : return (ServletContext)super.getSource(); modified below
+                return source;
+            }
+        }
+
     }
 }

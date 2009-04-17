@@ -26,15 +26,51 @@ namespace Javax.NServlet
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// This is the event class for notifications about changes to the attributes of the
+    /// servlet context of a web application.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// TODO: date here
+    /// April 17, 2009
     /// </date>
-    public class ServletContextAttributeEvent
+    public class ServletContextAttributeEvent : ServletContextEvent
     {
+        string name;
+        object value;
+
+        /// <summary>
+        /// Construct a ServletContextAttributeEvent from the given context for the
+        /// given attribute name and attribute value. 
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="name"></param>
+        /// <param name="value"></param>
+        public ServletContextAttributeEvent(IServletContext source, string name, object value) : base(source)
+        {
+            this.name = name;
+            this.value = value;
+        }
+
+        /// <summary>
+        /// Gets the name of the attribute that changed on the ServletContext.
+        /// </summary>
+        public string Name
+        {
+            get { return this.name; }
+        }
+
+        
+        /// <summary>
+        /// Returns the value of the attribute that has been added, removed, or replaced.
+        /// If the attribute was added, this is the value of the attribute. If the attribute was
+        /// removed, this is the value of the removed attribute. If the attribute was replaced, this
+        /// is the old value of the attribute.
+        /// </summary>
+        public object Value
+        {
+            get { return this.value; }
+        }
     }
 }
