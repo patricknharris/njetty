@@ -21,20 +21,68 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.IO;
 
 namespace Javax.NServlet
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// Provides an input stream for reading binary data from a client
+    /// request, including an efficient <code>readLine</code> method
+    /// for reading data one line at a time. With some protocols, such
+    /// as HTTP POST and PUT, a <code>ServletInputStream</code>
+    /// object can be used to read data sent from the client.
+    ///
+    /// <p>A <code>ServletInputStream</code> object is normally retrieved via
+    /// the {@link ServletRequest#getInputStream} method.
+    ///
+    ///
+    /// <p>This is an abstract class that a servlet container implements.
+    /// Subclasses of this class
+    /// must implement the System.IO.TextReader.Read() method.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// TODO: date here
+    /// April 19, 2009
     /// </date>
-    public class ServletInputStream
+    public class ServletInputStream : TextReader
     {
+
+        /// <summary>
+        /// Reads the input stream, one line at a time. Starting at an
+        /// offset, reads bytes into an array, until it reads a certain number
+        /// of bytes or reaches a newline character, which it reads into the
+        /// array as well.
+        ///
+        /// This method returns -1 if it reaches the end of the input
+        /// stream before reading the maximum number of bytes.
+        /// </summary>
+        /// <param name="b">an array of bytes into which data is read</param>
+        /// <param name="off">an integer specifying the character at which this method begins reading</param>
+        /// <param name="len">an integer specifying the maximum number of bytes to read</param>
+        /// <returns>an integer specifying the actual number of bytes read, or -1 if the end of the stream is reached</returns>
+        /// <exception cref="System.IO.IOException">if an input or output exception has occurred</exception>
+        public int ReadLine(byte[] b, int off, int len)
+        {
+            if (len <= 0)
+            {
+                return 0;
+            }
+            int count = 0, c;
+
+            while ((c = Read()) != -1)
+            {
+                b[off++] = (byte)c;
+                count++;
+                if (c == '\n' || count == len)
+                {
+                    break;
+                }
+            }
+            return count > 0 ? count : -1;
+        }
+
     }
 }
