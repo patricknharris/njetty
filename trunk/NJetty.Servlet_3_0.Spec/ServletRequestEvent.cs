@@ -26,15 +26,48 @@ namespace Javax.NServlet
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// Events of this kind indicate lifecycle
+    /// events for a ServletRequest.
+    /// The source of the event
+    /// is the ServletContext of this web application.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// TODO: date here
+    /// April 21, 2009
     /// </date>
-    public class ServletRequestEvent
+    public class ServletRequestEvent //TODO: in java: extends java.util.EventObject
     {
+        IServletRequest request;
+        IServletContext sc;
+
+        /// <summary>
+        /// Construct a ServletRequestEvent for the given ServletContext
+        /// and ServletRequest.
+        /// </summary>
+        /// <param name="sc">the ServletContext of the web application.</param>
+        /// <param name="request">the ServletRequest that is sending the event.</param>
+        public ServletRequestEvent(IServletContext sc, IServletRequest request)
+        {
+            this.sc = sc;
+            this.request = request;
+        }
+
+        /// <summary>
+        /// Gets the ServletRequest that is changing.
+        /// </summary>
+        public IServletRequest ServletRequest
+        {
+            get { return this.request; }
+        }
+
+        /// <summary>
+        /// Gets the ServletContext of this web application.
+        /// </summary>
+        public IServletContext ServletContext
+        {
+            get { return (IServletContext)sc; }
+        }
     }
 }
