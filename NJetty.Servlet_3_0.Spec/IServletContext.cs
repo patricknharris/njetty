@@ -557,7 +557,7 @@ namespace Javax.NServlet
         /// gets configuration of session cookie
         /// sets the sessionCookieConfig configuration of session cookie
         /// </summary>
-        SessionCookieConfig SessionCookieConfig
+        ISessionCookieConfig SessionCookieConfig
         {
             get;
             set;
