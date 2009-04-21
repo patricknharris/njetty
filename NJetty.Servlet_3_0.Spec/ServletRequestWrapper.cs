@@ -64,7 +64,7 @@ namespace Javax.NServlet
             get { return this.request; }
             set 
             {
-                if (request == null)
+                if (value == null)
                 {
                     throw new ArgumentException("Request cannot be null");
                 }
