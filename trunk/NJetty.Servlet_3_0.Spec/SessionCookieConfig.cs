@@ -34,7 +34,31 @@ namespace Javax.NServlet
     /// <date>
     /// TODO: date here
     /// </date>
-    public class SessionCookieConfig
+    public interface ISessionCookieConfig
     {
+        string Domain
+        {
+            get;
+        }
+
+        string Path
+        {
+            get;
+        }
+
+        string Comment
+        {
+            get;
+        }
+
+        bool IsHttpOnly
+        {
+            get;
+        }
+
+        bool IsSecure
+        {
+            get;
+        }
     }
 }
