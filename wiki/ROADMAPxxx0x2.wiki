@@ -38,8 +38,8 @@ Port Geronimo Servlet 3.0 Specification Implementation from java to C# as NJetty
     * IServletRequestListener (*done*)
     * ServletRequestWrapper (*done*)
     * IServletResponse (*done*)
-    * ServletResponseWrapper
-    * SessionCookieConfig
+    * ServletResponseWrapper (*done*)
+    * ISessionCookieConfig (*done*)
     * SessionTrackingMode (*done*)
     * ISingleThreadModel (*done*)
     * UnavailableException
