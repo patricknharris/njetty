@@ -106,7 +106,7 @@
     <Compile Include="ServletRequestEvent.cs" />
     <Compile Include="ServletRequestWrapper.cs" />
     <Compile Include="ServletResponseWrapper.cs" />
-    <Compile Include="SessionCookieConfig.cs" />
+    <Compile Include="ISessionCookieConfig.cs" />
     <Compile Include="SessionTrackingMode.cs" />
     <Compile Include="UnavailableException.cs" />
   </ItemGroup>
