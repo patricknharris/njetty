@@ -26,15 +26,59 @@ namespace Javax.NServlet
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// This is the event class for notifications of changes to the 
+    /// attributes of the servlet request in an application.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// TODO: date here
+    /// April 21, 2009
     /// </date>
-    public class ServletRequestAttributeEvent
+    public class ServletRequestAttributeEvent : ServletRequestEvent
     {
+        private string name;
+        private object value;
+
+        /// <summary>
+        /// Construct a ServletRequestAttributeEvent giving the servlet context
+        /// of this web application, the ServletRequest whose attributes are
+        /// changing and the name and value of the attribute.
+        /// </summary>
+        /// <param name="sc">the ServletContext that is sending the event.</param>
+        /// <param name="request">the ServletRequest that is sending the event.</param>
+        /// <param name="name">the name of the request attribute.</param>
+        /// <param name="value">the value of the request attribute.</param>
+        public ServletRequestAttributeEvent(IServletContext sc, IServletRequest request, string name, object value)
+            : base(sc, request)
+        {
+            this.name = name;
+            this.value = value;
+        }
+
+        /// <summary>
+        /// Gets the name of the attribute that changed on the ServletRequest.
+        /// 
+        /// returns the name of the changed request attribute
+        /// </summary>
+        public string Name
+        {
+            get { return this.name; }
+        }
+
+        /// <summary>
+        /// Gets the value of the attribute that has been added, removed or 
+        /// replaced. If the attribute was added, this is the value of the 
+        /// attribute. If the attribute was removed, this is the value of the 
+        /// removed attribute. If the attribute was replaced, this is the old 
+        /// value of the attribute.
+        /// 
+        /// returns the value of the changed request attribute
+        /// </summary>
+        public object Value
+        {
+            get { return this.value; }
+        }
+
     }
 }
