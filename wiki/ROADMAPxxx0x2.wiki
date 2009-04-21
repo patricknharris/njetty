@@ -32,9 +32,9 @@ Port Geronimo Servlet 3.0 Specification Implementation from java to C# as NJetty
     * ServletOutputStream (*done*)
     * ServletRegistration (*done*)
     * IServletRequest (*done*)
-    * ServletRequestAttributeEvent
+    * ServletRequestAttributeEvent (*done*)
     * IServletRequestAttributeListener (*done*)
-    * ServletRequestEvent
+    * ServletRequestEvent (*done*)
     * IServletRequestListener (*done*)
     * ServletRequestWrapper
     * IServletResponse (*done*)
