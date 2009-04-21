@@ -47,7 +47,7 @@ namespace Javax.NServlet
     /// <date>
     /// April 19, 2009
     /// </date>
-    public class ServletInputStream : TextReader
+    public abstract class ServletInputStream : TextReader
     {
 
         /// <summary>
