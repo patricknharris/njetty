@@ -76,8 +76,6 @@
     <Compile Include="Http\IHttpSessionBindingListener.cs" />
     <Compile Include="Http\IHttpSessionContext.cs" />
     <Compile Include="Http\IHttpSessionListener.cs" />
-    <Compile Include="Http\NoBodyOutputStream.cs" />
-    <Compile Include="Http\NoBodyResponse.cs" />
     <Compile Include="Http\ServletContextListener.cs" />
     <Compile Include="IAsyncContext.cs" />
     <Compile Include="IAsyncListener.cs" />
