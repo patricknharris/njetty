@@ -72,7 +72,7 @@ namespace Javax.NServlet.Http
     /// <date>
     /// April 27, 2009
     /// </date>
-    public abstract class HttpServlet //: GenericServlet
+    public abstract class HttpServlet : GenericServlet
     {
 
         const string METHOD_DELETE = "DELETE";
@@ -767,7 +767,7 @@ namespace Javax.NServlet.Http
         /// <exception cref="ServletException">
         ///     if the HTTP request cannot be handled
         /// </exception>
-        public void Service(IServletRequest req, IServletResponse res)
+        public override void Service(IServletRequest req, IServletResponse res)
         {
             IHttpServletRequest request;
             IHttpServletResponse response;
