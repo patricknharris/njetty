@@ -381,7 +381,7 @@ namespace Javax.NServlet.Http
         /// </summary>
         /// <param name="value">the string to be tested</param>
         /// <returns>true if the string is a reserved token; false if it is not</returns>
-        private bool IsToken(string value)
+        bool IsToken(string value)
         {
             int len = value.Length;
 
