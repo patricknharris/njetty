@@ -170,6 +170,14 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NJetty.Commons\NJetty.Commons.csproj">
+      <Project>{B0B0052E-6E1C-4B5B-9A4E-B0173F5DB796}</Project>
+      <Name>NJetty.Commons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NJetty.Servlet_3_0.Spec\NJetty.Servlet_3_0.Spec.csproj">
+      <Project>{AADD95BE-94EE-4D85-ACE8-946B93E3AE3C}</Project>
+      <Name>NJetty.Servlet_3_0.Spec</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NJetty.Util\NJetty.Util.csproj">
       <Project>{9FA38034-2D26-4077-AACE-D3FD3FF1C2C4}</Project>
       <Name>NJetty.Util</Name>
