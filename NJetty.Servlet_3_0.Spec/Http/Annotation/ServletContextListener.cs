@@ -22,7 +22,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Javax.NServlet.Http
+namespace Javax.NServlet.Http.Annotation
 {
 
     /// <summary>

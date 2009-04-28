@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="AsyncEvent.cs" />
     <Compile Include="DispatcherType.cs" />
+    <Compile Include="Http\Annotation\ServletContextListener.cs" />
     <Compile Include="IFilterRegistration.cs" />
     <Compile Include="GenericServlet.cs" />
     <Compile Include="Http\Annotation\FilterMapping.cs" />
@@ -76,7 +77,6 @@
     <Compile Include="Http\IHttpSessionBindingListener.cs" />
     <Compile Include="Http\IHttpSessionContext.cs" />
     <Compile Include="Http\IHttpSessionListener.cs" />
-    <Compile Include="Http\ServletContextListener.cs" />
     <Compile Include="IAsyncContext.cs" />
     <Compile Include="IAsyncListener.cs" />
     <Compile Include="IFilter.cs" />
