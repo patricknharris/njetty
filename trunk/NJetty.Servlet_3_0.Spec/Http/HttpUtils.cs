@@ -49,47 +49,37 @@ namespace Javax.NServlet.Http
 
 
         /// <summary>
-        /// Constructs an empty <code>HttpUtils</code> object.
+        /// Constructs an empty HttpUtils object.
         /// </summary>
         public HttpUtils() { }
 
 
 
-
-
-        /**
-         *
-         * Parses a query string passed from the client to the
-         * server and builds a <code>HashTable</code> object
-         * with key-value pairs. 
-         * The query string should be in the form of a string
-         * packaged by the GET or POST method, that is, it
-         * should have key-value pairs in the form <i>key=value</i>,
-         * with each pair separated from the next by a &amp; character.
-         *
-         * <p>A key can appear more than once in the query string
-         * with different values. However, the key appears only once in 
-         * the hashtable, with its value being
-         * an array of strings containing the multiple values sent
-         * by the query string.
-         * 
-         * <p>The keys and values in the hashtable are stored in their
-         * decoded form, so
-         * any + characters are converted to spaces, and characters
-         * sent in hexadecimal notation (like <i>%xx</i>) are
-         * converted to ASCII characters.
-         *
-         * @param s		a string containing the query to be parsed
-         *
-         * @return		a <code>HashTable</code> object built
-         * 			from the parsed key-value pairs
-         *
-         * @exception ArgumentException	if the query string 
-         *						is invalid
-         *
-         */
-
-        public static Dictionary<string, object> parseQueryString(string s)
+        /// <summary>
+        /// Parses a query string passed from the client to the
+        /// server and builds a Dictonary object
+        /// with key-value pairs. 
+        /// The query string should be in the form of a string
+        /// packaged by the GET or POST method, that is, it
+        /// should have key-value pairs in the form <i>key=value</i>,
+        /// with each pair separated from the next by a &amp; character.
+        ///
+        /// A key can appear more than once in the query string
+        /// with different values. However, the key appears only once in 
+        /// the hashtable, with its value being
+        /// an array of strings containing the multiple values sent
+        /// by the query string.
+        /// 
+        /// The keys and values in the hashtable are stored in their
+        /// decoded form, so
+        /// any + characters are converted to spaces, and characters
+        /// sent in hexadecimal notation (like <i>%xx</i>) are
+        /// converted to ASCII characters.
+        /// </summary>
+        /// <param name="s">a string containing the query to be parsed</param>
+        /// <returns>a Dictonary object built from the parsed key-value pairs</returns>
+        /// <exception cref="ArgumentException">if the query string is invalid</exception>
+        public static Dictionary<string, object> ParseQueryString(string s)
         {
 
             string[] valArray = null;
@@ -111,8 +101,8 @@ namespace Javax.NServlet.Http
                     // should give more detail about the illegal argument
                     throw new ArgumentException();
                 }
-                string key = parseName(pair.Substring(0, pos), sb);
-                string val = parseName(pair.Substring(pos + 1, pair.Length), sb);
+                string key = ParseName(pair.Substring(0, pos), sb);
+                string val = ParseName(pair.Substring(pos + 1, pair.Length), sb);
                 if (ht.ContainsKey(key))
                 {
                     string[] oldVals = (string[])ht[key];
@@ -134,48 +124,40 @@ namespace Javax.NServlet.Http
 
 
 
-        /**
-         *
-         * Parses data from an HTML form that the client sends to 
-         * the server using the HTTP POST method and the 
-         * <i>application/x-www-form-urlencoded</i> MIME type.
-         *
-         * <p>The data sent by the POST method contains key-value
-         * pairs. A key can appear more than once in the POST data
-         * with different values. However, the key appears only once in 
-         * the hashtable, with its value being
-         * an array of strings containing the multiple values sent
-         * by the POST method.
-         *
-         * <p>The keys and values in the hashtable are stored in their
-         * decoded form, so
-         * any + characters are converted to spaces, and characters
-         * sent in hexadecimal notation (like <i>%xx</i>) are
-         * converted to ASCII characters.
-         *
-         *
-         *
-         * @param len	an integer specifying the length,
-         *			in characters, of the 
-         *			<code>ServletInputStream</code>
-         *			object that is also passed to this
-         *			method
-         *
-         * @param in	the <code>ServletInputStream</code>
-         *			object that contains the data sent
-         *			from the client
-         * 
-         * @return		a <code>HashTable</code> object built
-         *			from the parsed key-value pairs
-         *
-         *
-         * @exception ArgumentException	if the data
-         *			sent by the POST method is invalid
-         *
-         */
 
-
-        static public Dictionary<string, object> parsePostData(int len,
+        /// <summary>
+        /// Parses data from an HTML form that the client sends to 
+        /// the server using the HTTP POST method and the 
+        /// <i>application/x-www-form-urlencoded</i> MIME type.
+        ///
+        /// The data sent by the POST method contains key-value
+        /// pairs. A key can appear more than once in the POST data
+        /// with different values. However, the key appears only once in 
+        /// the hashtable, with its value being
+        /// an array of strings containing the multiple values sent
+        /// by the POST method.
+        ///
+        /// The keys and values in the hashtable are stored in their
+        /// decoded form, so
+        /// any + characters are converted to spaces, and characters
+        /// sent in hexadecimal notation (like <i>%xx</i>) are
+        /// converted to ASCII characters.
+        /// </summary>
+        /// <param name="len">
+        ///     len	an integer specifying the length,
+        ///	    in characters, of the 
+        ///	    ServletInputStream
+        ///	    object that is also passed to this
+        ///	    method
+        /// </param>
+        /// <param name="input">
+        ///     the ServletInputStream
+        ///	    object that contains the data sent
+        ///	    from the client
+        /// </param>
+        /// <returns>a Dictonary object built from the parsed key-value pairs</returns>
+        /// <exception cref="ArgumentException">if the data sent by the POST method is invalid</exception>
+        static public Dictionary<string, object> ParsePostData(int len,
                           ServletInputStream input)
         {
             // XXX
@@ -224,7 +206,7 @@ namespace Javax.NServlet.Http
             {
 
                 string postedBody = new string(postedBytes, 0, len);
-                return parseQueryString(postedBody);
+                return ParseQueryString(postedBody);
             }
             catch (ArgumentException e)
             {
@@ -236,12 +218,13 @@ namespace Javax.NServlet.Http
 
 
 
-
-        /*
-         * Parse a name in the query string.
-         */
-
-        static string parseName(string s, StringBuilder sb)
+        /// <summary>
+        /// Parse a name in the query string.
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="sb"></param>
+        /// <returns></returns>
+        static string ParseName(string s, StringBuilder sb)
         {
             sb.Length = 0;
             for (int i = 0; i < s.Length; i++)
@@ -283,32 +266,25 @@ namespace Javax.NServlet.Http
         }
 
 
+       
 
-
-        /**
-         *
-         * Reconstructs the URL the client used to make the request,
-         * using information in the <code>HttpServletRequest</code> object.
-         * The returned URL contains a protocol, server name, port
-         * number, and server path, but it does not include query
-         * string parameters.
-         * 
-         * <p>Because this method returns a <code>StringBuilder</code>,
-         * not a string, you can modify the URL easily, for example,
-         * to Append query parameters.
-         *
-         * <p>This method is useful for creating redirect messages
-         * and for reporting errors.
-         *
-         * @param req	a <code>HttpServletRequest</code> object
-         *			containing the client's request
-         * 
-         * @return		a <code>StringBuilder</code> object containing
-         *			the reconstructed URL
-         *
-         */
-
-        public static StringBuilder getRequestURL(IHttpServletRequest req)
+        /// <summary>
+        /// Reconstructs the URL the client used to make the request,
+        /// using information in the HttpServletRequest object.
+        /// The returned URL contains a protocol, server name, port
+        /// number, and server path, but it does not include query
+        /// string parameters.
+        /// 
+        /// Because this method returns a StringBuilder,
+        /// not a string, you can modify the URL easily, for example,
+        /// to Append query parameters.
+        ///
+        /// This method is useful for creating redirect messages
+        /// and for reporting errors.
+        /// </summary>
+        /// <param name="req">a HttpServletRequest object containing the client's request</param>
+        /// <returns>a StringBuilder object containing the reconstructed URL</returns>
+        public static StringBuilder GetRequestURL(IHttpServletRequest req)
         {
             StringBuilder url = new StringBuilder();
             string scheme = req.Scheme;
