@@ -32,9 +32,12 @@ namespace Javax.NServlet
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// TODO: date here
+    /// April 28, 2009
     /// </date>
-    public interface IAsyncListener
+    public interface IAsyncListener //TODO: in java: extends java.util.EventListener
     {
+        void OnComplete(AsyncEvent e);
+
+        void OnTimeout(AsyncEvent e);
     }
 }
