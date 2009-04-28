@@ -23,6 +23,7 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using NJetty.Util.Util;
+using NJetty.Commons;
 
 namespace NJetty.Util.Test.Util
 {

@@ -25,6 +25,7 @@ using NUnit.Framework;
 using NJetty.Util.Util;
 using System.Collections;
 using System.IO;
+using NJetty.Commons;
 
 namespace NJetty.Util.Test.Util
 {
