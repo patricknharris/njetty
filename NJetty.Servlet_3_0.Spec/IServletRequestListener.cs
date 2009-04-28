@@ -39,8 +39,7 @@ namespace Javax.NServlet
     /// <date>
     /// January 2009
     /// </date>
-    /// TODO: in java extends EventListener, make dotnet equivalent
-    public interface IServletRequestListener
+    public interface IServletRequestListener //TODO: in java extends EventListener, make dotnet equivalent
     {
 
         /// <summary>
