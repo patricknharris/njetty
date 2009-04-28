@@ -108,6 +108,12 @@
     <Compile Include="SessionTrackingMode.cs" />
     <Compile Include="UnavailableException.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NJetty.Commons\NJetty.Commons.csproj">
+      <Project>{B0B0052E-6E1C-4B5B-9A4E-B0173F5DB796}</Project>
+      <Name>NJetty.Commons</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
