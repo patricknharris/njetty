@@ -23,6 +23,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using NJetty.Util.Logging;
+using NJetty.Commons;
 
 namespace NJetty.Util.Util
 {

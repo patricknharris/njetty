@@ -21,6 +21,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NJetty.Commons.Util;
+using NJetty.Commons;
 
 namespace NJetty.Util.Util
 {
