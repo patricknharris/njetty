@@ -43,7 +43,7 @@ Port Geronimo Servlet 3.0 Specification Implementation from java to C# as NJetty
     * SessionTrackingMode (*done*)
     * ISingleThreadModel (*done*)
     * UnavailableException (*done*)
- * *Javax.NServlet.Http*
+ * *Javax.NServlet.Http* (*done*)
     * Cookie (*done*)
     * HttpServlet (*done*)
     * IHttpServletRequest (*done*)
@@ -59,7 +59,7 @@ Port Geronimo Servlet 3.0 Specification Implementation from java to C# as NJetty
     * IHttpSessionContext (*done*)
     * HttpSessionEvent (*done*)
     * IHttpSessionListener (*done*)
-    * HttpUtils
+    * HttpUtils (*done*)
     * NoBodyOutputStream(inside HttpServlet as inner-class) (*done*)
     * NoBodyResponse(inside HttpServlet as inner-class) (*done*)
  * *Javax.NServlet.Http.Annotation*
