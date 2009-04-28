@@ -81,7 +81,6 @@
     <Compile Include="Util\ArrayQueue.cs" />
     <Compile Include="Util\ByteArrayISO8859Writer.cs" />
     <Compile Include="Util\ByteArrayOutputStream2.cs" />
-    <Compile Include="Util\CharExtensions.cs" />
     <Compile Include="Util\ConcurrentDictionary.cs" />
     <Compile Include="Util\FileInfoExtensions.cs" />
     <Compile Include="Util\FilterOutputStream.cs" />
@@ -99,20 +98,23 @@
     <Compile Include="Util\MultiMap.cs" />
     <Compile Include="Util\MultiPartOutputStream.cs" />
     <Compile Include="Util\MultiPartWriter.cs" />
-    <Compile Include="Util\NoSuchElementException.cs" />
     <Compile Include="Util\QuotedStringTokenizer.cs" />
     <Compile Include="Util\RolloverFileOutputStream.cs" />
     <Compile Include="Util\Scanner.cs" />
     <Compile Include="Util\SingletonList.cs" />
-    <Compile Include="Util\StringExtensions.cs" />
     <Compile Include="Util\StringMap.cs" />
-    <Compile Include="Util\StringTokenizer.cs" />
     <Compile Include="Util\StringUtil.cs" />
     <Compile Include="Util\TypeUtil.cs" />
     <Compile Include="Util\URIUtil.cs" />
     <Compile Include="Util\UrlEncoded.cs" />
     <Compile Include="Util\Utf8StringBuffer.cs" />
     <Compile Include="Util\Utf8StringBuilder.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NJetty.Commons\NJetty.Commons.csproj">
+      <Project>{B0B0052E-6E1C-4B5B-9A4E-B0173F5DB796}</Project>
+      <Name>NJetty.Commons</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
