@@ -56,12 +56,12 @@ Port Geronimo Servlet 3.0 Specification Implementation from java to C# as NJetty
     * IHttpSessionAttributeListener (*done*)
     * HttpSessionBindingEvent
     * IHttpSessionBindingListener (*done*)
-    * IHttpSessionContext
-    * HttpSessionEvent
+    * IHttpSessionContext (*done*)
+    * HttpSessionEvent (*done*)
     * IHttpSessionListener (*done*)
     * HttpUtils
-    * NoBodyOutputStream
-    * NoBodyResponse
+    * NoBodyOutputStream(inside HttpServlet as inner-class) (*done*)
+    * NoBodyResponse(inside HttpServlet as inner-class) (*done*)
  * *Javax.NServlet.Http.Annotation*
     * FilterMapping
     * InitParam
