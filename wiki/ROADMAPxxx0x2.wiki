@@ -9,7 +9,7 @@ Port Geronimo Servlet 3.0 Specification Implementation from java to C# as NJetty
 
 ----
 ==Port Geronimo-Servlet-3.0-Spec to C# as NJetty.Servlet_3_0.Spec==
- * *Javax.NServlet*
+ * *Javax.NServlet* (*done*)
     * AsyncEvent (*done*)
     * DispatcherType (*done*)
     * FilterRegistration (*done*)
@@ -54,7 +54,7 @@ Port Geronimo Servlet 3.0 Specification Implementation from java to C# as NJetty
     * IHttpSession (*done*)
     * IHttpSessionActivationListener (*done*)
     * IHttpSessionAttributeListener (*done*)
-    * HttpSessionBindingEvent
+    * HttpSessionBindingEvent (*done*)
     * IHttpSessionBindingListener (*done*)
     * IHttpSessionContext (*done*)
     * HttpSessionEvent (*done*)
