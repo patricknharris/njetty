@@ -26,15 +26,38 @@ namespace Javax.NServlet.Http
 {
 
     /// <summary>
-    /// TODO: Class/Interface Information here
+    /// This is the class representing event notifications for
+    /// changes to sessions within a web application.
     /// </summary>
     /// <author>  
     ///     <a href="mailto:leopoldo.agdeppa@gmail.com">Leopoldo Lee Agdeppa III</a>
     /// </author>
     /// <date>
-    /// TODO: date here
+    /// April 28, 2009
     /// </date>
-    public class HttpSessionEvent
+    public class HttpSessionEvent // TODO: in java:  extends java.util.EventObject
     {
+
+        IHttpSession source;
+
+        /// <summary>
+        /// Construct a session event from the given source.
+        /// </summary>
+        /// <param name="source"></param>
+        public HttpSessionEvent(IHttpSession source)
+        {
+            //TODO: in java: super(source);
+            this.source = source;
+        }
+
+        /// <summary>
+        /// Gets the session that changed.
+        /// </summary>
+        public IHttpSession Session
+        {
+            //TODO: in java: get { return (IHttpSession)super.getSource(); }
+            get { return source; }
+
+        }
     }
 }
